@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lista de Produtos">
+
+                    <h:panelGrid  columns="9" id="painelBusca" style="text-align:center; background-position: center">
+
+
+
+                        <p:selectOneMenu id="console"  value="#{produtoControle.tipo2}" style="width:125px">
+                            <f:selectItem itemLabel="---Selecione---" itemValue="" />
+                            <f:selectItem itemLabel="Todos" itemValue="todos" />
+                            <f:selectItem itemLabel="Cód. Produto" itemValue="codFornecedor" />
+                            <f:selectItem itemLabel="Marca" itemValue="Marca" />
+                            <f:selectItem itemLabel="Ativo" itemValue="ativo" />
+                            <f:selectItem itemLabel="Inativo" itemValue="inativo" />
+                            <f:ajax event="change" 
+                                    render="painelBusca"/>
+                        </p:selectOneMenu>
+
+
+                        <p:inputText id="id2" value="#{produtoControle.id2}" size="70" />
+                        <p:commandButton id="filtro" value="Consultar"  actionListener="#{produtoControle.validaLista()}" 
+                                         update="produ"/>
+
+                        <p:commandButton id="limpa" value="Limpar campo"  actionListener="#{produtoControle.limpaCampo()}" 
+                                         update="id2"/>
+
+                    </h:panelGrid>
+
+
+                    <p:dataTable value="#{produtoControle.listaProdutos2}" lazy="true" id="produ" paginator="true"
+                                 emptyMessage="Não há registros!" var="item" rows="10"
+                                 reflow="true" paginatorPosition="bottom" style="text-align: center">
+                        <p:column headerText="ID">
+                            #{item.id}
+                        </p:column>
+
+                        <p:column headerText="Cód. Produto">
+                            #{item.codFornecedor}
+                        </p:column>
+
+                        <p:column headerText="Nome" width="400">
+                            #{item.nome}
+                        </p:column>
+
+                        <p:column headerText="Marca" width="100">
+                            #{item.marca.nome}
+                        </p:column>
+                        
+                        <p:column headerText="Valor">
+                            <p:outputLabel id="estoque" value="#{item.valorVendaPrazo}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="NCM">
+                            #{item.ncmString}
+                        </p:column>
+
+                        <p:column headerText="Ativo" width="40">
+                            <h:outputText value="#{item.ativo?'SIM':'NÃO'}"/>
+                        </p:column>
+
+
+
+                        <p:column headerText="Estoque" width="40">
+                            <p:outputLabel id="val" value="#{item.estoque}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                            </p:outputLabel>
+                        </p:column>
+
+
+                        <p:column headerText="Editar" width="30">
+
+                            <p:commandLink title="Editar Registro"
+                                           actionListener="#{produtoControle.setProduto(item)}"
+                                           action="#{produtoControle.editar()}"
+                                           ajax="false">
+                                <i class="icon-edit-1"/>
+                            </p:commandLink>
+                        </p:column>
+                        <p:column headerText="Excluir" width="35">
+                            <p:commandLink title="Excluir Registro"
+                                           action="#{produtoControle.excluir(item)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Adicionar um novo produto" 
+                                     action="#{produtoControle.novo()}"
+                                     ajax="false"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

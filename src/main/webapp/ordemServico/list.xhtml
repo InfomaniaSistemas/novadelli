@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+   
+                Ordem de Serviço
+
+                <p:panelGrid columns="4">
+                    <p:commandButton value="Adicionar" 
+                                     action="#{ordemDeServicoControle.novo()}"
+                                     ajax="false"/>
+                    <p:selectOneRadio value="#{ordemDeServicoControle.tipoOs}">
+                        <f:selectItem itemLabel="Abertas" itemValue="Aberta"/>
+                        <f:selectItem itemLabel="Fechadas" itemValue="Fechada"/>
+                        <f:selectItem itemLabel="Outras" itemValue="Outras"/>
+                        <f:ajax event="change" 
+                                render ="painelT"/>
+                    </p:selectOneRadio>
+                </p:panelGrid>
+
+                <p:panel id="painelT">
+                    <p:dataTable value="#{ordemDeServicoControle.listaAbertas}" var="item" reflow="true" rendered="#{ordemDeServicoControle.tipoOs=='Aberta'}">
+                        <p:column headerText="N° de O.S" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}">
+                            #{item.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="Situação" filterBy="#{item.situacaoOs.nome}">
+                            #{item.situacaoOs.nome}
+                        </p:column>
+
+
+
+                        <p:column headerText="Editar">
+                            <p:commandLink 
+                                actionListener="#{ordemDeServicoControle.setOrdemDeServico(item)}"      
+                                action="#{ordemDeServicoControle.editar()}"
+                                ajax="false">
+                                <i class="icon-edit-1" />
+                            </p:commandLink>    
+                        </p:column>
+
+                        <p:column headerText="Imprimir">
+
+                            <p:commandButton value="Imprimir"
+                                             actionListener="#{ordemDeServicoControle.setOrdemDeServico(item)}"
+                                             action="#{relatorioControle.gerarOs(ordemDeServicoControle.ordemDeServico.id)}"
+                                             ajax="false"/>
+
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <p:commandLink  
+                                action="#{ordemDeServicoControle.excluir(item)}"
+                                ajax="false">
+                                <i class="icon-trash-2" />
+                            </p:commandLink>
+
+
+                        </p:column>
+                    </p:dataTable>
+                    
+                    <p:dataTable value="#{ordemDeServicoControle.listaFechadas}" var="item" reflow="true" rendered="#{ordemDeServicoControle.tipoOs=='Fechada'}">
+                        <p:column headerText="N° de O.S" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}">
+                            #{item.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="Situação" filterBy="#{item.situacaoOs.nome}">
+                            #{item.situacaoOs.nome}
+                        </p:column>
+
+
+
+                        <p:column headerText="Editar">
+                            <p:commandLink 
+                                actionListener="#{ordemDeServicoControle.setOrdemDeServico(item)}"      
+                                action="#{ordemDeServicoControle.editar1()}"
+                                ajax="false">
+                                <i class="icon-edit-1" />
+                            </p:commandLink>    
+                        </p:column>
+
+                        <p:column headerText="Imprimir">
+
+                            <p:commandButton value="Imprimir"
+                                             actionListener="#{ordemDeServicoControle.setOrdemDeServico(item)}"
+                                             action="#{relatorioControle.gerarOs(ordemDeServicoControle.ordemDeServico.id)}"
+                                             ajax="false"/>
+
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <p:commandLink  
+                                action="#{ordemDeServicoControle.excluir(item)}"
+                                ajax="false">
+                                <i class="icon-trash-2" />
+                            </p:commandLink>
+
+
+                        </p:column>
+                    </p:dataTable>
+                    
+                    <p:dataTable value="#{ordemDeServicoControle.listaOutras}" var="item" reflow="true" rendered="#{ordemDeServicoControle.tipoOs=='Outras'}">
+                        <p:column headerText="N° de O.S" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}">
+                            #{item.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="Situação" filterBy="#{item.situacaoOs.nome}">
+                            #{item.situacaoOs.nome}
+                        </p:column>
+
+
+
+                        <p:column headerText="Editar">
+                            <p:commandLink 
+                                actionListener="#{ordemDeServicoControle.setOrdemDeServico(item)}"      
+                                action="#{ordemDeServicoControle.editar()}"
+                                ajax="false">
+                                <i class="icon-edit-1" />
+                            </p:commandLink>    
+                        </p:column>
+
+                        <p:column headerText="Imprimir">
+
+                            <p:commandButton value="Imprimir"
+                                             actionListener="#{ordemDeServicoControle.setOrdemDeServico(item)}"
+                                             action="#{relatorioControle.gerarOs(ordemDeServicoControle.ordemDeServico.id)}"
+                                             ajax="false"/>
+
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <p:commandLink  
+                                action="#{ordemDeServicoControle.excluir(item)}"
+                                ajax="false">
+                                <i class="icon-trash-2" />
+                            </p:commandLink>
+
+
+                        </p:column>
+                    </p:dataTable>
+                    
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

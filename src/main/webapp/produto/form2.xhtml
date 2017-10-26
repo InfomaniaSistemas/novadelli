@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+                <p:panel header="Formulário para gerenciamento de Produto">
+
+
+
+                    <p:tabView id="tab" activeIndex="0" orientation="top" effect="fade" effectDuration="fast">
+
+                        <p:tab title="Dados do Produto" disabled="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:panelGrid columns="2" cellpadding="5">
+
+                                    <p:outputLabel for="id" value="Cód. Produto:"/>
+                                    <p:inputText id="id" value="#{produtoControle.produto.id}" disabled="true"/>
+
+
+                                    <p:outputLabel for="nome" value="Nome:"/>
+                                    <p:inputText id="nome" value="#{produtoControle.produto.nome}" style="text-transform: uppercase" 
+                                                 required="true" size="40" requiredMessage="O campo nome é obrigatório"/>
+
+
+                                    <p:outputLabel for="codB" value="Código de Barras:"/>
+                                    <p:inputText id="codB" size="40" value="#{produtoControle.produto.codBarras}" style="text-transform: uppercase" 
+                                                 />
+
+                                    <p:outputLabel for="codf" value="Código do Fornecedor"/>
+                                    <p:inputText id="codf" size="40" value="#{produtoControle.produto.codFornecedor}" style="text-transform: uppercase" 
+                                                 />
+
+
+                                    <p:outputLabel for="codfP" value="Posição:"/>
+                                    <p:inputText id="codfP" size="40" value="#{produtoControle.produto.numeroPosicao}" style="text-transform: uppercase" 
+                                                 />
+
+                                    <p:outputLabel for="app" value="Aplicação:"/>
+                                    <p:inputText id="app" size="40" value="#{produtoControle.produto.letra}" style="text-transform: uppercase" 
+                                                 />
+
+
+                                    <p:outputLabel for="mol" value="Modelo"/>
+                                    <p:inputText id="mol" size="40" value="#{produtoControle.produto.modelo}" style="text-transform: uppercase" 
+                                                 />
+
+
+                                    <p:outputLabel for="estoque" value="Estoque atual:"/>
+                                    <p:inputText id="estoque" size="40" value="#{produtoControle.produto.estoque}" required="true" style="text-transform: uppercase" 
+                                                 />
+
+
+
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:outputLabel for="b1" value="Nova Marca"/>
+                                    <p:commandButton id ="b1" value="Gerenciar Marca" onclick="PF('modal1').show();"/>
+
+                                    <p:outputLabel for="marca" value="Marca do Produto:"/>
+                                    <p:autoComplete id="marca" 
+                                                    completeMethod="#{marcaControle.autoComplete}"
+                                                    var="est"
+                                                    itemLabel="#{est.nome}"
+                                                    itemValue="#{est}"
+                                                    converter="#{marcaControle.converter()}"
+                                                    value="#{produtoControle.produto.marca}"
+                                                    queryDelay="500"
+                                                    scrollHeight="350"
+                                                    dropdown="true"
+                                                    style="margin-right: 30px;"/>
+
+                                    <p:outputLabel for="b2" value="Novo Grupo Produto"/>
+                                    <p:commandButton id ="b2" value="Gerenciar Grupo" onclick="PF('modal2').show();"/>
+
+
+                                    <p:outputLabel for="grupo" value="Grupo de Produto:"/>
+                                    <p:autoComplete id="grupo" 
+                                                    completeMethod="#{grupoProdutoControle.autoComplete}"
+                                                    var="est"
+                                                    itemLabel="#{est.nome}"
+                                                    itemValue="#{est}"
+                                                    converter="#{grupoProdutoControle.converter()}"
+                                                    value="#{produtoControle.produto.grupo}"
+                                                    queryDelay="500"
+                                                    scrollHeight="350"
+                                                    dropdown="true"
+                                                    style="margin-right: 30px;"/>
+
+                                    <p:outputLabel for="b3" value="Novo Uni de Medida"/>
+                                    <p:commandButton id ="b3" value="Unid. de Medida" onclick="PF('modal3').show();"/>
+
+
+
+                                    <p:outputLabel for="unidade" value="Unidade de Medida:"/>
+                                    <p:autoComplete id="unidade" 
+                                                    completeMethod="#{unidadeMedidaControle.autoComplete}"
+                                                    var="est"
+                                                    itemLabel="#{est.nome}"
+                                                    itemValue="#{est}"
+                                                    converter="#{unidadeMedidaControle.converter()}"
+                                                    value="#{produtoControle.produto.unidadeMedida}"
+                                                    queryDelay="500"
+                                                    scrollHeight="350"
+                                                    dropdown="true"
+                                                    style="margin-right: 30px;"/>
+
+
+
+
+                                    <p:outputLabel for="ativo" value="Ativo:"/>
+                                    <p:selectBooleanCheckbox id="ativo" value="#{produtoControle.produto.ativo}"/>
+
+
+
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+
+                        </p:tab>
+                        <p:tab title="Informações Fiscais" disabled="false">
+
+                            <h:panelGrid columns="4"  style="margin-bottom:10px" cellpadding="5">
+                                <p:outputLabel for="cfop" value="CFOP (D. Est.)"/>
+
+                                <p:inputText id="cfop" size="10" value="#{produtoControle.produto.cfopD}" style="text-transform: uppercase" 
+                                             />
+
+                                <p:outputLabel for="cfop1" value="CFOP (F. Est.)"/>
+                                <p:inputText id="cfop1" size="10" value="#{produtoControle.produto.cfopF}" style="text-transform: uppercase" 
+                                             />
+
+
+                                <p:outputLabel for="ncm" value="NCM"/>
+
+                                <p:inputText id="ncm" value="#{produtoControle.produto.ncmString}"/>
+                            </h:panelGrid>
+                            <p:tabView id="tab" activeIndex="0" orientation="top" effect="fade" effectDuration="fast">
+
+                                <p:tab title="ICMS" disabled="false">
+                                    <h:panelGrid columns="2"  style="margin-bottom:10px" cellpadding="5">
+
+                                        <p:outputLabel for="perIcms" value="Percentual de ICMS:"/>
+                                        <p:inputText id="perIcms" value="#{produtoControle.produto.percentualDeIcms}"/>
+
+                                        <p:outputLabel for="icmsCST" value="ICMS CST:"/>
+                                        <p:selectOneMenu id="icmsCST" 
+                                                         value="#{produtoControle.produto.icmsCst}">
+                                            <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                            <f:selectItem itemLabel="00 - Tributada integralmente" itemValue="00"/>
+                                            <f:selectItem itemLabel="10 - Tributada e com cobrança do ICMS por substituição tributária" itemValue="10"/>
+                                            <f:selectItem itemLabel="20 - Com redução de base de cálculo" itemValue="20"/>
+                                            <f:selectItem itemLabel="30 - Isenta ou não tributada e com cobrança do ICMS por substituição tributária" itemValue="30"/>
+                                            <f:selectItem itemLabel="40 - Isenta" itemValue="40"/>
+                                            <f:selectItem itemLabel="41 - Nao tributada" itemValue="41"/>
+                                            <f:selectItem itemLabel="50 - Suspenção" itemValue="50"/>
+                                            <f:selectItem itemLabel="51 - Diferimento" itemValue="51"/>
+                                            <f:selectItem itemLabel="60 - ICMS cobrado anteriormente por substituição tributária" itemValue="60"/>
+                                            <f:selectItem itemLabel="70 - Com redução de base de cálculo e cobrança do ICMS por substituição tributária" itemValue="70"/>
+                                            <f:selectItem itemLabel="90 - Outros" itemValue="90"/>
+                                            <f:selectItem itemLabel="101 - Tributada pelo Simples Nacional com permissão de crédito" itemValue="101"/>
+                                            <f:selectItem itemLabel="102 - Tributada pelo Simples Nacional sem permissão de crédito" itemValue="102"/>
+                                            <f:selectItem itemLabel="103 - Isenção do ICMS no Simples Nacional para faixa de receita bruta" itemValue="103"/>
+                                            <f:selectItem itemLabel="201 - Tributada pelo Simples Nacional com permissão de crédito e com cobrança do ICMS por substituição tributária" itemValue="201"/>
+                                            <f:selectItem itemLabel="202 - Tributada pelo Simples Nacional sem permissão de crédito e com cobrança do ICMS por substituição tributária" itemValue="202"/>
+                                            <f:selectItem itemLabel="203 - Isenção do ICMS no Simples Nacional para faixa de receita bruta e com cobrança do ICMS por substituição tributária" itemValue="203"/>
+                                            <f:selectItem itemLabel="300 - Imune" itemValue="300"/>
+                                            <f:selectItem itemLabel="400 - Não tributada pelo Simples Nacional" itemValue="400"/>
+                                            <f:selectItem itemLabel="500 - ICMS cobrado anteriormente por substituição tributária (substituído) ou por antecipação" itemValue="500"/>
+                                            <f:selectItem itemLabel="900 - Outros" itemValue="900"/>
+                                        </p:selectOneMenu>
+
+
+                                        <p:outputLabel for="origem" value="Origem:"/>
+                                        <p:selectOneMenu id="origem" 
+                                                         value="#{produtoControle.produto.origem}">
+                                            <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                            <f:selectItem itemLabel="Nacional" itemValue="0"/>
+                                            <f:selectItem itemLabel="Estrangeira - Importação direta" itemValue="1"/>
+                                            <f:selectItem itemLabel="Estrangeira - Aliquota no mercado interno" itemValue="2"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="modali" value="Modalidade de determinação da base de calculo do ICMS:"/>
+                                        <p:selectOneMenu id="modali" 
+                                                         value="#{produtoControle.produto.modalidade}">
+                                            <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                            <f:selectItem itemLabel="0 - Margem valor agregado (%)" itemValue="0"/>
+                                            <f:selectItem itemLabel="1 - Pauta (Valor)" itemValue="1"/>
+                                            <f:selectItem itemLabel="2 - Preço tabelado max. (Valor)" itemValue="2"/>
+                                            <f:selectItem itemLabel="3 - Valor da operação" itemValue="3"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel for="perIcms2" value="Percentual de redução da base da calculo do ICMS:"/>
+                                        <p:inputText id="perIcms2" value="#{produtoControle.produto.percentualDeIcmsBaseC}"/>
+                                        <p:outputLabel for="motivo" value="Motivo da desoneração do ICMS:"/>
+                                        <p:selectOneMenu id="motivo" 
+                                                         value="#{produtoControle.produto.motivoDesoneracao}">
+                                            <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                            <f:selectItem itemLabel="Não há desoneração" itemValue="0"/>
+                                            <f:selectItem itemLabel="1 - Taxi" itemValue="1"/>
+                                            <f:selectItem itemLabel="2 - Deficiente Físico" itemValue="2"/>
+                                            <f:selectItem itemLabel="3 - Produtor Agropecuário" itemValue="3"/>
+                                            <f:selectItem itemLabel="4 - Frotista/Locadora" itemValue="4"/>
+                                            <f:selectItem itemLabel="5 - Diplomático/Consular" itemValue="5"/>
+                                            <f:selectItem itemLabel="6 - Utilitários e Motocicletas da Amazônia Ocidental e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN e suas alterações)" itemValue="6"/>
+                                            <f:selectItem itemLabel="7 - SUFRAMA" itemValue="7"/>
+                                            <f:selectItem itemLabel="8 - Venda à Órgãos Públicos" itemValue="8"/>
+                                            <f:selectItem itemLabel="9 - Outros (NT2011/004)" itemValue="9"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </p:tab>
+
+                                <p:tab title="IPI" disabled="false">
+                                    <h:panelGrid columns="2"  style="margin-bottom:10px" cellpadding="5">
+                                        <p:outputLabel for="perIpi" value="Percentual de IPI:"/>
+                                        <p:inputText id="perIpi" value="#{produtoControle.produto.percentualIpi}"/>
+                                        <p:outputLabel for="ipiCst" value="IPI CST:"/>
+                                        <p:selectOneMenu id="ipiCst" 
+                                                         value="#{produtoControle.produto.ipiCst}">
+                                            <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                            <f:selectItem itemLabel="00 - Entrada com recuperação de crédito" itemValue="00"/>
+                                            <f:selectItem itemLabel="01 - Entrada tributável com alíquota zero" itemValue="01"/>
+                                            <f:selectItem itemLabel="02 - Entrada isenta" itemValue="02"/>
+                                            <f:selectItem itemLabel="03 - Entrada não-tributada" itemValue="03"/>
+                                            <f:selectItem itemLabel="04 - Entrada imune" itemValue="04"/>
+                                            <f:selectItem itemLabel="05 - Entrada com Suspensão" itemValue="05"/>
+                                            <f:selectItem itemLabel="49 - Outras entradas" itemValue="49"/>
+                                            <f:selectItem itemLabel="50 - Saída tributada" itemValue="50"/>
+                                            <f:selectItem itemLabel="51 - Saída tributada com alíquota zero" itemValue="51"/>
+                                            <f:selectItem itemLabel="52 - Saída isenta" itemValue="52"/>
+                                            <f:selectItem itemLabel="53 - Saída não-tributada" itemValue="53"/>
+                                            <f:selectItem itemLabel="54 - Saída imune" itemValue="54"/>
+                                            <f:selectItem itemLabel="55 - Saída com suspensão" itemValue="55"/>
+                                            <f:selectItem itemLabel="99 - Outras saídas" itemValue="99"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="codEn" value="Código de Enquadramento:"/>
+                                        <p:inputText id="codEn" value="#{produtoControle.produto.codEnquadramentoIpi}"/>
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="PIS" disabled="false">
+
+                                    <h:panelGrid columns="2"  style="margin-bottom:10px" cellpadding="5">
+                                        <p:outputLabel for="perPis" value="Percentual do PIS:"/>
+                                        <p:inputText id="perPis" value="#{produtoControle.produto.percentualPis}"/>
+                                        <p:outputLabel for="pisCst" value="IPI CST:"/>
+                                        <p:selectOneMenu id="pisCst" 
+                                                         value="#{produtoControle.produto.pisCst}">
+                                            <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                            <f:selectItem itemLabel="01 - Operação Tributável (base de cálculo = valor da operação (alíquota normal (cumulativo/não cumulativo)))" itemValue="01    "/>
+                                            <f:selectItem itemLabel="02 - Operação Tributável (base de cálculo = valor da operação (alíquota diferenciada))" itemValue="02"/>
+                                            <f:selectItem itemLabel="03 - Operação Tributável (base de cálculo = quantidade vendida (alíquota por unidade de produto))" itemValue="03"/>
+                                            <f:selectItem itemLabel="04 - Operação Tributável (tributação monofásica (alíquota zero))" itemValue="04"/>
+                                            <f:selectItem itemLabel="06 - Operação Tributável (alíquota zero)" itemValue="06"/>
+                                            <f:selectItem itemLabel="07 - Operação Isenta da Contribuição" itemValue="07"/>
+                                            <f:selectItem itemLabel="08 - Operação Sem Incidência da Contribuição" itemValue="08"/>
+                                            <f:selectItem itemLabel="09 - Operação com Suspensão da Contribuição" itemValue="09"/>
+                                            <f:selectItem itemLabel="74 - Operação de Aquisição sem Incidência da Contribuição" itemValue="74"/>
+                                            <f:selectItem itemLabel="99 - Outras Operações" itemValue="99"/>
+                                        </p:selectOneMenu>
+
+                                    </h:panelGrid>
+
+
+                                </p:tab>
+                                <p:tab title="COFINS" disabled="false">
+
+                                    <h:panelGrid columns="2"  style="margin-bottom:10px" cellpadding="5">
+                                        <p:outputLabel for="COPis" value="Percentual de COFINS"/>
+                                        <p:inputText id="COPis" value="#{produtoControle.produto.percentualIpi}"/>
+                                        <p:outputLabel for="coCst" value="COFINS CST:"/>
+                                        <p:selectOneMenu id="coCst" 
+                                                         value="#{produtoControle.produto.cofinsCst}">
+                                            <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                            <f:selectItem itemLabel="01 - Operação Tributável (base de cálculo = valor da operação (alíquota normal (cumulativo/não cumulativo)))" itemValue="01    "/>
+                                            <f:selectItem itemLabel="02 - Operação Tributável (base de cálculo = valor da operação (alíquota diferenciada))" itemValue="02"/>
+                                            <f:selectItem itemLabel="03 - Operação Tributável (base de cálculo = quantidade vendida (alíquota por unidade de produto))" itemValue="03"/>
+                                            <f:selectItem itemLabel="04 - Operação Tributável (tributação monofásica (alíquota zero))" itemValue="04"/>
+                                            <f:selectItem itemLabel="06 - Operação Tributável (alíquota zero)" itemValue="06"/>
+                                            <f:selectItem itemLabel="07 - Operação Isenta da Contribuição" itemValue="07"/>
+                                            <f:selectItem itemLabel="08 - Operação Sem Incidência da Contribuição" itemValue="08"/>
+                                            <f:selectItem itemLabel="09 - Operação com Suspensão da Contribuição" itemValue="09"/>
+                                            <f:selectItem itemLabel="74 - Operação de Aquisição sem Incidência da Contribuição" itemValue="74"/>
+                                            <f:selectItem itemLabel="99 - Outras Operações" itemValue="99"/>
+                                        </p:selectOneMenu>
+
+                                    </h:panelGrid>
+
+
+                                </p:tab>
+                            </p:tabView>
+
+
+
+
+                        </p:tab>
+
+                        <p:tab title="Custos" disabled="false">
+
+
+                            <p:panel>
+                                <h:panelGrid  id="painelItem2" columns="12" style="margin-bottom:10px" cellpadding="5">
+
+
+                                    <p:outputLabel for="valloruni" value="Valor unitário:"/>
+                                    <p:inputText id="valloruni" value="#{produtoControle.produto.valorUni}" required="true" requiredMessage="O valor unitário é obrigatório" placeholder="Valor unitário" size="10">
+                                        <f:convertNumber  maxFractionDigits="10" minFractionDigits="2"/>
+                                        <f:ajax event="change" render="custoFinal" listener="#{produtoControle.calcular1()}" />
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         />
+
+                                    </p:inputText>
+
+                                    <p:outputLabel for="ipi" value="IPI (%):"/>
+
+                                    <p:inputText id="ipi" value="#{produtoControle.produto.ipi}" placeholder="Ipi (%)" size="10" required="true" requiredMessage="O valor de ipi é obrigatório" >
+                                        <f:ajax event="change" render="custoFinal" listener="#{produtoControle.calcular1()}" />
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         />
+                                    </p:inputText>
+
+
+
+                                    <p:outputLabel for="sub" value="Substituição Tributária (R$):"/>
+
+                                    <p:inputText id="sub" value="#{produtoControle.produto.subTrib}" placeholder="S.T.(R$)" size="10" required="true" requiredMessage="O valor S.T. é obrigatório" >
+                                        <f:ajax event="change" render="custoFinal" listener="#{produtoControle.calcular1()}" />
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         />
+                                    </p:inputText>
+
+
+
+
+                                    <p:outputLabel for="desp" value="Despesas extras (%)"/>
+
+                                    <p:inputText id="desp" value="#{produtoControle.produto.despesaExtra}" placeholder="Despesas extras (%)" size="10" required="true" requiredMessage="O valor Desp. Extras é obrigatório" >
+                                        <f:ajax event="change" render="custoFinal" listener="#{produtoControle.calcular1()}" />
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         />
+                                    </p:inputText>
+
+
+
+                                </h:panelGrid>
+                            </p:panel>
+                            <br/>
+                            <p:panel>
+                                <h:panelGrid id="painelItem3" columns="10"  style="margin-bottom:10px" cellpadding="5">
+
+
+
+
+                                    <p:outputLabel for="custo" value="C. Operacional (%):"/>
+                                    <p:inputText id="custo" value="#{produtoControle.produto.custoOp}" placeholder="C. Operacional (%)" size="10" required="true" requiredMessage="O valor de custo op. é obrigatório" >
+                                        <f:ajax event="change" render="custoFinal" listener="#{produtoControle.calcular1()}" />
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         />
+
+                                    </p:inputText>
+
+
+
+
+                                    <p:outputLabel for="comissao" value="Comissão (%):"/>
+                                    <p:inputText id="comissao" value="#{produtoControle.produto.comissao}" placeholder="Comissão (%)" size="10" required="true" requiredMessage="O valor de comissão é obrigatório" >
+                                        <f:ajax event="change" render="custoFinal" listener="#{produtoControle.calcular1()}" />
+
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         />
+
+                                    </p:inputText>
+
+
+                                    <p:outputLabel for="custoFinal" value="Custo final do produto (R$):"/>
+                                    <p:outputLabel id="custoFinal" value="#{produtoControle.produto.custoOpMaisEncargos}">
+
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+
+                                    </p:outputLabel>
+
+
+                                </h:panelGrid>
+                            </p:panel>
+                            <br/>
+                            <p:panel>
+                                <h:panelGrid id="painelItem4" columns="10"  style="margin-bottom:10px" cellpadding="5">
+                                    <p:outputLabel for="ultimaCo" value="Data ultima compra"/>
+                                    <p:outputLabel id="ultimaCo" value="#{produtoControle.produto.dtUltimaCompra}" 
+                                                   >
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </p:outputLabel>
+
+                                    <p:outputLabel for="ultimoFor" value="Ultimo Fornecedor:"/>
+                                    <p:autoComplete id="ultimoFor" size="40"
+                                                    completeMethod="#{fornecedorControle.autoComplete}"
+                                                    var="est"
+                                                    itemLabel="#{est.razaoSocial}"
+                                                    itemValue="#{est}"
+                                                    converter="#{fornecedorControle.converter()}"
+                                                    value="#{produtoControle.produto.ultimoFornecedor}"
+                                                    queryDelay="500"
+                                                    dropdown="true"
+                                                    scrollHeight="350"
+                                                    style="margin-right: 30px;"/>
+
+                                </h:panelGrid>
+                            </p:panel>
+
+                        </p:tab>
+
+                        <p:tab title="Informações de Venda" disabled="false">
+                            <h:panelGrid columns="4"  style="margin-bottom:10px" cellpadding="5">
+                                <p:outputLabel for="valorVendaVista" value="Valor de Venda a Vista:"/>
+
+                                <p:inputText id="valorVendaVista" size="10" style="color: black" value="#{produtoControle.produto.valorVendaAvista}"
+                                             >
+                                    <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/>
+                                    <f:ajax event="change" render="lucroAv lucrovistap" listener="#{produtoControle.produto.calculaLucro1()}" />
+                                </p:inputText>
+
+                                <p:outputLabel for="valorVendaPrazo" value="Valor de Venda a Prazo"/>
+
+                                <p:inputText id="valorVendaPrazo" size="10" style="color: black" value="#{produtoControle.produto.valorVendaPrazo}" 
+                                             >
+                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                    <f:ajax event="change" render="lucroAP lucrovistap1" listener="#{produtoControle.produto.calculaLucro12()}" />
+                                </p:inputText>
+
+                                <p:outputLabel for="lucrovistap" value="Margem Lucro a Vista (%)"/>
+                                <p:inputText id="lucrovistap"   size="10" value="#{produtoControle.produto.lucroVendaAvistaPorcentagem}">
+                                    <f:ajax event="change" render="lucroAv valorVendaVista" listener="#{produtoControle.produto.calculaLucro2()}" />
+                                    <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:inputText>
+                                <p:outputLabel for="lucrovistap1" value="Margem Lucro a Prazo (%)"/>
+                                <p:inputText id="lucrovistap1"   size="10" value="#{produtoControle.produto.lucroVendaPrazoPorcentagem}">
+                                    <f:ajax event="change" render="lucroAP valorVendaPrazo" listener="#{produtoControle.produto.calculaLucro21()}" />
+                                    <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:inputText>
+
+
+
+                                <p:outputLabel for="lucroAv" value="Margem Lucro a Vista (R$)"/>
+                                <p:inputText id="lucroAv" size="10" value="#{produtoControle.produto.lucroVendaAvista}" 
+                                             >
+                                    <f:ajax event="change" render="valorVendaVista lucrovistap" listener="#{produtoControle.produto.calculaLucro3()}" />
+                                    <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:inputText>
+
+                                <p:outputLabel for="lucroAP" value="Margem Lucro a Prazo (R$)"/>
+                                <p:inputText id="lucroAP" size="10" value="#{produtoControle.produto.lucroVendaPrazo}" 
+                                             >
+                                    <f:ajax event="change" render="valorVendaPrazo lucrovistap1" listener="#{produtoControle.produto.calculaLucro31()}" />
+                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:inputText>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="6"  style="margin-bottom:10px" cellpadding="5">
+
+                                <p:outputLabel for="ultimaVenda" value="Data ultima venda"/>
+                                <p:outputLabel id="ultimaVenda" value="#{produtoControle.produto.dtUltimaVenda}" 
+                                               >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </p:outputLabel>
+
+
+
+                            </h:panelGrid>
+
+                        </p:tab>
+                    </p:tabView>
+
+
+
+
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{produtoControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+
+
+                </p:panel>
+
+                <p:dialog header="Nova Marca" widgetVar="modal1">
+                    <iframe src="#{request.contextPath}/marca/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:tab:marca"/>
+                </p:dialog>
+
+                <p:dialog header="Nova Grupo de Produtos" widgetVar="modal2">
+                    <iframe src="#{request.contextPath}/grupo/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:tab:grupo"/>
+                </p:dialog>
+
+
+                <p:dialog header="Nova Unidade de Medida" widgetVar="modal3">
+                    <iframe src="#{request.contextPath}/unidadeMedida/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:tab:unidade"/>
+                </p:dialog>
+
+
+                <p:dialog header="Lançamento em R$ (IPI)"  widgetVar="form1" modal="true" height="100" width="250">
+
+                    <div align="center">
+                        <h:panelGrid  columns="2" id="paineldialog2" style="text-align:center; background-position: center">
+                            <p:outputLabel value=""/>
+                            <p:inputText value="#{produtoControle.aux}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 />
+                            </p:inputText>
+                            <br/>
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" id="paineldialog3333" style="text-align:center; background-position: center">
+                            <p:commandButton  value="Voltar" onclick="PF('form1').close();" />
+                            <p:commandButton   value="Enviar" action="#{produtoControle.t}" ajax="false" />
+                        </h:panelGrid>
+                    </div>
+                </p:dialog>
+
+                <p:dialog header="Lançamento em R$ (S.T.)"  widgetVar="form2" modal="true" height="100" width="250">
+                    <div align="center">
+                        <h:panelGrid  columns="2" id="paineldialog212" style="text-align:center; background-position: center">
+                            <p:outputLabel value=""/>
+                            <p:inputText value="#{produtoControle.aux1}">
+
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 />
+                            </p:inputText>
+                            <br/>
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" id="paineldialog333" style="text-align:center; background-position: center">
+                            <p:commandButton  value="Voltar" onclick="PF('form2').close();" />
+                            <p:commandButton   value="Enviar" action="#{produtoControle.a}" ajax="false" />
+                        </h:panelGrid>
+                    </div>
+                </p:dialog>
+
+                <p:dialog header="Lanç. em R$ (C. Operacional)"  widgetVar="form4" modal="true" height="100" width="250">
+                    <div align="center">
+                        <h:panelGrid  columns="2" id="paineldialog2122" style="text-align:center; background-position: center">
+                            <p:outputLabel value=""/>
+                            <p:inputText value="#{produtoControle.aux3}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 />
+
+                            </p:inputText>
+                            <br/>
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" id="paineldialog3313" style="text-align:center; background-position: center">
+                            <p:commandButton  value="Voltar" onclick="PF('form4').close();" />
+                            <p:commandButton   value="Enviar" action="#{produtoControle.c}" ajax="false" />
+                        </h:panelGrid>
+                    </div>
+                </p:dialog>
+
+
+                <p:dialog header="Lançamento em R$ (Comissão)"  widgetVar="form5" modal="true" height="100" width="250">
+                    <div align="center">
+                        <h:panelGrid  columns="2" id="paineldialog21122" style="text-align:center; background-position: center">
+                            <p:outputLabel value=""/>
+                            <p:inputText value="#{produtoControle.aux4}">
+
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 />
+                            </p:inputText>
+                            <br/>
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" id="paineldialog30313" style="text-align:center; background-position: center">
+                            <p:commandButton  value="Voltar" onclick="PF('form5').close();" />
+                            <p:commandButton   value="Enviar" action="#{produtoControle.cc}" ajax="false" />
+                        </h:panelGrid>
+                    </div>
+                </p:dialog>
+
+                <p:dialog header="Lanç. em % (Preço a vista)"  widgetVar="form6" modal="true" height="100" width="250">
+                    <div align="center">
+                        <h:panelGrid  columns="2" id="paineldialog211122" style="text-align:center; background-position: center">
+                            <p:outputLabel value=""/>
+                            <p:inputText value="#{produtoControle.aux5}">
+
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 />
+                            </p:inputText>
+                            <br/>
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" id="paineldialog302313" style="text-align:center; background-position: center">
+                            <p:commandButton  value="Voltar" onclick="PF('form6').close();" />
+                            <p:commandButton   value="Enviar" action="#{produtoControle.precoAvista()}" ajax="false" />
+                        </h:panelGrid>
+                    </div>
+                </p:dialog>
+
+
+                <p:dialog header="Lanç. em % (Preço a prazo)"  widgetVar="form7" modal="true" height="100" width="250">
+                    <div align="center">
+                        <h:panelGrid  columns="2" id="paineldialog2110122" style="text-align:center; background-position: center">
+                            <p:outputLabel value=""/>
+                            <p:inputText value="#{produtoControle.aux6}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 />
+                            </p:inputText>
+                            <br/>
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" id="paineldialog3023013" style="text-align:center; background-position: center">
+                            <p:commandButton  value="Voltar" onclick="PF('form7').close();" />
+                            <p:commandButton   value="Enviar" action="#{produtoControle.precoAprazo()}" ajax="false" />
+                        </h:panelGrid>
+                    </div>
+                </p:dialog>
+
+                <p:dialog header="Lanç. em R$ (Desp. Extras)"  widgetVar="form3" modal="true" height="100" width="250">
+                    <div align="center">
+                        <h:panelGrid  columns="2" id="paineldialog02110122" style="text-align:center; background-position: center">
+                            <p:outputLabel value=""/>
+                            <p:inputText value="#{produtoControle.aux9}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 />
+                            </p:inputText>
+                            <br/>
+                        </h:panelGrid>
+                        <h:panelGrid  columns="2" id="paineldialog305523013" style="text-align:center; background-position: center">
+                            <p:commandButton  value="Voltar" onclick="PF('form3').close();" />
+                            <p:commandButton   value="Enviar" action="#{produtoControle.despExtra()}" ajax="false" />
+                        </h:panelGrid>
+                    </div>
+                </p:dialog>
+
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

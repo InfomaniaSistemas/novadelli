@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="conteudo">
+
+        <h:form>
+            <p:panelGrid columns="4">
+
+            </p:panelGrid>  
+            <p:panelGrid id='painel' columns="2">
+                <p:outputLabel for="dtIn" value="Data Inicial"/>
+                <p:calendar locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datainicio}" id="dtIn" required="true"/>
+                <p:outputLabel for="dtFin" value="Data Final" />
+                <p:calendar locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datafim}" id="dtFin" required="true"/>
+
+
+                <p:commandButton ajax="false" value="Gerar"  actionListener="#{relatorioControle.listaFatu()}"/>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

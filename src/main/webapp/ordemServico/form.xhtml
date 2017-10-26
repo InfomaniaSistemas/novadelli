@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+    and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">  
+            <h:form id="form">
+                <p:panel header="Formulário para gerenciamento de Ordem de Serviço">
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="id" value="N° de O.S:"/>
+                        <p:inputText id="id" value="#{ordemDeServicoControle.ordemDeServico.id}" disabled="true"/>
+
+
+                        <p:outputLabel for="cliente" value="Cliente"/>
+                        <p:autoComplete id="cliente" required="true" requiredMessage="O campo cliente é obrigatório"
+                                        completeMethod="#{pessoaControle.autoComplete}"
+                                        var="cli" size="35"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli}"
+                                        converter="#{pessoaControle.converter()}"
+                                        value="#{ordemDeServicoControle.ordemDeServico.pessoa}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+
+
+                        <p:outputLabel for="dtin" value="Data Inicial"/>
+                        <p:calendar id="dtin" value="#{ordemDeServicoControle.ordemDeServico.dataIn}"
+                                    pattern="dd/MM/yyyy"/>
+                        <p:outputLabel for="dtprev" value="Previsão de Atedimento"/>
+                        <p:calendar id="dtprev" value="#{ordemDeServicoControle.ordemDeServico.dataPrev}"
+                                    pattern="dd/MM/yyyy"/>
+
+                        <p:outputLabel for="dtfin" value="Data Final"/>
+                        <p:calendar id="dtfin" value="#{ordemDeServicoControle.ordemDeServico.dataFi}"
+                                    pattern="dd/MM/yyyy"/>
+
+                        <p:outputLabel for="tipo" value="Tipo"/>
+                        <p:selectOneMenu id="tipo" required="true" requiredMessage="O tipo de O.S é Obrigatório" 
+                                         value="#{ordemDeServicoControle.ordemDeServico.tipoDeManutencao}"
+                                         converter="#{tipoDeManutencaoControle.converter()}">
+
+                            <f:selectItem itemLabel="-- Selecione --"
+                                          itemValue="0"/>
+
+                            <f:selectItems value="#{tipoDeManutencaoControle.listaTipoDeManutencaos}"
+                                           var="grup"
+                                           itemLabel="#{grup.nome}"
+                                           itemValue="#{grup}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="situacao" value="Situação de Os"/>
+                        <p:selectOneMenu id="situacao" required="true" requiredMessage="A situação da O.S é obrigatório"
+                                         value="#{ordemDeServicoControle.ordemDeServico.situacaoOs}"
+                                         converter="#{situacaoOsControle.converter()}">
+
+                            <f:selectItem itemLabel="-- Selecione --"
+                                          itemValue="0"/>
+
+                            <f:selectItems value="#{situacaoOsControle.listaSituacaoOss}"
+                                           var="grup"
+                                           itemLabel="#{grup.nome}"
+                                           itemValue="#{grup}"/>
+                        </p:selectOneMenu>
+
+<!--                        <p:outputLabel for="carro" value="Carro:"/>
+                        <p:inputText id="carro" size="30" value="#{ordemDeServicoControle.ordemDeServico.carro}" style="text-transform: uppercase" />
+                        <p:outputLabel for="placa" value="Placa:"/>
+                        <p:inputMask mask="aaa-9999" id="placa" size="10" value="#{ordemDeServicoControle.ordemDeServico.placa}" style="text-transform: uppercase" />-->
+                    </p:panelGrid>
+
+                    <p:panelGrid>
+                        <p:tabView activeIndex="0" orientation="top" effect="fade" effectDuration="fast">
+
+                            <p:tab id="tab1" title="Solicitação do Cliente" disabled="false">
+                                <p:inputTextarea id="obs" autoResize="false" style="text-transform: uppercase" required="true" requiredMessage="A solicitação do cliente é obrigatória" cols="90" rows="10" value="#{ordemDeServicoControle.ordemDeServico.sol}" />
+                            </p:tab>
+                            <p:tab id="tab2" title="Observações" disabled="false">
+                                <p:inputTextarea id="obs1" autoResize="false" cols="90" style="text-transform: uppercase" rows="10" value="#{ordemDeServicoControle.ordemDeServico.os}" />
+                            </p:tab>
+                        </p:tabView>
+
+                    </p:panelGrid>
+
+
+
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{ordemDeServicoControle.salvar()}"
+                                         ajax="false"/>
+
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>  
+
+
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

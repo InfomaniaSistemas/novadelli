@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="conteudo">
+
+        <h:form>
+            <p:panelGrid columns="4">
+
+            </p:panelGrid>  
+            <p:panelGrid id='painel' columns="2">
+
+
+
+                <p:outputLabel value="Valor total saídas:"/>
+                <p:outputLabel value="#{relatorioControle.getDebito()}" style="color: red">
+                    <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                </p:outputLabel>
+
+                <p:outputLabel value="Valor total entradas"/>
+                <p:outputLabel value="#{relatorioControle.getCredito()}" style="color: #1578c9">
+                    <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                </p:outputLabel>
+                
+                <p:outputLabel value="Valor total a receber"/>
+                <p:outputLabel value="#{relatorioControle.getContasReceber()}" style="color: #1578c9">
+                    <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                </p:outputLabel>
+
+                <p:outputLabel value="Valor total a pagar"/>
+                <p:outputLabel value="#{relatorioControle.getContasPagar()}" style="color: red">
+                    <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                </p:outputLabel>
+
+
+
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

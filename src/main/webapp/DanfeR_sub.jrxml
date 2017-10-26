@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="danfe" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b29bc92b-7893-458d-85b6-b5352ceb3fcf">
+	<property name="ireport.zoom" value="2.4200000000000332"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="253"/>
+	<style name="campoPequeno" hAlign="Left" vAlign="Top" markup="styled" pattern="" fontName="Courier" fontSize="5" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+	<style name="borda" mode="Transparent" forecolor="#000000" fill="Solid" radius="3" scaleImage="Clip" hAlign="Left" vAlign="Top" markup="none" pattern="" fontName="Courier" fontSize="5" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="true" pdfFontName="Courier New" isPdfEmbedded="true">
+		<pen lineWidth="0.25"/>
+	</style>
+	<style name="dados" forecolor="#000000" fill="Solid" radius="3" hAlign="Left" vAlign="Middle" markup="styled" pattern="" fontName="Courier" fontSize="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier New" isPdfEmbedded="true">
+		<pen lineWidth="0.25"/>
+	</style>
+	<style name="detail" forecolor="#000000" fill="Solid" radius="3" hAlign="Left" vAlign="Middle" markup="styled" pattern="" fontName="Courier" fontSize="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier New" isPdfEmbedded="true">
+		<pen lineWidth="0.25"/>
+		<box>
+			<pen lineWidth="0.25" lineStyle="Solid"/>
+			<topPen lineWidth="0.0" lineStyle="Solid"/>
+			<leftPen lineWidth="0.25" lineStyle="Solid"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+			<rightPen lineWidth="0.25" lineStyle="Solid"/>
+		</box>
+	</style>
+	<parameter name="Logo" class="java.awt.Image" isForPrompting="false">
+		<parameterDescription><![CDATA[Local onde está  a imagem do logo da empresa.]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DUPLICATAS" class="java.lang.String"/>
+	<parameter name="FAT_NUMERO1" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO1" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR1" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO2" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO2" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR2" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO3" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO3" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR3" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO4" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO4" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR4" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO5" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO5" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR5" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO6" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO6" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR6" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO7" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO7" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR7" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO8" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ITEM" class="java.lang.String"/>
+	<parameter name="FAT_VENCIMENTO8" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR8" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO9" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO9" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR9" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="FAT_NUMERO10" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAT_VENCIMENTO10" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FAT_VALOR10" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="VOL_OBS" class="java.lang.String"/>
+	<parameter name="VOL_QTD" class="java.lang.Integer"/>
+	<parameter name="VOL_PESOL" class="java.lang.Double"/>
+	<parameter name="VOL_PESOB" class="java.lang.Double"/>
+	<queryString language="xPath">
+		<![CDATA[/tNfeProc/NFe/infNFe/det]]>
+	</queryString>
+	<field name="NaturezaOperacao" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/natOp]]></fieldDescription>
+	</field>
+	<field name="FormaPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/indPag]]></fieldDescription>
+	</field>
+	<field name="Serie" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/serie]]></fieldDescription>
+	</field>
+	<field name="NumeroNF" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/nNF]]></fieldDescription>
+	</field>
+	<field name="DataEmissao" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/dEmi]]></fieldDescription>
+	</field>
+	<field name="Data_Saida" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/dSaiEnt]]></fieldDescription>
+	</field>
+	<field name="Hora_Saida" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/hSaiEnt]]></fieldDescription>
+	</field>
+	<field name="TipoNF" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/tpNF]]></fieldDescription>
+	</field>
+	<field name="Ambiente" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/tpAmb]]></fieldDescription>
+	</field>
+	<field name="Chave" class="java.lang.String">
+		<fieldDescription><![CDATA[../../../protNFe/infProt/chNFe]]></fieldDescription>
+	</field>
+	<field name="Protocolo" class="java.lang.String">
+		<fieldDescription><![CDATA[../../../protNFe/infProt/nProt]]></fieldDescription>
+	</field>
+	<field name="Data_Hora" class="java.lang.String">
+		<fieldDescription><![CDATA[../../../protNFe/infProt/dhRecbto]]></fieldDescription>
+	</field>
+	<field name="Versao" class="java.lang.String">
+		<fieldDescription><![CDATA[../ide/verProc]]></fieldDescription>
+	</field>
+	<field name="Emi_CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/CNPJ]]></fieldDescription>
+	</field>
+	<field name="Emi_Nome" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/xNome]]></fieldDescription>
+	</field>
+	<field name="Emi_Fantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/xFant]]></fieldDescription>
+	</field>
+	<field name="Emi_IE" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/IE]]></fieldDescription>
+	</field>
+	<field name="Emi_IEST" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/IEST]]></fieldDescription>
+	</field>
+	<field name="Emi_IM" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/IM]]></fieldDescription>
+	</field>
+	<field name="Emi_Logradouro" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/enderEmit/xLgr]]></fieldDescription>
+	</field>
+	<field name="Emi_Numero" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/enderEmit/nro]]></fieldDescription>
+	</field>
+	<field name="Emi_Bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/enderEmit/xBairro]]></fieldDescription>
+	</field>
+	<field name="Emi_Municipio" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/enderEmit/xMun]]></fieldDescription>
+	</field>
+	<field name="Emi_UF" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/enderEmit/UF]]></fieldDescription>
+	</field>
+	<field name="Emi_CEP" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/enderEmit/CEP]]></fieldDescription>
+	</field>
+	<field name="Emi_Telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[../emit/enderEmit/fone]]></fieldDescription>
+	</field>
+	<field name="Dest_CPF" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/CPF]]></fieldDescription>
+	</field>
+	<field name="Dest_CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/CNPJ]]></fieldDescription>
+	</field>
+	<field name="Dest_Nome" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/xNome]]></fieldDescription>
+	</field>
+	<field name="Dest_IE" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/IE]]></fieldDescription>
+	</field>
+	<field name="Dest_Logradouro" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/xLgr]]></fieldDescription>
+	</field>
+	<field name="Dest_Numero" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/nro]]></fieldDescription>
+	</field>
+	<field name="Dest_Complemento" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/xCpl]]></fieldDescription>
+	</field>
+	<field name="Dest_Bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/xBairro]]></fieldDescription>
+	</field>
+	<field name="Dest_Municipio" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/xMun]]></fieldDescription>
+	</field>
+	<field name="Dest_UF" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/UF]]></fieldDescription>
+	</field>
+	<field name="Dest_CEP" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/CEP]]></fieldDescription>
+	</field>
+	<field name="Dest_Telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[../dest/enderDest/fone]]></fieldDescription>
+	</field>
+	<field name="ValorBase" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vBC]]></fieldDescription>
+	</field>
+	<field name="ValorICMS" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vICMS]]></fieldDescription>
+	</field>
+	<field name="ValorBaseST" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vBCST]]></fieldDescription>
+	</field>
+	<field name="ValorST" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vST]]></fieldDescription>
+	</field>
+	<field name="ValorProdutos" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vProd]]></fieldDescription>
+	</field>
+	<field name="ValorFrete" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vFrete]]></fieldDescription>
+	</field>
+	<field name="ValorSeguro" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vSeg]]></fieldDescription>
+	</field>
+	<field name="ValorDesconto" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vDesc]]></fieldDescription>
+	</field>
+	<field name="ValorOutro" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vOutro]]></fieldDescription>
+	</field>
+	<field name="ValorIPI" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vIPI]]></fieldDescription>
+	</field>
+	<field name="ValorNF" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vNF]]></fieldDescription>
+	</field>
+	<field name="ValorTributos" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ICMSTot/vTotTrib]]></fieldDescription>
+	</field>
+	<field name="Frete" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/modFrete]]></fieldDescription>
+	</field>
+	<field name="Trans_CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/transporta/CNPJ]]></fieldDescription>
+	</field>
+	<field name="Trans_Nome" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/transporta/xNome]]></fieldDescription>
+	</field>
+	<field name="Trans_IE" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/transporta/IE]]></fieldDescription>
+	</field>
+	<field name="Trans_Endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/transporta/xEnder]]></fieldDescription>
+	</field>
+	<field name="Trans_Municipio" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/transporta/xMun]]></fieldDescription>
+	</field>
+	<field name="Trans_UF" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/transporta/UF]]></fieldDescription>
+	</field>
+	<field name="Trans_Volumes" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/vol/qVol]]></fieldDescription>
+	</field>
+	<field name="Trans_Especie" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/vol/esp]]></fieldDescription>
+	</field>
+	<field name="Trans_Marca" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/vol/marca]]></fieldDescription>
+	</field>
+	<field name="Trans_Numeracao" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/vol/nVol]]></fieldDescription>
+	</field>
+	<field name="Trans_PesoB" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/vol/pesoB]]></fieldDescription>
+	</field>
+	<field name="Trans_PesoL" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/vol/pesoL]]></fieldDescription>
+	</field>
+	<field name="Trans_ANTT" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/veicTransp/RNTC]]></fieldDescription>
+	</field>
+	<field name="Trans_Placa" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/veicTransp/placa]]></fieldDescription>
+	</field>
+	<field name="Trans_PlacaUF" class="java.lang.String">
+		<fieldDescription><![CDATA[../transp/veicTransp/UF]]></fieldDescription>
+	</field>
+	<field name="ISSQN_Total" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ISSQNTot/vServ]]></fieldDescription>
+	</field>
+	<field name="ISSQN_Base" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ISSQNTot/vBC]]></fieldDescription>
+	</field>
+	<field name="ISSQN_Valor" class="java.lang.String">
+		<fieldDescription><![CDATA[../total/ISSQNTot/vISS]]></fieldDescription>
+	</field>
+	<field name="Informacoes" class="java.lang.String">
+		<fieldDescription><![CDATA[../infAdic/infCpl]]></fieldDescription>
+	</field>
+	<field name="Prod_Codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/cProd]]></fieldDescription>
+	</field>
+	<field name="Prod_Descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/xProd]]></fieldDescription>
+	</field>
+	<field name="InformacoesAdicionaisProdudo" class="java.lang.String">
+		<fieldDescription><![CDATA[infAdProd]]></fieldDescription>
+	</field>
+	<field name="NumeroItem" class="java.lang.Integer">
+		<fieldDescription><![CDATA[nItem]]></fieldDescription>
+	</field>
+	<field name="Prod_NCM" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/NCM]]></fieldDescription>
+	</field>
+	<field name="Prod_CFOP" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/CFOP]]></fieldDescription>
+	</field>
+	<field name="Prod_Unidade" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/uCom]]></fieldDescription>
+	</field>
+	<field name="Prod_Quantidade" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/qCom]]></fieldDescription>
+	</field>
+	<field name="Prod_Valor" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/vUnCom]]></fieldDescription>
+	</field>
+	<field name="Prod_Total" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/vProd]]></fieldDescription>
+	</field>
+	<field name="Prod_CST" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/ICMS/descendant::CST]]></fieldDescription>
+	</field>
+	<field name="Prod_ICMSORIG" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/ICMS/descendant::orig]]></fieldDescription>
+	</field>
+	<field name="Prod_CSOSN" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/ICMS/descendant::CSOSN]]></fieldDescription>
+	</field>
+	<field name="Prod_BC" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/ICMS/descendant::vBC]]></fieldDescription>
+	</field>
+	<field name="Prod_AliqICMS" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/ICMS/descendant::pICMS]]></fieldDescription>
+	</field>
+	<field name="Prod_ValorICMS" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/ICMS/descendant::vICMS]]></fieldDescription>
+	</field>
+	<field name="Prod_AliqIPI" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/IPI/IPITrib/pIPI]]></fieldDescription>
+	</field>
+	<field name="Prod_ValorIPI" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/IPI/IPITrib/vIPI]]></fieldDescription>
+	</field>
+	<field name="Prod_Desconto" class="java.lang.String">
+		<fieldDescription><![CDATA[prod/vDesc]]></fieldDescription>
+	</field>
+	<field name="Prod_ValorTributos" class="java.lang.String">
+		<fieldDescription><![CDATA[imposto/vTotTrib]]></fieldDescription>
+	</field>
+	<field name="Duplicatas" class="java.lang.String">
+		<fieldDescription><![CDATA[../cobr/dup]]></fieldDescription>
+	</field>
+	<variable name="ROW_COUNT" class="java.lang.Integer" calculation="DistinctCount">
+		<initialValueExpression><![CDATA[16]]></initialValueExpression>
+	</variable>
+	<background>
+		<band height="802" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="36fa4481-c35e-4a7d-bddc-b91046af8518" stretchType="RelativeToBandHeight" mode="Opaque" x="2" y="0" width="553" height="802" forecolor="#CCCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="DejaVu Sans" size="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ambiente}.equals( "2" ) ? "SEM VALOR FISCAL" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="146">
+			<frame>
+				<reportElement uuid="7408daab-2993-4efa-9ed2-5573bdda160b" stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="146"/>
+				<rectangle radius="3">
+					<reportElement uuid="3d5809c0-2ab8-4d1b-8b68-a4e2d2bf5820" style="borda" x="271" y="0" width="74" height="96"/>
+				</rectangle>
+				<rectangle radius="3">
+					<reportElement uuid="c679b0cc-be83-4153-8963-ddcb377b7f56" style="borda" x="0" y="120" width="188" height="24"/>
+				</rectangle>
+				<rectangle radius="3">
+					<reportElement uuid="2649c1ae-eb7e-4b03-97db-b35fe7dfbdcc" style="borda" x="376" y="120" width="179" height="24"/>
+				</rectangle>
+				<rectangle radius="3">
+					<reportElement uuid="2dc0b9f1-41d2-452e-aa32-18ee7830e846" style="borda" x="188" y="120" width="188" height="24"/>
+				</rectangle>
+				<rectangle radius="3">
+					<reportElement uuid="55edb563-9e6a-4d1d-8287-e04eff36cf5a" style="borda" x="345" y="96" width="210" height="24"/>
+				</rectangle>
+				<rectangle radius="3">
+					<reportElement uuid="e6bd3132-bffc-4f2c-92b1-7dc92c525878" style="borda" x="0" y="96" width="345" height="24"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="f1103c3d-d81c-4728-8202-a7bc7b951246" mode="Transparent" x="345" y="42" width="210" height="26"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle radius="3">
+					<reportElement uuid="3d981673-f2dc-4346-8f8a-90c40782233d" style="borda" x="0" y="0" width="271" height="96"/>
+				</rectangle>
+				<rectangle radius="3">
+					<reportElement uuid="bc8b454f-7f9e-411d-9ee5-b12f5a80b91a" style="borda" x="345" y="0" width="210" height="96"/>
+				</rectangle>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank" evaluationTime="Report">
+					<reportElement uuid="1f02d335-8b7f-4e36-a2fc-1c4e592fe12f" x="4" y="17" width="60" height="59"/>
+					<imageExpression><![CDATA[$P{Logo}]]></imageExpression>
+				</image>
+				<componentElement>
+					<reportElement uuid="bb7dee0e-7273-4c13-81cb-025bad9e478f" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="356" y="10" width="187" height="30">
+						<printWhenExpression><![CDATA[$F{Chave}!=null]]></printWhenExpression>
+					</reportElement>
+					<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="false" checksumRequired="true" barWidth="0" barHeight="0">
+						<jr:codeExpression><![CDATA[$F{Chave}]]></jr:codeExpression>
+					</jr:barbecue>
+				</componentElement>
+				<staticText>
+					<reportElement uuid="e1bc8803-ca09-408b-9218-0206b59328e1" style="campoPequeno" x="2" y="98" width="303" height="6"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<text><![CDATA[NATUREZA DA OPERAÇÃO
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="38278536-f0f0-4bb2-8def-475d718d696c" style="campoPequeno" x="348" y="98" width="206" height="6"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<text><![CDATA[PROTOCOLO DE AUTORIZAÇÃO DE USO
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0f165d2f-1a27-4e7d-9f72-247cce936ef8" style="campoPequeno" x="347" y="43" width="207" height="6"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<text><![CDATA[CHAVE DE ACESSO
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="97602b44-2566-407c-97bf-5922cc5c7e13" style="campoPequeno" x="190" y="122" width="187" height="6"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<text><![CDATA[INSCRIÇÃO ESTADUAL DE SUBST.
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3441ee23-af30-46f0-a79a-fd1e2b6f6804" style="campoPequeno" x="2" y="122" width="187" height="6"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<text><![CDATA[INSCRIÇÃO ESTADUAL
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fccd135e-4ebe-4d10-b9f1-0bd2bc711087" style="campoPequeno" x="378" y="122" width="176" height="6"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<text><![CDATA[CNPJ / CPF
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fc9bef0c-03e6-48ef-853a-3fd3b2a8e9ab" style="campoPequeno" x="276" y="49" width="48" height="7"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier" size="6"/>
+					</textElement>
+					<text><![CDATA[1 - SAÍDA
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="53261f7c-1a63-4aa5-be08-e1e65f08277b" style="campoPequeno" x="276" y="43" width="48" height="7"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier" size="6"/>
+					</textElement>
+					<text><![CDATA[0 - ENTRADA
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c898b599-c44e-40d1-9647-2446fad1bc0a" style="dados" x="348" y="68" width="206" height="28"/>
+					<textElement textAlignment="Center">
+						<font fontName="Courier" size="8"/>
+					</textElement>
+					<text><![CDATA[Consulta de autenticidade no portal nacional da NF-e www.nfe.fazenda.gov.br/portal ou no site da Sefaz Autorizadora.
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="13b28c8f-2732-469e-aaa9-577cb42118e4" style="campoPequeno" x="347" y="2" width="207" height="6"/>
+					<textElement>
+						<font fontName="Courier" size="5"/>
+					</textElement>
+					<text><![CDATA[CONTROLE DO FISCO
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="25ada473-fea3-4333-a06d-7a747222917b" style="campoPequeno" x="271" y="2" width="74" height="9"/>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Courier" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DANFE
+                    ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="298ddfbd-f203-4e8e-af81-ce9e81131fcb" style="campoPequeno" x="271" y="13" width="74" height="23"/>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Courier" size="6"/>
+					</textElement>
+					<text><![CDATA[DOCUMENTO AUXILIAR DE NOTA FISCAL ELETRÔNICA
+                    ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="4cab4d9e-497c-435c-94e6-56f5274f1d4e" style="dados" x="2" y="128" width="186" height="16"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Emi_IE}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="caca84d3-e242-4612-82b4-e70522b3fb46" style="dados" x="190" y="128" width="186" height="16"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Emi_IEST}!= null ? $F{Emi_IEST} : ""]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="ab0f1a00-23ca-4b50-a62b-0ec944de0e4a" style="dados" x="378" y="128" width="176" height="16"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Emi_CNPJ}.length() == 14 ? $F{Emi_CNPJ}.substring(0,2) + "." +
+$F{Emi_CNPJ}.substring(2,5) + "." + $F{Emi_CNPJ}.substring(5,8) + "/" +
+$F{Emi_CNPJ}.substring(8,12) + "-" + $F{Emi_CNPJ}.substring(12,14) : $F{Emi_CNPJ}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="279bc95e-c7a5-4fad-a909-81a7ca30012f" style="dados" x="2" y="103" width="343" height="17"/>
+					<textElement>
+						<font fontName="Courier" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NaturezaOperacao}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="27ef8908-1e99-4bfb-b2d6-51402ca6dee2" style="dados" x="348" y="104" width="206" height="17"/>
+					<textElement>
+						<font fontName="Courier"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Data_Hora} != null & $F{Protocolo} != null ? $F{Protocolo} + " " + $F{Data_Hora}.substring(8,10) + "/" +
+$F{Data_Hora}.substring(5,7) + "/" + $F{Data_Hora}.substring(0,4) + " " +
+$F{Data_Hora}.substring(11,13) + ":" + $F{Data_Hora}.substring(14,16) + ":" + $F{Data_Hora}.substring(17,19)  : $F{Data_Hora} + " " + $F{Data_Hora}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="6efeb355-f8c1-4f28-a6d7-1eb0632da806" style="dados" x="347" y="48" width="207" height="18"/>
+					<textElement textAlignment="Center">
+						<font fontName="Courier" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{Chave} != null? $F{Chave}.substring(0,4) + " " + $F{Chave}.substring(4,8) + " " + $F{Chave}.substring(8,12) + " " +
+$F{Chave}.substring(12,16) + " " + $F{Chave}.substring(16,20) + " " + $F{Chave}.substring(20,24) + " " +
+$F{Chave}.substring(24,28) + " " + $F{Chave}.substring(28,32) + " " + $F{Chave}.substring(32,36) + " " +
+$F{Chave}.substring(36,40) + " " + $F{Chave}.substring(40,44) + " " : "" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e75e2baf-e9bc-46df-9246-96a4c3b3efd8" style="campoPequeno" x="276" y="80" width="43" height="7"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA["FOLHA " + ($V{PAGE_NUMBER}+1) + " /"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement uuid="ba5807af-8936-4e2f-80fd-2a6a4404a99e" style="campoPequeno" x="319" y="80" width="26" height="7"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + ($V{PAGE_NUMBER}+1)]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c4a778fe-7b8a-4370-abfd-68ccce326f07" style="campoPequeno" x="276" y="71" width="69" height="7"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier" size="6"/>
+					</textElement>
+					<textFieldExpression><![CDATA["SÉRIE: " + $F{Serie}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5081e0a4-3537-413e-ad6f-d7fd76085010" style="dados" x="324" y="43" width="12" height="13"/>
+					<box>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TipoNF}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0cc5512b-52e4-4b32-b755-dfe2f3be90f1" style="campoPequeno" x="276" y="56" width="69" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nº " + $F{NumeroNF}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="27c8cd33-7716-41c0-ad69-1ee25e5a7fca" style="dados" positionType="Float" x="67" y="4" width="202" height="36"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Emi_Nome}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="6f250829-197a-4f44-adda-58cc85d2255e" style="dados" positionType="Float" x="67" y="42" width="202" height="21"/>
+					<textElement textAlignment="Center">
+						<font fontName="Courier" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Emi_Logradouro} + ", " + $F{Emi_Numero} + " - " + $F{Emi_Bairro}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="06d8322e-9225-4513-bda0-950f3b728f8f" style="dados" positionType="Float" x="67" y="64" width="202" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Courier" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Emi_Municipio} + " - " + $F{Emi_UF}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="459be6ad-0bae-43da-a1fb-be4c4f0ef899" style="dados" positionType="Float" x="67" y="78" width="83" height="13"/>
+					<textElement>
+						<font fontName="Courier" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["CEP: " + $F{Emi_CEP}.substring(0,5) + "-" + $F{Emi_CEP}.substring(5,8)]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="014f0780-23a6-4606-885c-432358db7fff" style="dados" positionType="Float" x="153" y="78" width="116" height="13"/>
+					<textElement>
+						<font fontName="Courier" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Emi_Telefone}.length() == 8 ? "FONE: " + $F{Emi_Telefone}.substring(0,4) +
+"-" + $F{Emi_Telefone}.substring(4,8) : "FONE: (" + $F{Emi_Telefone}.substring(0,2) + ") " +
+$F{Emi_Telefone}.substring(2,6) + "-" + $F{Emi_Telefone}.substring(6,10)]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ca9038f8-ddd0-4531-81d8-cc2c938297f9" style="campoPequeno" x="0" y="9" width="47" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="09964f2b-cfc6-4773-9498-b51897f87e2c" style="campoPequeno" x="47" y="9" width="124" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DESCRIÇÃO DOS PRODUTOS / SERVIÇOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ac7e5f6-1a42-444f-bd23-0018245c488a" style="campoPequeno" x="201" y="9" width="35" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ NCM/SH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f9d86b40-7e1b-4028-a18d-cb5585934620" style="campoPequeno" x="252" y="9" width="22" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ CFOP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="652c44ca-803d-4bcb-8425-6ad63ea232ab" style="campoPequeno" x="274" y="9" width="20" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ UNID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cacab95a-942f-4e4f-94f6-75fec8ad6482" style="campoPequeno" x="294" y="9" width="23" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ QUANT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f33d366a-cdd9-49f8-b93c-26cec766029a" style="campoPequeno" x="317" y="9" width="42" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR UNITÁRIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="276230a7-4fbc-45d0-b3bb-a39157ce0d8c" style="campoPequeno" x="385" y="9" width="45" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ VALOR  TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a7d60d62-56fe-426a-902b-5616988db329" style="campoPequeno" x="430" y="15" width="35" height="7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cálculo
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8ceae02d-9733-4d94-812c-c70441c9a810" style="campoPequeno" mode="Transparent" x="465" y="9" width="54" height="6" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="styled">
+					<font fontName="Courier" size="5" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[VALOR
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="49726ea2-e71e-4944-8bac-34cae2013206" style="campoPequeno" x="492" y="15" width="27" height="7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ IPI
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="94a13e5c-29cb-4a33-b369-1314d8cddfd1" style="campoPequeno" x="519" y="15" width="18" height="7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ ICMS %
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4b1b0a88-d92e-472e-a519-a753cd1710b1" style="campoPequeno" x="537" y="15" width="18" height="7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ IPI %
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ebc7c59e-65f1-4b3f-b7a6-e44ff70dbc1a" style="campoPequeno" x="465" y="15" width="27" height="7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ ICMS
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="47c6d503-ad9e-4fe5-9cfe-2429a0895e2e" style="campoPequeno" x="430" y="9" width="35" height="6"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BASE
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d919d7c9-d7df-47b3-89f3-81108c3533a5" style="campoPequeno" x="519" y="9" width="36" height="6"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALIQUOTA
+                ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8d200924-b3a9-4e1d-bc41-1dba1c160754" style="campoPequeno" x="236" y="9" width="16" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Courier" size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_CST} != null ? "CST" : "CSOSN"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="09c196e9-03dc-460e-9d0e-a0052010d755" style="campoPequeno" x="359" y="9" width="26" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESC %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d6eff7ce-b662-4039-8f08-91389a0060db" style="campoPequeno" x="0" y="2" width="555" height="7"/>
+				<textElement>
+					<font fontName="Courier" size="6" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DADOS DO PRODUTOS / SERVIÇOS
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2bfd4e93-d28b-45d3-99b0-e9bd0a78c53d" style="campoPequeno" x="171" y="9" width="30" height="13"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRIBUTOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="18cf9c89-4dd9-4dc3-b489-c412aa27f323" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="47" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Courier" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_Codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1477b293-b629-4423-8a0d-30864044cb85" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="201" y="0" width="35" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_NCM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8a3e0f16-9bfb-44b6-a655-620e59ce3d29" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="236" y="0" width="16" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_CST} != null ? $F{Prod_ICMSORIG} + $F{Prod_CST} : $F{Prod_CSOSN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="94c5ae2f-8ffe-4c7a-abf2-ceba43aafccc" style="detail" positionType="Float" x="274" y="0" width="20" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_Unidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.####">
+				<reportElement uuid="aaf4bcc7-f651-4baa-a2e7-bc27467e12ec" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="294" y="0" width="23" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Double.parseDouble($F{Prod_Quantidade})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000000;(###0.000000)">
+				<reportElement uuid="9d7695b9-6589-458f-a02b-cb250eb65f6d" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="317" y="0" width="42" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Double.parseDouble($F{Prod_Valor})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement uuid="039fb28d-8f41-4215-b8fa-868621c7030c" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="385" y="0" width="45" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Double.parseDouble($F{Prod_Total})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.##">
+				<reportElement uuid="d269948e-5f6d-4ed4-ad78-ae16225a665b" style="detail" positionType="Float" x="519" y="0" width="18" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_AliqICMS}!=null?Double.parseDouble($F{Prod_AliqICMS}):""]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.##">
+				<reportElement uuid="271b9e83-ef52-4efd-a0e3-1641ebaceab1" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="537" y="0" width="18" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_AliqIPI}!=null ? Double.parseDouble($F{Prod_AliqIPI}) : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d610a125-710e-4395-bffb-e1fb4ce15915" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="252" y="0" width="22" height="18" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_CFOP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement uuid="e6d53f84-0067-42e8-b085-a79a4ff07c1b" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="430" y="0" width="35" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_BC} !=null ? Double.parseDouble($F{Prod_BC}) : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement uuid="9ca77a90-be9c-40e4-a9a8-1dab4c2b17dc" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="492" y="0" width="27" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_ValorIPI}!=null ? Double.parseDouble($F{Prod_ValorIPI}) : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)">
+				<reportElement uuid="80a4e2db-5096-44f0-a0e7-84c2d319e4b3" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="465" y="0" width="27" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_ValorICMS}!=null?Double.parseDouble($F{Prod_ValorICMS}):""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="43d73ae3-22d5-45f9-b5b5-acb893f20402" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="47" y="0" width="124" height="12" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Courier" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_Descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement uuid="42c7f929-6ee8-48d5-8b0b-eac28b0c6396" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="359" y="0" width="26" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Prod_Desconto}!=null?(Double.parseDouble($F{Prod_Desconto})/Double.parseDouble($F{Prod_Total}))*100:0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
+				<reportElement uuid="318f0899-e12d-4129-a48e-918b13d3986d" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="171" y="0" width="30" height="18" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Duplicatas} != null ? Double.parseDouble($F{Prod_ValorTributos}): ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="aed884e9-bc49-4795-b457-4f6da7df3385" style="detail" positionType="Float" stretchType="RelativeToBandHeight" x="47" y="12" width="124" height="6" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="Courier" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{InformacoesAdicionaisProdudo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="5bdcd219-ffd3-45e4-a9c6-58c7036b7b4c" positionType="Float" x="0" y="18" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7">
+			<textField>
+				<reportElement uuid="0719c1de-7d44-428a-b697-0a626735a527" style="campoPequeno" x="294" y="2" width="261" height="5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Courier" size="5" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DANFE GERADO EM SISTEMABIJUDACHICA.COM.BR"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="c2a0daaf-6d74-4f59-94bf-5b6a0539a8dc" positionType="Float" x="0" y="0" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="f8e0c206-03fc-4cd3-afff-87ba411eaea0" style="campoPequeno" x="0" y="2" width="294" height="5"/>
+				<textElement>
+					<font fontName="Courier" size="5" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Versao} != null ? "VERSÃO DO SISTEMA EMISSOR DA NFE: " + $F{Versao}.toUpperCase() : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

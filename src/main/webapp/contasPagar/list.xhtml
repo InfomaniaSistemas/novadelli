@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+
+                <p:panel header="Lista de Contas a Pagar">
+
+
+
+
+                    <h:panelGrid  columns="10" style="margin-bottom:10px" cellpadding="5">
+
+                        <p:outputLabel value="TOTAL:"/>
+                        <p:outputLabel value="#{contasPagarControle.getTotal()}" style="color: red" id="valorTotal">
+                            <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                        </p:outputLabel>
+
+                        <p:outputLabel value="VALOR A PAGAR:"/>
+                        <p:outputLabel value="#{contasPagarControle.getAreceber()}" style="color: red" id="valorReceber">
+                            <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                        </p:outputLabel>
+
+                        <p:outputLabel value="TOTAL VENCIDO:"/>
+
+                        <p:outputLabel value="#{contasPagarControle.getVencimento()}" style="color: red" id="vencimento">
+                            <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                        </p:outputLabel>
+
+                        <p:commandLink title="Pagar Conta" value="Listagem por Fornecedor"
+                                       action="/relatorios/contasPagarFor.xhtml"
+                                       ajax="false">
+                        </p:commandLink>
+
+                    </h:panelGrid>
+
+
+
+
+                    <h:panelGrid columns="10" id="painelItem" style="margin-bottom:10px" cellpadding="5">
+                        <p:selectOneRadio value="#{contasPagarControle.tipoBusca}">
+                            <f:selectItem itemLabel="Pesquisar por filial" itemValue="filial" />
+                            <f:selectItem itemLabel="Pesquisar por nome" itemValue="nome" />
+                            <f:selectItem itemLabel="Pesquisar por Data de Vencimento" itemValue="data"/>
+                            <f:selectItem itemLabel="Pesquisar por Nº. Nota Fiscal" itemValue="cod"/>
+                            <f:ajax event="change" 
+                                    render="painelItem"/>
+                        </p:selectOneRadio>
+                        <p:outputLabel style="color: black" for="filial" value="Filial" rendered="#{contasPagarControle.tipoBusca == 'filial'}"/>
+                        <p:autoComplete id="filial" rendered="#{contasPagarControle.tipoBusca == 'filial'}"
+                                        completeMethod="#{fazendaControle.autoComplete}" size="26"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est.id.toString()}"
+                                        converter="#{fazendaControle.converter()}"
+                                        value="#{contasPagarControle.empresa}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+                        <p:outputLabel for="cliente" value="Fornecedores:" rendered="#{contasPagarControle.tipoBusca == 'nome'}"/>
+                        <p:autoComplete id="cliente" rendered="#{contasPagarControle.tipoBusca == 'nome'}"
+                                        completeMethod="#{fornecedorControle.autoComplete2}" 
+                                        var="cli" size="26"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli.id.toString()}"
+                                        converter="#{pessoaControle.converter()}"
+                                        value="#{contasPagarControle.pessoa}"
+                                        queryDelay="500"
+                                        dropdown="true" scrollHeight="350"
+                                        style="margin-right: 30px;"/>
+
+
+
+                        <p:outputLabel for="dtNota" value="De" rendered="#{contasPagarControle.tipoBusca == 'data'}"/>
+                        <p:calendar id="dtNota" value="#{contasPagarControle.dtvencimento}" size="11" rendered="#{contasPagarControle.tipoBusca == 'data'}"
+                                    mask="true" pattern="dd/MM/yyyy">
+                        </p:calendar>
+
+                        <p:outputLabel for="dtNota1" value="Até" rendered="#{contasPagarControle.tipoBusca == 'data'}"/>
+                        <p:calendar id="dtNota1" value="#{contasPagarControle.dtvencimento2}" size="11" rendered="#{contasPagarControle.tipoBusca == 'data'}"
+                                    mask="true" pattern="dd/MM/yyyy">
+                        </p:calendar>
+
+
+                        <p:outputLabel value="Nº Nota Fiscal" for="codVenda" rendered="#{contasPagarControle.tipoBusca == 'cod'}"/>
+                        <p:inputText value="#{contasPagarControle.nota}" id="codVenda" size="10" rendered="#{contasPagarControle.tipoBusca == 'cod'}"/>
+
+                        <p:commandButton value="Buscar Filial" ajax="false" rendered="#{contasPagarControle.tipoBusca == 'filial'}" actionListener="#{contasPagarControle.validaListaFilial()}" 
+                                         update="tabela4"/>
+
+                        <p:commandButton value="Buscar" ajax="false" rendered="#{contasPagarControle.tipoBusca == 'nome'}" actionListener="#{contasPagarControle.validaListaPessoa()}" 
+                                         update="tabela2"/>
+
+
+                        <p:commandButton value="Buscar Data" ajax="false" rendered="#{contasPagarControle.tipoBusca == 'data'}" actionListener="#{contasPagarControle.validaListaVencimento()}" 
+                                         update="tabela"/>
+
+                        <p:commandButton value="Buscar Nº Nota" ajax="false" rendered="#{contasPagarControle.tipoBusca == 'cod'}" actionListener="#{contasPagarControle.validaListaNota()}" 
+                                         update="tabela3"/>
+
+
+                    </h:panelGrid>
+
+
+
+
+                    <p:dataTable value="#{contasPagarControle.listaContasPagarsPorVencimento}" rendered="#{contasPagarControle.tipoBusca == 'data'}" id="tabela" emptyMessage="Não há registros!" paginator="true" var="grup" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                        <p:column headerText="Vencimento">
+                            <h:outputText value="#{grup.dtVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Fornecedor"  width="450" filterBy="#{grup.pessoa.nome}" filterStyle="min-width: 300px;">
+                            #{grup.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="N° Nota Fiscal" filterBy="#{grup.compra.numDoc}">
+                            #{grup.compra.numDoc}
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{grup.valorPrincipal}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Restos a Pagar">
+                            <h:outputText value="#{grup.restosAPagar}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Pagar">
+
+
+                            <p:commandLink title="Pagar Conta"
+                                           actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                           action="#{contasPagarControle.editar()}"
+                                           ajax="false">
+                                <i class="icon-money"/>
+                            </p:commandLink>
+                        </p:column>
+                        <!--                        <p:column headerText="Editar">
+                                                    <p:commandLink title="Editar Registro"
+                                                                   actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                                                   action="form?faces-redirect=true"
+                                                                   ajax="false">
+                                                        <i class="icon-edit-1"/>
+                                                    </p:commandLink>
+                                                </p:column>-->
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir este registro?'))
+                                        return false"
+                                           action="#{contasPagarControle.excluir(grup)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+                    
+                    <p:dataTable value="#{contasPagarControle.listaContasPagarsPorFilial}" rendered="#{contasPagarControle.tipoBusca == 'filial'}" id="tabela4" emptyMessage="Não há registros!" paginator="true" var="grup" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                        <p:column headerText="Vencimento">
+                            <h:outputText value="#{grup.dtVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Fornecedor"  width="450" filterBy="#{grup.pessoa.nome}" filterStyle="min-width: 300px;">
+                            #{grup.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="N° Nota Fiscal" filterBy="#{grup.compra.numDoc}">
+                            #{grup.compra.numDoc}
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{grup.valorPrincipal}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Restos a Pagar">
+                            <h:outputText value="#{grup.restosAPagar}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Pagar">
+
+
+                            <p:commandLink title="Pagar Conta"
+                                           actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                           action="#{contasPagarControle.editar()}"
+                                           ajax="false">
+                                <i class="icon-money"/>
+                            </p:commandLink>
+                        </p:column>
+                        <!--                        <p:column headerText="Editar">
+                                                    <p:commandLink title="Editar Registro"
+                                                                   actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                                                   action="form?faces-redirect=true"
+                                                                   ajax="false">
+                                                        <i class="icon-edit-1"/>
+                                                    </p:commandLink>
+                                                </p:column>-->
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir este registro?'))
+                                        return false"
+                                           action="#{contasPagarControle.excluir(grup)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+                    
+                    <p:dataTable value="#{contasPagarControle.listaContasPagarsPorCliente}" id="tabela2" rendered="#{contasPagarControle.tipoBusca == 'nome'}" emptyMessage="Não há registros!" paginator="true" var="grup" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                        <p:column headerText="Vencimento">
+                            <h:outputText value="#{grup.dtVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Fornecedor"  width="450" filterBy="#{grup.pessoa.nome}" filterStyle="min-width: 300px;">
+                            #{grup.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="N° Nota Fiscal" filterBy="#{grup.compra.numDoc}">
+                            #{grup.compra.numDoc}
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{grup.valorPrincipal}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Restos a Pagar">
+                            <h:outputText value="#{grup.restosAPagar}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Pagar">
+
+
+                            <p:commandLink title="Pagar Conta"
+                                           actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                           action="#{contasPagarControle.editar()}"
+                                           ajax="false">
+                                <i class="icon-money"/>
+                            </p:commandLink>
+                        </p:column>
+                        <!--                        <p:column headerText="Editar">
+                                                    <p:commandLink title="Editar Registro"
+                                                                   actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                                                   action="form?faces-redirect=true"
+                                                                   ajax="false">
+                                                        <i class="icon-edit-1"/>
+                                                    </p:commandLink>
+                                                </p:column>-->
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir este registro?'))
+                                        return false"
+                                           action="#{contasPagarControle.excluir(grup)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+
+                    <p:dataTable value="#{contasPagarControle.listaContasPagarsPorNota}" id="tabela3" rendered="#{contasPagarControle.tipoBusca == 'cod'}" emptyMessage="Não há registros!" paginator="true" var="grup" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                        <p:column headerText="Vencimento">
+                            <h:outputText value="#{grup.dtVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Fornecedor"  width="450" filterBy="#{grup.pessoa.nome}" filterStyle="min-width: 300px;">
+                            #{grup.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="N° Nota Fiscal" filterBy="#{grup.compra.numDoc}">
+                            #{grup.compra.numDoc}
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{grup.valorPrincipal}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Restos a Pagar">
+                            <h:outputText value="#{grup.restosAPagar}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Pagar">
+
+
+                            <p:commandLink title="Pagar Conta"
+                                           actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                           action="#{contasPagarControle.editar()}"
+                                           ajax="false">
+                                <i class="icon-money"/>
+                            </p:commandLink>
+                        </p:column>
+                        <!--                        <p:column headerText="Editar">
+                                                    <p:commandLink title="Editar Registro"
+                                                                   actionListener="#{contasPagarControle.setContasPagar(grup)}"
+                                                                   action="form?faces-redirect=true"
+                                                                   ajax="false">
+                                                        <i class="icon-edit-1"/>
+                                                    </p:commandLink>
+                                                </p:column>-->
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir este registro?'))
+                                        return false"
+                                           action="#{contasPagarControle.excluir(grup)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton value="Adicionar" 
+                                     action="#{contasPagarControle.novo()}"
+                                     ajax="false"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

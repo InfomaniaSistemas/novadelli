@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:hotkey bind="F4" action="#{vendaControle.novo()}"/>
+                <p:panel header="Lista de Vendas do Dia">
+
+                    <h:panelGrid  columns="4" id="a" style="text-align:center; background-position: center">
+                        <p:outputLabel value="Valor total:"/>
+                        <p:outputLabel value="#{vendaControle.getCredito()}" style="color: #1578c9">
+
+                            <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+
+                        </p:outputLabel>
+
+                    </h:panelGrid>
+                    <p:dataTable value="#{vendaControle.listaVendas}" emptyMessage="Não há registros!" paginator="true" var="item" paginatorPosition="bottom" rows="10" style="text-align: center">
+                        <p:column headerText="Cód. Venda" filterBy="#{item.id}" width="100" filterStyle="max-width: 90px;">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}" width="600" filterStyle="min-width: 550px;">
+                            #{item.pessoa.nome}
+                        </p:column>
+                        <p:column headerText="Fiscal?" filterBy="#{item.fiscal?'SIM':'NÃO'}">
+                            <h:outputText value="#{item.fiscal?'SIM':'NÃO'}"/>
+                        </p:column>
+
+                        <p:column headerText="Nota" filterBy="#{item.modeloNota}" width="30" filterStyle="max-width: 15px;">
+                            <h:outputText value="#{item.modeloNota}"/>
+                        </p:column>
+                        <p:column headerText="Total">
+                            <h:outputText value="#{item.totalDesc}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Comprovante"> 
+                            <p:commandLink title="Imprimir"
+                                           actionListener="#{vendaControle.setVenda(item)}"
+                                           action="#{relatorioControle.gerarReciboVenda(item.id)}"
+                                           ajax="false">
+                                <i class=" icon-print"/>
+
+                            </p:commandLink>
+
+
+                        </p:column>
+
+
+
+                        <!--                        <p:column headerText="NF-E" width="100">
+                        
+                                                    <p:commandLink title="Imprimir"
+                                                                   actionListener="#{vendaControle.setVenda(item)}"
+                                                                   action="#{consulta.enviarNfe55(item)}"
+                                                                   ajax="false">
+                                                        <i class=" icon-print"/>
+                        
+                                                    </p:commandLink>
+                                                </p:column>
+                                                <p:column headerText="NF-E" width="100">
+                        
+                                                    <p:commandLink title="Imprimir"
+                                                                   actionListener="#{vendaControle.setVenda(item)}"
+                                                                   action="#{consulta.enviarNfe55Retorno(item)}"
+                                                                   ajax="false">
+                                                        <i class=" icon-print"/>
+                        
+                                                    </p:commandLink>
+                        
+                        
+                                                </p:column>
+                        -->
+
+
+                    </p:dataTable>
+
+                    <div align="center" >
+                        <h:panelGrid  columns="2" id="paineldialog30313" style="text-align:center; background-position: center">
+
+
+                            <p:commandButton value="VENDER (F4)  
+                                             " style="max-width: 500px; min-width: 500px; min-height: 20px; max-height: 20px"
+                                             action="#{vendaControle.novo()}"
+                                             ajax="false"/>
+                        </h:panelGrid>
+                    </div>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="conteudo">
+            <h:form id="form">
+
+                <p:panel header="Lista de Contas a Receber">
+
+                    <h:panelGrid columns="10" style="margin-bottom:10px" cellpadding="5">
+
+                        <p:outputLabel for="cliente" value="Clientes:"/>
+                        <p:autoComplete id="cliente" 
+                                        completeMethod="#{pessoaControle.autoComplete}" 
+                                        var="cli" size="50"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli.id.toString()}"
+                                        converter="#{pessoaControle.converter()}"
+                                        value="#{contasReceberControle.pessoa}"
+                                        queryDelay="500"
+                                        dropdown="true" scrollHeight="350"
+                                        style="margin-right: 30px;"/>
+
+                        <p:commandButton value="Procurar contas" ajax="false" 
+                                         actionListener="#{contasReceberControle.validaLista()}" update="tabela valorTotal valorTotal1 valorTotal11"/>
+
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="10" style="margin-bottom:10px" cellpadding="5">
+
+                        <p:outputLabel value="TOTAL A RECEBER DO CLIENTE:" rendered="#{contasReceberControle.pessoa != null}" style="color: black" 
+                                       styleClass="Container80 Fnone MarAuto Fs18" />
+                        <p:outputLabel value="#{contasReceberControle.getAreceberPorPessoa()}" style="color: blue" id="valorReceer"
+                                       rendered="#{contasReceberControle.pessoa != null}" styleClass="Container80 Fnone MarAuto Fs18"
+                                       >
+                            <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                        </p:outputLabel>
+
+
+
+
+                        <p:outputLabel value="TOTAL VENCIDO DO CLIENTE:" rendered="#{contasReceberControle.pessoa != null}"
+                                       styleClass="Container80 Fnone MarAuto Fs18" style="color: black"/>
+
+                        <p:outputLabel value="#{contasReceberControle.getVencimentoPorPessoa()}" style="color: red" id="ven12cimento"
+                                       rendered="#{contasReceberControle.pessoa != null}" styleClass="Container80 Fnone MarAuto Fs18"
+                                       >
+                            <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                        </p:outputLabel>
+
+
+                    </h:panelGrid>
+
+
+                    <p:dataTable value="#{contasReceberControle.listaContasReceber1s}" 
+                                 rendered="#{contasReceberControle.pessoa != null}" scrollable="true" scrollHeight="300"
+                                 emptyMessage="Não há registros!" var="grup" selection="#{contasReceberControle.listaPagamento}" 
+                                 rowKey="#{grup.id}" paginatorPosition="bottom"  style="text-align: center">
+
+                        <p:column selectionMode="multiple"  style="width:25px;text-align:center">
+                        </p:column>
+
+                        <p:column headerText="Cód. Conta" filterBy="#{grup.id}">
+                            <h:outputText value="#{grup.id}" style="color: red" rendered="#{contasReceberControle.aux1 > grup.dtVencimento}"/>
+                            <h:outputText value="#{grup.id}" rendered="#{grup.dtVencimento > contasReceberControle.aux1 }"/>
+                        </p:column>
+
+
+                        <p:column headerText="Vencimento">
+                            <h:outputText value="#{grup.dtVencimento}" style="color: red" rendered="#{contasReceberControle.aux1 > grup.dtVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{grup.dtVencimento}" rendered="#{grup.dtVencimento > contasReceberControle.aux1 }">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Cliente"  width="300"   filterStyle="min-width: 200px;">
+                            <h:outputText value="#{grup.pessoa.nome}" style="color: red" rendered="#{contasReceberControle.aux1 > grup.dtVencimento}"/>
+                            <h:outputText value="#{grup.pessoa.nome}" rendered="#{grup.dtVencimento > contasReceberControle.aux1 }"/>
+                        </p:column>
+
+                        <p:column headerText="Cód. Venda" filterBy="#{grup.venda.id}">
+                            <h:outputText value="#{grup.venda.id}" style="color: red" rendered="#{contasReceberControle.aux1 > grup.dtVencimento}"/>
+                            <h:outputText value="#{grup.venda.id}" rendered="#{grup.dtVencimento > contasReceberControle.aux1 }"/>
+                        </p:column>
+
+                        <p:column headerText="Valor">
+                            <h:outputText value="#{grup.valorPrincipal}" style="color: red" rendered="#{contasReceberControle.aux1 > grup.dtVencimento}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+
+                            <h:outputText value="#{grup.valorPrincipal}" rendered="#{grup.dtVencimento > contasReceberControle.aux1}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Restante">
+                            <h:outputText value="#{grup.restosAPagar}" style="color: red" rendered="#{contasReceberControle.aux1 > grup.dtVencimento}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+
+                            <h:outputText value="#{grup.restosAPagar}" rendered="#{grup.dtVencimento > contasReceberControle.aux1}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+
+                        <p:column headerText="Visualizar Venda"> 
+                            <p:commandButton value="Visualizar" 
+
+                                             action="#{relatorioControle.gerarReciboVenda(grup.venda.id)}"
+                                             ajax="false"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir essa movimento?'))
+                                        return false"
+                                           action="#{contasReceberControle.excluir(grup)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+
+
+                    </p:dataTable>
+                    <p:commandButton value="Adicionar uma nova conta" style="max-width: 250px; min-width: 250px; min-height: 20px; max-height: 20px"
+                                     action="#{contasReceberControle.novo()}"
+                                     ajax="false"/>
+
+                    <p:commandButton value="Receber" styleClass="GreenButton" rendered="#{contasReceberControle.pessoa != null}" actionListener="#{contasReceberControle.somaTotalSelecao()}" style="max-width: 250px; min-width: 250px; min-height: 20px; max-height: 20px" >
+                        <p:ajax  update="painelPagamento" delay="1"/>
+                    </p:commandButton> 
+
+
+                    <p:dialog header="Pagamento" id="do" widgetVar="form5" modal="true" height="250" width="900">
+                        <p:panelGrid columns="4" id="painelPagamento">
+                            <p:panel header="TOTAL" style="text-align: center">
+                                <p:inputText id="totalDivida" value="#{contasReceberControle.totalSelecao}" styleClass="Container80 Fnone MarAuto Fs18" style="color: black; text-align: center" readonly="true">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                                </p:inputText>
+                            </p:panel>
+                            <p:panel header="JUROS" style="text-align: center">
+                                <p:inputText id="juros" style="color: red; text-align: center" styleClass="Container80 Fnone MarAuto Fs18" value="#{contasReceberControle.jurosSelecao - contasReceberControle.totalSelecao}" readonly="true">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                                </p:inputText>
+                            </p:panel>
+
+                            <p:panel header="TOTAL COM JUROS" style="text-align: center">
+                                <p:inputText id="jurosTotal" style="color: blue; text-align: center" styleClass="Container80 Fnone MarAuto Fs18" value="#{contasReceberControle.jurosSelecao}" readonly="true">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                                </p:inputText>
+                            </p:panel>
+
+
+                            <p:panel header="VALOR RECEBIDO" style="text-align: center">
+                                <p:inputText id="pagamento" value="#{contasReceberControle.auxiliar}" 
+                                             style="color: black; text-align: center " styleClass="Container80 Fnone MarAuto Fs18">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+
+                                    <f:ajax event="change" listener="#{contasReceberControle.verificaOpcaoRecebimento()}"/>
+
+                                </p:inputText>
+
+
+
+                            </p:panel>
+
+                        </p:panelGrid>
+                        <h:panelGrid  columns="3" id="painel12Busca" style="text-align:center; background-position: center">
+
+                            <p:outputLabel value="Onde deseja lançar este crédito?" style="color: black"/>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="3" id="painelPagamento14">
+                            <h:panelGrid  columns="1" id="painelBu122sca" style="text-align:center; background-position: center">
+                                <p:selectOneRadio id="tipoCompra2" value="#{contasReceberControle.tipoDocumento}" style="color: black">
+                                    <f:selectItem itemLabel="DINHEIRO" itemValue="DINHEIRO"/>
+                                    <f:selectItem itemLabel="CARTÃO DÉBITO" itemValue="CARTÃO DÉBITO"/>
+                                    <f:selectItem itemLabel="CARTÃO CRÉDITO" itemValue="CARTÃO CRÉDITO"/>
+                                    <f:selectItem itemLabel="CHEQUE" itemValue="CHEQUE"/>
+                                    <f:selectItem itemLabel="CONTA BANCÁRIA" itemValue="CONTA BANCÁRIA"/>
+                                    <f:ajax event="change" render="check2 painelBu2sca cartao cartao1"/>
+
+                                </p:selectOneRadio>
+
+
+                                <h:panelGrid  columns="4" id="cartao" style="text-align:right; background-position: right">
+
+                                    <p:outputLabel value="Data Vencimento da Fatura:" style="color: black"
+                                                   rendered="#{contasReceberControle.tipoDocumento == 'CARTÃO CRÉDITO'}"/>
+                                    <p:calendar id="check12" value="#{contasReceberControle.dtVencimentoFatura}" 
+                                                rendered="#{contasReceberControle.tipoDocumento == 'CARTÃO CRÉDITO'}"/>
+
+
+                                    <p:outputLabel for="ban1" value="Bandeira:"  rendered="#{contasReceberControle.tipoDocumento == 'CARTÃO CRÉDITO'}" style="color: black"/>
+                                    <p:autoComplete id="ban1" rendered="#{contasReceberControle.tipoDocumento == 'CARTÃO CRÉDITO'}"
+                                                    completeMethod="#{bandeiraControle.autoComplete}"
+                                                    var="est"
+                                                    itemLabel="#{est.nome}"
+                                                    itemValue="#{est}"
+                                                    converter="#{bandeiraControle.converter()}"
+                                                    value="#{contasReceberControle.bandeira}"
+                                                    queryDelay="500"
+                                                    dropdown="true"
+                                                    style="margin-right: 30px;"
+                                                    >
+
+                                    </p:autoComplete>
+
+
+                                </h:panelGrid>
+
+
+                                <h:panelGrid  columns="2" id="cartao1" style="text-align:right; background-position: right">
+
+                                    <p:outputLabel for="ban11" value="Bandeira:"  rendered="#{contasReceberControle.tipoDocumento == 'CARTÃO DÉBITO'}"/>
+                                    <p:autoComplete id="ban11" rendered="#{contasReceberControle.tipoDocumento == 'CARTÃO DÉBITO'}"
+                                                    completeMethod="#{bandeiraControle.autoComplete}"
+                                                    var="est"
+                                                    itemLabel="#{est.nome}"
+                                                    itemValue="#{est}"
+                                                    converter="#{bandeiraControle.converter()}"
+                                                    value="#{contasReceberControle.bandeira}"
+                                                    queryDelay="500"
+                                                    dropdown="true"
+                                                    style="margin-right: 30px;"
+                                                    >
+
+                                    </p:autoComplete>
+
+
+                                </h:panelGrid>
+
+
+
+
+                                <h:panelGrid  columns="1" id="painelBu2sca" style="text-align:center; background-position: center">
+                                    <p:autoComplete id="conta" rendered="#{contasReceberControle.tipoDocumento == 'CONTA BANCÁRIA'}"
+                                                    completeMethod="#{contaBancariaControle.autoComplete}"
+                                                    var="est" size="30"
+                                                    itemLabel="#{est.nome}"
+                                                    itemValue="#{est}"
+                                                    converter="#{contaBancariaControle.converter()}"
+                                                    value="#{contasReceberControle.contaBancaria}"
+                                                    queryDelay="500"
+                                                    dropdown="true"
+                                                    style="margin-right: 30px;"
+                                                    >
+
+                                    </p:autoComplete>
+
+                                </h:panelGrid>
+
+
+
+
+
+                                <h:panelGrid  columns="7" id="check2" style="text-align:right; background-position: right">
+
+                                    <p:outputLabel for="caixa" value="Banco:" rendered="#{contasReceberControle.tipoDocumento == 'CHEQUE'}"/>
+                                    <p:selectOneMenu id="caixa" requiredMessage="O Banco é obrigatório" rendered="#{contasReceberControle.tipoDocumento == 'CHEQUE'}"
+                                                     value="#{contasReceberControle.banco}" 
+                                                     converter="#{bancoControle.converter()}">
+
+                                        <f:selectItem itemLabel="-- Selecione --"
+                                                      itemValue="0"/>
+
+                                        <f:selectItems value="#{bancoControle.listaBancos}"
+                                                       var="grup"
+                                                       itemLabel="#{grup.nome}"
+                                                       itemValue="#{grup}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="N° Cheque" style="color: black" rendered="#{contasReceberControle.tipoDocumento == 'CHEQUE'}"/>
+                                    <p:inputText id="check" value="#{contasReceberControle.numeroDoc}" 
+                                                 rendered="#{contasReceberControle.tipoDocumento == 'CHEQUE'}"/>
+                                    <p:outputLabel  value="Data de Vencimento:" style="color: black" rendered="#{contasReceberControle.tipoDocumento == 'CHEQUE'}"/>
+                                    <p:calendar id="check1" value="#{contasReceberControle.dtVencimentoFatura}" 
+                                                rendered="#{contasReceberControle.tipoDocumento == 'CHEQUE'}"/>
+
+                                </h:panelGrid>
+                                <br/>
+
+                                <h:panelGrid columns="4">
+
+                                    <p:outputLabel value=""/>
+                                    <!--<p:commandButton value="RECEBER"  style="max-width: 250px; min-width: 250px; min-height: 20px; max-height: 20px" onclick="PF('confirma').show();" />-->
+                                    <p:commandButton value="CANCELAR"  style="max-width: 250px; min-width: 250px; min-height: 20px; max-height: 20px" styleClass="OrangeButton" onclick="PF('form5').close();"/>
+                                    <p:outputLabel value=""/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+
+                        </h:panelGrid> 
+
+
+
+                    </p:dialog>
+
+                    <p:dialog header="Confirmação" widgetVar="confirma" modal="true" height="100" width="300">
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Confirme a data de lançamento" for="dtmovi"/>
+                            <p:calendar id="dtmovi" mask="true" style="text-align: center" value="#{contasReceberControle.dtPagamentoSelecao}"
+                                        pattern="dd/MM/yyyy" showOn="false"
+                                        />
+                        </h:panelGrid>
+                        <br/>
+                        <h:panelGrid columns="2" >
+                            <p:commandButton value="RECEBER "  action="#{contasReceberControle.salvar12()}" />
+                            <p:commandButton value="CANCELAR"  styleClass="OrangeButton" onclick="PF('confirma').close();"/>
+                        </h:panelGrid>
+                    </p:dialog>   
+
+                    <p:dialog header="Confirmação" widgetVar="confirmaMaior" modal="true" height="120" width="300">
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel value="Confirma o valor restante como juros?" style="color: black"/>
+                            <p:selectOneRadio id="tipoCompra" value="#{contasReceberControle.confirmaOpcaoDeJuros}">
+                                <f:selectItem itemLabel="JUROS" itemValue="JUROS"/>
+                            </p:selectOneRadio>
+
+                        </h:panelGrid>
+                        <br/>
+                        <h:panelGrid columns="2" >
+
+                            <p:commandButton value="CONFIRMA" onclick="PF('confirma').show();" />
+                            <p:commandButton value="CANCELA" styleClass="OrangeButton"  onclick="PF('confirmaMaior').close();"/>
+
+                        </h:panelGrid>
+                    </p:dialog>   
+
+                    <p:dialog header="Confirmação" widgetVar="confirmaMenor" modal="true" height="120" width="350">
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel value="Confirma a diferença!" style="color: black"/>
+                            <p:selectOneRadio id="tipoCompra23" value="#{contasReceberControle.confirmaOpcaoDeRecebimento}">
+                                <f:selectItem itemLabel="DESCONTO" itemValue="DESCONTO"/>
+                                <f:selectItem itemLabel="BAIXA PARCIAL" itemValue="BAIXAPARCIAL"/>
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                        <br/>
+                        <h:panelGrid columns="2" >
+
+                            <p:commandButton value="CONFIRMA" onclick="PF('confirma').show();" />
+                            <p:commandButton value="CANCELA" styleClass="OrangeButton" onclick="PF('confirmaMenor').close()();"/>
+
+                        </h:panelGrid>
+                    </p:dialog>   
+
+                </p:panel>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

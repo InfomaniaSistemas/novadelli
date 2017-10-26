@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Formulário para gerenciamento de Contas Bancárias">
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{contaBancariaControle.contaBancaria.id}" disabled="true"/>
+
+
+                        <p:outputLabel for="nome" value="Nome:"/>
+                        <p:inputText id="nome" value="#{contaBancariaControle.contaBancaria.nome}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo nome é obrigatório"/>
+
+                        <p:outputLabel for="numConta" value="N° da Conta:"/>
+                        <p:inputText id="numConta" value="#{contaBancariaControle.contaBancaria.numero}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo número da conta é obrigatório"/>
+
+                        <p:outputLabel for="agen" value="Agência:"/>
+                        <p:inputText id="agen" value="#{contaBancariaControle.contaBancaria.agencia}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo agência é obrigatório"/>
+
+                        <p:outputLabel for="titu" value="Titular:"/>
+                        <p:inputText id="titu" value="#{contaBancariaControle.contaBancaria.titular}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo titular é obrigatório"/>
+
+                        <p:outputLabel for="banco" value="Banco:"/>
+                        <p:autoComplete id="banco" required="true" requiredMessage="O Banco é obrigatório!"
+                                        completeMethod="#{bancoControle.autoComplete}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{bancoControle.converter()}"
+                                        value="#{contaBancariaControle.contaBancaria.banco}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{contaBancariaControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

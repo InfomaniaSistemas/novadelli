@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Formulário para Ajuste de Estoque">
+
+                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                        <p:selectOneRadio value="#{vendaControle.tipo}">
+                            <f:selectItem itemLabel="Pesquisar por nome" itemValue="nome" />
+                            <f:selectItem itemLabel="Pesquisar por cód. barras" itemValue="cod"/>
+                            <f:selectItem itemLabel="Pesquisar por cód. Fornecedor" itemValue="codFor"/>
+                            <f:ajax event="change" 
+                                    render="painelItem"/>
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+                    <h:panelGrid id="painelItem" columns="2"  style="margin-bottom:10px" cellpadding="5">
+                        <p:outputLabel for="produto1" value="Produto:"  rendered="#{vendaControle.tipo == 'cod'}" />
+                        <p:autoComplete id="produto1" rendered="#{vendaControle.tipo == 'cod'}" size="100"
+                                        completeMethod="#{produtoControle.autoComplete}"
+                                        var="prod"
+                                        itemLabel="#{prod.nome}"
+                                        itemValue="#{prod.id.toString()}"
+                                        converter="#{produtoControle.converter()}"
+                                        value="#{ajusteEstoqueControle.ajusteEstoque.produto}"
+                                        queryDelay="500"
+                                        dropdown="true" scrollHeight="350"
+                                        style="margin-right: 30px;">
+                            <f:facet name="itemtip">
+                                <h:panelGrid columns="2" cellpadding="5">
+
+                                    <h:outputText value="Marca:" />
+                                    <h:outputText style="color: blue" value="#{prod.marca.nome}" />
+
+                                    <h:outputText value="Aplicação:" />
+                                    <h:outputText style="color: #000000" value="#{prod.letra}" />
+
+                                    <h:outputText value="Posição:" />
+                                    <h:outputText style="color: #000000" value="#{prod.numeroPosicao}" />
+
+
+                                    <h:outputText value="Estoque:" />
+                                    <h:outputText style="color: #000000" value="#{prod.estoque}" />
+
+                                    <h:outputText value="Preço a vista" />
+                                    <h:outputText style="color: green" value="#{prod.valorVendaAvista}" >
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                    <h:outputText value="Preço a prazo" />
+                                    <h:outputText style="color: green" value="#{prod.valorVendaPrazo}">
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+
+                        </p:autoComplete>
+
+
+                        <p:outputLabel for="produto" value="Produto:"  rendered="#{vendaControle.tipo == 'nome'}"/>
+                        <p:autoComplete id="produto" rendered="#{vendaControle.tipo == 'nome'}" size="100"
+                                        completeMethod="#{produtoControle.autoCompleteNome}"
+                                        var="prod"
+                                        itemLabel="#{prod.nome}"
+                                        itemValue="#{prod.id.toString()}"
+                                        converter="#{produtoControle.converter()}"
+                                        value="#{ajusteEstoqueControle.ajusteEstoque.produto}"
+                                        queryDelay="500"
+                                        dropdown="true" scrollHeight="350"
+                                        style="margin-right: 30px;">
+                            <f:facet name="itemtip">
+                                <h:panelGrid columns="2" cellpadding="5">
+
+                                    <h:outputText value="Marca:" />
+                                    <h:outputText style="color: blue" value="#{prod.marca.nome}" />
+
+                                    <h:outputText value="Estoque:" />
+                                    <h:outputText style="color: #000000" value="#{prod.estoque}" />
+
+                                    <h:outputText value="Preço a vista" />
+                                    <h:outputText style="color: green" value="#{prod.valorVendaAvista}" >
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                    <h:outputText value="Preço a prazo" />
+                                    <h:outputText style="color: green" value="#{prod.valorVendaPrazo}">
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+
+
+                        </p:autoComplete>
+
+                        <p:outputLabel for="produto2" value="Produto:"  rendered="#{vendaControle.tipo == 'codFor'}"/>
+                        <p:autoComplete id="produto2" rendered="#{vendaControle.tipo == 'codFor'}" size="100"
+                                        completeMethod="#{produtoControle.autoCompleteFor}"
+                                        var="prod"
+                                        itemLabel="#{prod.nome}"
+                                        itemValue="#{prod.id.toString()}"
+                                        converter="#{produtoControle.converter()}"
+                                        value="#{ajusteEstoqueControle.ajusteEstoque.produto}"
+                                        queryDelay="500"
+                                        dropdown="true" scrollHeight="350"
+                                        style="margin-right: 30px;">
+                            <f:facet name="itemtip">
+                                <h:panelGrid columns="2" cellpadding="5">
+
+                                    <h:outputText value="Marca:" />
+                                    <h:outputText style="color: blue" value="#{prod.marca.nome}" />
+
+                                    <h:outputText value="Estoque:" />
+                                    <h:outputText style="color: #000000" value="#{prod.estoque}" />
+
+                                    <h:outputText value="Preço a vista" />
+                                    <h:outputText style="color: green" value="#{prod.valorVendaAvista}" >
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                    <h:outputText value="Preço a prazo" />
+                                    <h:outputText style="color: green" value="#{prod.valorVendaPrazo}">
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                </h:panelGrid>
+                            </f:facet>
+
+                        </p:autoComplete>
+
+
+
+                        <p:outputLabel for="qtd" value="Quantidade:"/>
+                        <p:inputText id="qtd" value="#{ajusteEstoqueControle.ajusteEstoque.qtdAtual}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="tipo" value="Tipo:"/>
+                        <p:selectOneRadio id="tipo" 
+                                          value="#{ajusteEstoqueControle.ajusteEstoque.tipo}">
+
+                            <f:selectItem itemLabel="Entrada" itemValue="ENTRADA"/>
+                            <f:selectItem itemLabel="Saída" itemValue="SAIDA"/>
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="obs1" value="Observação:"/>
+                        <p:inputTextarea id="obs1" autoResize="false" required="true"
+                                         cols="30" rows="5" value="#{ajusteEstoqueControle.ajusteEstoque.obs}" style="text-transform: uppercase" />
+
+                    </h:panelGrid>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{ajusteEstoqueControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Voltar"
+                                         action="/produto/list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

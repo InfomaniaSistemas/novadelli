@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="conteudo">
+
+
+        <br/>
+        <h:form id="form">
+            <p:selectOneRadio id="valida" value="#{relatorioControle.validaCliente}">
+                <f:selectItem itemLabel="Pessoa Jurídica" itemValue="juridica"/>
+                <f:selectItem itemLabel="Pessoa Física" itemValue="fisica"/>
+                <f:ajax event="change" 
+                        render ="painel" />
+            </p:selectOneRadio>
+            <p:panelGrid id="painel" columns="2">
+                <p:outputLabel for="cliente" value="Cliente" />
+                <p:autoComplete id="cliente" required="true" 
+                                completeMethod="#{pessoaControle.autoComplete}"
+                                var="cli" size="35"
+                                itemLabel="#{cli.nome}"
+                                itemValue="#{cli}"
+                                converter="#{pessoaControle.converter()}"
+                                value="#{relatorioControle.cliente}"
+                                queryDelay="500"
+                                dropdown="true"
+                                style="margin-right: 30px;"/>
+                <p:commandButton ajax="false" value="Gerar" id="b1" rendered="#{relatorioControle.validaCliente=='fisica'}" action="#{relatorioControle.limpaCli()}" actionListener="#{relatorioControle.fichaCliente()}"/>
+
+                <p:commandButton ajax="false" value="Gerar" id="b11" 
+                                 rendered="#{relatorioControle.validaCliente=='juridica'}" action="#{relatorioControle.limpaCli()}" actionListener="#{relatorioControle.fichaClientePJ()}" />
+                <p:commandButton value="Voltar"
+                                 action="/pessoa/list.xhtml"
+                                 immediate="true"
+                                 ajax="false"/>
+
+
+
+            </p:panelGrid>
+
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lista de Taxas de Juros">
+                    <p:dataTable value="#{taxaJurosControle.listaTaxaJuross}" emptyMessage="Não há registros!" paginator="true" var="item" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                        <p:column headerText="ID">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Taxa" filterBy="#{item.taxa}">
+                            #{item.taxa}
+                        </p:column>
+
+
+                        <p:column headerText="Editar">
+
+                            <p:commandLink title="Editar Registro"
+                                           actionListener="#{taxaJurosControle.setTaxaJuros(item)}"
+                                           action="form?faces-redirect=true"
+                                           ajax="false">
+                                <i class="icon-edit-1"/>
+                            </p:commandLink>
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro"
+                                           action="#{taxaJurosControle.excluir(item)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                    
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

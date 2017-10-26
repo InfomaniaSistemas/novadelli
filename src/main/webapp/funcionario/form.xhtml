@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+                <p:panel header="Formulário para gerenciamento de Funcionário">
+
+                    <p:focus for="nome"/>
+
+                    <p:panelGrid id="painel" columns="2">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{funcionarioControle.funcionario.id}" disabled="true"/>
+
+                        <p:outputLabel for="dtAdmicao" value="Data de Admissão" 
+                                       />
+                        <p:calendar id="dtAdmicao" value="#{funcionarioControle.funcionario.dtAdmicao}"
+                                    required="true" requiredMessage="O campo Data de nascimento é obrigatório"
+                                    pattern="dd/MM/yyyy"
+                                    mask="true"
+                                    />
+
+
+                        <p:outputLabel for="nome" value="Nome:"/>
+                        <p:inputText id="nome" value="#{funcionarioControle.funcionario.nome}" size="40" style="text-transform: uppercase"
+                                     required="true" requiredMessage="O campo Nome é obrigatório"/>
+
+                        <p:outputLabel for="cpf" value="CPF:"/>
+                        <p:inputMask mask="999.999.999-99" id="cpf" value="#{funcionarioControle.funcionario.cpf}"
+                                     required="true" requiredMessage="O campo CPF é obrigatório"
+                                     />
+
+
+
+                        <p:outputLabel for="rg" value="RG:" />
+                        <p:inputText id="rg" value="#{funcionarioControle.funcionario.rg}"
+
+                                     />
+
+
+
+
+                        <p:outputLabel for="dtNascimento" value="Data de nascimento:" 
+                                       />
+                        <p:calendar id="dtNascimento" value="#{funcionarioControle.funcionario.nascimento}"
+                                    mask="true"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+                        <p:outputLabel for="sexo" value="Sexo:" 
+                                       />
+
+                        <p:selectOneRadio id="sexo" value="#{funcionarioControle.funcionario.sexo}"
+                                          >
+
+                            <f:selectItem itemLabel="Masculino" itemValue="Masculino"/>
+                            <f:selectItem itemLabel="Feminino" itemValue="Feminino"/>
+
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="pis" value="PIS:" />
+                        <p:inputText id="pis" value="#{funcionarioControle.funcionario.pis}"
+
+                                     />
+
+
+
+                        <p:outputLabel for="email" value="E-mail:" />
+                        <p:inputText id="email" value="#{funcionarioControle.funcionario.email}"/>
+
+                        <p:outputLabel for="fone" value="Fone:" />
+                        <p:inputMask mask="(99)9999-9999" id="fone" value="#{funcionarioControle.funcionario.fone}"
+                                     />
+
+                        <p:outputLabel for="cel" value="Celular:" />
+                        <p:inputMask mask="(99)9999-9999" id="cel" value="#{funcionarioControle.funcionario.celular}"
+                                     />
+
+                        <p:outputLabel for="endereco" value="Endereço:" />
+                        <p:inputText id="endereco" value="#{funcionarioControle.funcionario.endereco}" style="text-transform: uppercase"
+
+                                     />
+
+
+                        <p:outputLabel for="numero" value="N°:" />
+
+                        <p:inputText id="numero" value="#{funcionarioControle.funcionario.numero}"
+                                     size="5"
+                                     />
+
+                        <p:outputLabel for="cep" value="CEP" />
+                        <p:inputMask mask="99999-999" id="cep"  size="10" value="#{funcionarioControle.funcionario.bairro}" style="text-transform: uppercase"
+                                     />
+
+                        <p:outputLabel for="bairro" value="Bairro:" />
+                        <p:inputText id="bairro" value="#{funcionarioControle.funcionario.bairro}" style="text-transform: uppercase"
+                                     size="40"
+                                     />
+
+
+
+
+                        <p:outputLabel for="b1" value="Novo Cargo:"/>
+                        <p:commandButton id ="b1" value="Gerenciar Cargo" onclick="PF('modal1').show();"/>
+
+                        <p:outputLabel for="cargo" value="Cargo:"/>
+                        <p:autoComplete id="cargo" required="true" requiredMessage="O Cargo é obrigatório!"
+                                        completeMethod="#{cargoControle.autoComplete(query)}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est.id.toString()}"
+                                        converter="#{cargoControle.converter()}"
+                                        value="#{funcionarioControle.funcionario.cargo}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+
+
+                        <p:outputLabel for="b" value="Nova Cidade:"/>
+                        <p:commandButton id ="b" value="Gerenciar Cidade" onclick="PF('modal').show();"/>
+
+                        <p:outputLabel for="cidade" value="Cidade:"/>
+                        <p:autoComplete id="cidade" required="true" requiredMessage="A Cidade é obrigatório!"
+                                        completeMethod="#{cidadeControle.autoComplete}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est.id.toString()}"
+                                        converter="#{cidadeControle.converter()}"
+                                        value="#{funcionarioControle.funcionario.cidade}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        scrollHeight="350"
+                                        style="margin-right: 30px;"/>
+
+
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{funcionarioControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+                <p:dialog header="Novo Cidade" widgetVar="modal">
+                    <iframe src="#{request.contextPath}/cidade/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:cidade"/>
+                </p:dialog>
+
+                <p:dialog header="Novo Cargo" widgetVar="modal1">
+                    <iframe src="#{request.contextPath}/cargo/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:cargo"/>
+                </p:dialog>
+
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

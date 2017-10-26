@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+
+
+                <p:tabView id="tab" activeIndex="0"  orientation="top" effect="fade" effectDuration="fast">
+                    <p:tab title="Movimentação Financeira" disabled="false">
+
+
+                        <h:panelGrid  columns="14" style="margin-bottom:10px" cellpadding="5">
+
+
+                            <p:outputLabel value="ENTRADAS:" style="color: black"/>
+                            <p:outputLabel value="#{lancamentoCaixaControle.getCreditoEntrada()}" style="color: green" id="valo1rTotal11">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+
+                            <p:outputLabel value="SAÍDAS:" style="color: black"/>
+                            <p:outputLabel value="#{lancamentoCaixaControle.getCreditoSaida()}" style="color: red" id="valo1rTotal111">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+
+                            <p:outputLabel value="TOTAL NO DIA:" style="color: black"/>
+                            <p:outputLabel value="#{lancamentoCaixaControle.saldo()}" style="color: blue" id="valorTo11tal11">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+                            <p:outputLabel value="SALDO ANTERIOR:" style="color: black"/>
+                            <p:outputLabel value="#{lancamentoCaixaControle.saldoAteDia()}" style="color: green" id="valorTot1al11">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+
+                            <p:outputLabel for="dtNota" value="DATA:"/>
+                            <p:calendar id="dtNota" value="#{lancamentoCaixaControle.aux1}" size="11"
+                                        pattern="dd/MM/yyyy">
+                            </p:calendar>
+
+
+                            <p:commandButton value="Ok" ajax="false" actionListener="#{lancamentoCaixaControle.validaLista()}" update="tabela valorTotal valorTotal1 valorTotal11"/>
+
+
+                            <p:outputLabel value="SALDO TOTAL EM CAIXA:"  />
+                            <p:outputLabel value="#{lancamentoCaixaControle.getSaldoTotal()}" style="color: black" id="saldoTotal1">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+                        </h:panelGrid>
+                        <p:dataTable id="tabelaConta" value="#{lancamentoCaixaControle.lancamentoDia}" emptyMessage="Não há registros!" 
+                                     paginator="true" var="item" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                            <p:column headerText="ENTRADA" style="color: blue" filterBy="#{item.lacamentoEntrada}">
+                                <p:outputLabel value="#{item.lacamentoEntrada}" rendered="#{item.lacamentoEntrada > 0}" style="color: blue">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+                            <p:column headerText="SAÍDA" style="color: red" filterBy="#{item.lacamentoSaida}">
+                                <p:outputLabel value="#{item.lacamentoSaida}" rendered="#{item.lacamentoSaida > 0}" style="color: red">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="CLIENTE" filterBy="#{item.pessoa.nome}" width="400" filterStyle="min-width: 200px;">
+                                #{item.pessoa.nome}
+                            </p:column>
+
+                            <p:column headerText="TIPO" filterBy="#{item.documento}">
+                                #{item.documento}
+                            </p:column>
+
+                            <p:column headerText="OBS." style="color: black" filterBy="#{item.obs}">
+                                #{item.obs}
+                            </p:column>
+
+
+
+                        </p:dataTable>
+                        <p:commandButton value="Novo lançamento" 
+                                         action="#{lancamentoCaixaControle.novo()}"
+                                         ajax="false"
+                                         />
+                    </p:tab>
+
+
+                    <p:tab title="Movimentação Cheque" disabled="false">
+                        <h:panelGrid  columns="10" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="valorcheque" value="VALOR A RECEBER DE CLIENTES:"  />
+                            <p:outputLabel id="valorcheque" value="#{chequeControle.getCreditoEntrada()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+                            
+                            <p:outputLabel for="valorcheque1" value="VALOR A PAGAR FORNECEDORES"  />
+                            <p:outputLabel id="valorcheque1" value="#{chequeControle.getCreditoSaida()}" style="color: red">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+
+                        </h:panelGrid>
+
+                        <p:dataTable id="tabelaCheque" value="#{chequeControle.listaCheques}" emptyMessage="Não há registros!" 
+                                     paginator="true" var="item" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                            <p:column headerText="CLIENTE" filterBy="#{item.pessoa.nome}" width="250" filterStyle="min-width: 170px;">
+                                #{item.pessoa.nome}
+                            </p:column>
+
+                            <p:column headerText="ENTRADA" width="100" >
+                                <p:outputLabel value="#{item.valor}" rendered="#{item.valor > 0}" style="color: blue">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+
+                            <p:column headerText="SAÍDA"  width="100">
+                                <p:outputLabel value="#{item.valorSaida}" rendered="#{item.valorSaida > 0}" style="color: red">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+
+                            <p:column headerText="N° CHEQUE" filterBy="#{item.numeroCheque}">
+                                #{item.numeroCheque}
+                            </p:column>
+
+                            <p:column headerText="COD. V." filterBy="#{item.venda.id}" width="70" filterStyle="max-width: 30px;">
+                                #{item.venda.id}
+                            </p:column>
+
+                            <p:column headerText="MOVIMENTO"  filterBy="#{item.dtmovimento}">
+                                <h:outputText value="#{item.dtmovimento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="VENCIMENTO"  filterBy="#{item.dtvencimento}">
+                                <h:outputText value="#{item.dtvencimento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="BANCO"  filterBy="#{item.banco.nome}">
+                                #{item.banco.nome}
+                            </p:column>
+                            
+                            <p:column headerText="OBS"  filterBy="#{item.obs}">
+                                #{item.obs}
+                            </p:column>
+
+                            <p:column headerText="DEBITAR" width="50">
+                                <p:commandLink title="Debitar cheque" onclick="PF('form8').show();" 
+                                               actionListener="#{chequeControle.setCheque(item)}"
+                                               >
+                                    <i class=" icon-down-big"/>
+                                </p:commandLink>
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:commandButton value="Novo lançamento" 
+                                         action="#{chequeControle.novo()}"
+                                         ajax="false"
+                                         />
+
+
+                    </p:tab>
+
+                    <p:tab title="Movimentação Cartão de Crédito" disabled="false">
+
+
+                        <h:panelGrid  columns="10" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="valorcartaoc" value="VALOR A DEBITAR NO DIA:"  />
+                            <p:outputLabel id="valorcartaoc" value="#{cartaoCreditoControle.getCreditoEntrada()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+                            <p:outputLabel for="valorcdia" value="TOTAL DE ENTRADA NO DIA:"  />
+                            <p:outputLabel id="valorcdia" value="#{cartaoCreditoControle.getCreditoEntradaNoDia()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+                            <p:outputLabel for="valorctotal" value="TOTAL A DEBITAR:"  />
+                            <p:outputLabel id="valorctotal" value="#{cartaoCreditoControle.getCreditoEntradaGeral()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+
+                        </h:panelGrid>
+
+
+                        <p:dataTable id="tabelaCartaoCredito" value="#{cartaoCreditoControle.listaPorDia}" emptyMessage="Não há registros!" 
+                                     paginator="true" var="item" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                            <p:column headerText="CLIENTE" filterBy="#{item.pessoa.nome}" width="330" filterStyle="min-width: 200px;">
+                                #{item.pessoa.nome}
+                            </p:column>
+
+                            <p:column headerText="ENTRADA" width="90">
+                                <p:outputLabel value="#{item.valor}" rendered="#{item.valor> 0}" style="color: blue">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+
+
+                            <p:column headerText="SAÍDA" width="90" >
+                                <p:outputLabel value="#{item.valorSaida}" rendered="#{item.valorSaida > 0}" style="color: red">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+
+
+
+                            <p:column headerText="COD. VENDA" filterBy="#{item.venda.id}">
+                                #{item.venda.id}
+                            </p:column>
+
+                            <p:column headerText="DT MOVIMENTO"  filterBy="#{item.dtmovimento}">
+                                <h:outputText value="#{item.dtmovimento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="DT VENCIMENTO"  filterBy="#{item.dtvencimento}">
+                                <h:outputText value="#{item.dtvencimento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="BANDEIRA"  filterBy="#{item.bandeira.nome}">
+                                #{item.bandeira.nome}
+                            </p:column>
+
+
+
+
+                            <p:column headerText="SITUAÇÃO"  filterBy="#{item.situacao}">
+                                #{item.situacao}
+                            </p:column>
+                            <p:column headerText="DEBITAR" width="50">
+                                <p:commandLink title="Debitar cartão"  onclick="PF('form9').show();" 
+                                               actionListener="#{cartaoCreditoControle.setCartaoCredito(item)}"
+                                               >
+                                    <i class=" icon-down-big"/>
+                                </p:commandLink>
+                            </p:column>
+
+
+                        </p:dataTable>
+
+
+
+                    </p:tab>
+
+                    <p:tab title="Movimentação Cartão de Débito" disabled="false">
+
+
+                        <h:panelGrid  columns="10" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="valorcartaod" value="VALOR A DEBITAR NO DIA:"  />
+                            <p:outputLabel id="valorcartaod" value="#{cartaoDebitoControle.getCreditoEntrada()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+                            <p:outputLabel for="valorddia" value="TOTAL DE ENTRADA NO DIA:"  />
+                            <p:outputLabel id="valorddia" value="#{cartaoDebitoControle.getCreditoEntradaNoDia()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+                            <p:outputLabel for="valordtotal" value="TOTAL A DEBITAR:"  />
+                            <p:outputLabel id="valordtotal" value="#{cartaoDebitoControle.getCreditoEntradaGeral()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+
+                        </h:panelGrid>
+
+
+                        <p:dataTable id="tabelaCartaoDebito" value="#{cartaoDebitoControle.listadia}" emptyMessage="Não há registros!" 
+                                     paginator="true" var="item" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                            <p:column headerText="CLIENTE" filterBy="#{item.pessoa.nome}" width="400" filterStyle="min-width: 200px;">
+                                #{item.pessoa.nome}
+                            </p:column>
+
+                            <p:column headerText="ENTRADA" filterBy="#{item.valor}">
+                                <p:outputLabel value="#{item.valor}" rendered="#{item.valor > 0}" style="color: blue">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+
+                            <p:column headerText="SAÍDA" filterBy="#{item.valorSaida}" >
+                                <p:outputLabel value="#{item.valorSaida}" rendered="#{item.valorSaida > 0}" style="color: red">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+
+
+
+                            <p:column headerText="COD. VENDA" filterBy="#{item.venda.id}">
+                                #{item.venda.id}
+                            </p:column>
+
+                            <p:column headerText="DT MOVIMENTO"  filterBy="#{item.dtmovimento}">
+                                <h:outputText value="#{item.dtmovimento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="BANDEIRA"  filterBy="#{item.bandeira.nome}">
+                                #{item.bandeira.nome}
+                            </p:column>
+                            <p:column headerText="SITUAÇÃO"  filterBy="#{item.situacao}">
+                                #{item.situacao}     
+                            </p:column>
+                            <p:column headerText="DEBITAR">
+                                <p:commandLink title="Debitar cartão"  onclick="PF('form10').show();"  
+                                               actionListener="#{cartaoDebitoControle.setCartaoDebito(item)}"
+
+                                               >
+                                    <i class=" icon-down-big"/>
+                                </p:commandLink>
+                            </p:column>
+
+
+                        </p:dataTable>
+
+
+                    </p:tab>
+
+
+
+                    <p:tab title="Movimentação Bancária" disabled="false">
+
+
+                        <h:panelGrid id="painelBanco" columns="10" style="margin-bottom:10px" cellpadding="5">
+
+
+                            <p:outputLabel for="conta" value="Conta:"/>
+                            <p:autoComplete id="conta" 
+                                            completeMethod="#{contaBancariaControle.autoComplete}"
+                                            var="est"
+                                            itemLabel="#{est.nome}"
+                                            itemValue="#{est}"
+                                            converter="#{contaBancariaControle.converter()}"
+                                            value="#{lancamentoContaControle.contaBancaria}"
+                                            queryDelay="500"
+                                            dropdown="true"
+                                            style="margin-right: 30px;"
+                                            >
+
+                            </p:autoComplete>
+
+
+                            <p:outputLabel for="valorcb" value="SALDO DO DIA"  />
+                            <p:outputLabel id="valorcb" value="#{lancamentoContaControle.getSaldo()}" style="color: #1578c9">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+                            <p:outputLabel for="dtCb" value="DATA:"/>
+                            <p:calendar id="dtCb" value="#{lancamentoContaControle.aux1}" size="11"
+                                        pattern="dd/MM/yyyy">
+                            </p:calendar>
+
+                            <p:outputLabel value="SALDO TOTAL NA CONTA:"  />
+                            <p:outputLabel value="#{lancamentoContaControle.getSaldoTotal()}" style="color: black" id="saldoTotal122">
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                            </p:outputLabel>
+
+
+                            <p:commandButton value="Ok" ajax="false" actionListener="#{lancamentoContaControle.validaLista()}" update="tabelaConta valorcb"/>
+                        </h:panelGrid>
+
+
+
+                        <p:dataTable id="tabelaContaBancaria" value="#{lancamentoContaControle.lancamentoDia}" emptyMessage="Não há registros!" 
+                                     paginator="true" var="item" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+
+                            <p:column headerText="CLIENTE" filterBy="#{item.pessoa.nome}" width="500" filterStyle="min-width: 200px;">
+                                #{item.pessoa.nome}
+                            </p:column>
+
+                            <p:column headerText="ENTRADA" style="color: blue" filterBy="#{item.lacamentoEntrada}">
+                                <p:outputLabel value="#{item.lacamentoEntrada}" rendered="#{item.lacamentoEntrada > 0}" style="color: blue">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+
+                            </p:column>
+                            <p:column headerText="SAÍDA" style="color: red" filterBy="#{item.lacamentoSaida}">
+                                <p:outputLabel value="#{item.lacamentoSaida}" rendered="#{item.lacamentoSaida > 0}" style="color: red">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </p:outputLabel>
+                            </p:column>
+
+
+
+                            <p:column headerText="DT MOVIMENTO"  filterBy="#{item.dtEntrada}">
+                                <h:outputText value="#{item.dtEntrada}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+
+                            </p:column>
+
+                            <p:column headerText="DOCUMENTO"  filterBy="#{item.documento}">
+                                #{item.documento}
+                            </p:column>
+
+                            <p:column headerText="OBS" style="color: black" filterBy="#{item.obs}">
+                                #{item.obs}
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton value="Novo lançamento" 
+                                         action="#{lancamentoContaControle.novo()}"
+                                         ajax="false"
+                                         />
+                    </p:tab>
+
+
+
+
+                </p:tabView>
+
+                <p:dialog header="Débito em conta"  widgetVar="form8" modal="true" height="150" width="300">
+                    <h:panelGrid  columns="3" id="painelBusca" style="text-align:center; background-position: center">
+
+                        <p:outputLabel for="tipoCompra" value="Onde deseja debitar?" style="color: black"/>
+                    </h:panelGrid>
+                    <h:panelGrid  columns="1" id="painelBu2sca" style="text-align:center; background-position: center">
+                        <p:selectOneRadio id="tipoCompra" value="#{chequeControle.valida}">
+                            <f:selectItem itemLabel="Conta Caixa" itemValue="Conta Caixa"/>
+                            <f:selectItem itemLabel="Conta Bancária" itemValue="Conta Bancária"/>
+
+                            <p:ajax event="change" update="painelBu2sca"/>
+
+                        </p:selectOneRadio>
+
+                        <p:autoComplete id="conta" rendered="#{chequeControle.valida == 'Conta Bancária'}"
+                                        completeMethod="#{contaBancariaControle.autoComplete}"
+                                        var="est" size="30"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{contaBancariaControle.converter()}"
+                                        value="#{chequeControle.contaBancaria}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"
+                                        >
+
+                        </p:autoComplete>
+
+                        <br/>
+                        <p:commandButton value="Confirmar" action="#{chequeControle.debitar()}" onclick="PF('form8').close();"/>
+
+                    </h:panelGrid>
+
+
+                </p:dialog>
+
+                <p:dialog header="Débito em conta"  widgetVar="form9" modal="true" height="150" width="300">
+                    <h:panelGrid  columns="3" id="painelBusc123a" style="text-align:center; background-position: center">
+
+                        <p:outputLabel for="tipoCompra" value="Onde deseja debitar?" style="color: black"/>
+                    </h:panelGrid>
+                    <h:panelGrid  columns="1" id="pai1232nelBu2sca" style="text-align:center; background-position: center">
+                        <p:selectOneRadio id="tipoCompra1" value="#{cartaoCreditoControle.valida}">
+                            <f:selectItem itemLabel="Conta Bancária" itemValue="Conta Bancária"/>
+                            <p:ajax event="change" update="pai1232nelBu2sca"/>
+
+                        </p:selectOneRadio>
+
+                        <p:autoComplete id="conta1" rendered="#{cartaoCreditoControle.valida == 'Conta Bancária'}"
+                                        completeMethod="#{contaBancariaControle.autoComplete}"
+                                        var="est" size="30"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{contaBancariaControle.converter()}"
+                                        value="#{cartaoCreditoControle.contaBancaria}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"
+                                        >
+
+                        </p:autoComplete>
+
+
+                        <p:commandButton value="Confirmar" action="#{cartaoCreditoControle.debitar()}" onclick="PF('form9').close();"/>
+
+                    </h:panelGrid>
+
+
+                </p:dialog>
+
+                <p:dialog header="Débito em conta"  widgetVar="form10" modal="true" height="150" width="300">
+                    <h:panelGrid  columns="3" id="painel12Busca" style="text-align:center; background-position: center">
+
+                        <p:outputLabel for="tipoCompra" value="Onde deseja debitar?" style="color: black"/>
+                    </h:panelGrid>
+                    <h:panelGrid  columns="1" id="pai1232nelBu2sca1" style="text-align:center; background-position: center">
+                        <p:selectOneRadio id="tipoCompra11" value="#{cartaoDebitoControle.valida}">
+                            <f:selectItem itemLabel="Conta Bancária" itemValue="Conta Bancária"/>
+                            <p:ajax event="change" update="pai1232nelBu2sca1"/>
+
+                        </p:selectOneRadio>
+
+                        <p:autoComplete id="conta11" rendered="#{cartaoDebitoControle.valida == 'Conta Bancária'}"
+                                        completeMethod="#{contaBancariaControle.autoComplete}"
+                                        var="est" size="30"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{contaBancariaControle.converter()}"
+                                        value="#{cartaoDebitoControle.contaBancaria}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"
+                                        >
+
+                        </p:autoComplete>
+
+
+                        <p:commandButton value="Confirmar" action="#{cartaoDebitoControle.debitar()}" onclick="PF('form10').close();"/>
+
+                    </h:panelGrid>
+
+                </p:dialog>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

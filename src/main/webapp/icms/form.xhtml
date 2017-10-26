@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Formulário para gerenciamento de Icms">
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{icmsControle.icms.id}" disabled="true"/>
+
+
+                        <p:outputLabel for="nome" value="CST:"/>
+                        <p:inputText id="nome" value="#{icmsControle.icms.cst}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo cst é obrigatório"/>
+
+
+                        <p:outputLabel for="mol" value="Modalidade:"/>
+                        <p:inputText id="mol" value="#{icmsControle.icms.modalidade}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo mol é obrigatório"/>
+
+
+                        <p:outputLabel for="motivo" value="Motivo:"/>
+                        <p:inputText id="motivo" value="#{icmsControle.icms.motivo}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo motivo é obrigatório"/>
+
+                        <p:outputLabel for="per" value="Percentual:"/>
+                        <p:inputText id="per" value="#{icmsControle.icms.percentual}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo percentual é obrigatório"/>
+
+
+                        <p:outputLabel for="perR" value="Percentual de Redução:"/>
+                        <p:inputText id="perR" value="#{icmsControle.icms.percentualReducao}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo percentual de redução é obrigatório"/>
+
+                        <p:outputLabel for="or" value="Origem:"/>
+                        <p:inputText id="or" value="#{icmsControle.icms.origem}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo origem de redução é obrigatório"/>
+
+
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{icmsControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

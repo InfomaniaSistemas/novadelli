@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>   
+    <h:body>
+        <h:form>
+            <p:panel header="Lista de Contatos">
+                <p:dataTable value="#{agendaControle.listaAgendas}" paginator="true" var="grup" rows="7" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                    <p:column headerText="ID" filterBy="#{grup.id}">
+                        #{grup.id}
+                    </p:column>
+                    <p:column headerText="Nome" filterBy="#{grup.nome}">
+                        #{grup.nome}
+                    </p:column>
+                    <p:column headerText="Telefone" >
+                        #{grup.tel}
+                    </p:column>
+                    <p:column headerText="Celular" >
+                        #{grup.cel}
+                    </p:column>
+                   <p:column headerText="Opções">
+                        <p:commandButton value="Alterar"
+                                         actionListener="#{agendaControle.setAgenda(grup)}"
+                                         action="form1?faces-redirect=true"
+                                         ajax="false"/>
+                        
+                        <p:commandButton value="Excluir" 
+                                         action="#{agendaControle.excluir(grup)}"
+                                         ajax="false"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton value="Adicionar" 
+                                 action="#{agendaControle.novo()}"
+                                 ajax="false"/>
+            </p:panel>
+        </h:form>
+    </h:body>
+
+</html>

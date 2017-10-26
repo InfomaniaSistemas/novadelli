@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+                <p:panel header="Formulário de Empresa">
+
+
+                    <p:panelGrid id="painel" columns="2">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{fazendaControle.fazenda.id}" disabled="true"/>
+
+                        <p:outputLabel for="nome" value="Nome:"/>
+                        <p:inputText id="nome" value="#{fazendaControle.fazenda.nome}" size="40" style="text-transform: uppercase"
+                                     required="true" requiredMessage="O campo Nome é obrigatório"/>
+
+                        <p:outputLabel for="cnpj" value="CNPJ:"/>
+                        <p:inputMask id="cnpj" mask="99.999.999/9999-99" value="#{fazendaControle.fazenda.cnpj}"
+                                     required="true" requiredMessage="O campo CNPJ é obrigatório"/>
+
+
+                        <p:outputLabel for="ie" value="IE:" />
+                        <p:inputText id="ie" value="#{fazendaControle.fazenda.ie}" 
+                                     />
+
+                        <p:outputLabel for="razao" value="Razão social:" 
+                                       />
+                        <p:inputText id="razao" value="#{fazendaControle.fazenda.razaoSocial}" size="40" style="text-transform: uppercase"
+                                     required="true" requiredMessage="O campo Razão social é obrigatório" 
+                                     />
+
+                        <p:outputLabel for="dtAbertura" value="Data de abertura:" />
+                        <p:calendar id="dtAbertura" value="#{fazendaControle.fazenda.dataAbertura}" 
+                                    required="true" requiredMessage="O campo Data de abertura é obrigatório"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+
+                        <p:outputLabel for="email" value="E-mail:" />
+                        <p:inputText id="email" value="#{fazendaControle.fazenda.email}" size="40"/>
+
+                        <p:outputLabel for="fone" value="Fone:" />
+                        <p:inputMask mask="(99) 9999-9999" id="fone" value="#{fazendaControle.fazenda.fone}"
+                                     
+                                     />
+
+                        <p:outputLabel for="cel" value="Celular:" />
+                        <p:inputMask mask="(99) 9999-9999" id="cel" value="#{fazendaControle.fazenda.celular}"
+                                     />
+
+                        <p:outputLabel for="endereco" value="Endereço:" />
+                        <p:inputText id="endereco" value="#{fazendaControle.fazenda.endereco}" style="text-transform: uppercase"
+                                      size="40"
+                                     />
+                        <p:outputLabel for="cep" value="Cep:" />
+                        <p:inputText id="cep" value="#{fazendaControle.fazenda.cep}" style="text-transform: uppercase"
+                                     />
+
+                        <p:outputLabel for="bairro" value="Bairro:" />
+                        <p:inputText id="bairro" value="#{fazendaControle.fazenda.bairro}" style="text-transform: uppercase"
+                                     size="40"
+                                     />
+                        <p:outputLabel for="numero" value="N°:" />
+
+                        <p:inputText id="numero" value="#{fazendaControle.fazenda.numero}"
+                                     required="true" size="5"
+                                     requiredMessage="O campo Número é obrigatório"/>
+
+                        <p:outputLabel for="b" value="Nova Cidade:"/>
+                        <p:commandButton id ="b" value="Gerenciar Cidade" onclick="PF('modal').show();"/>
+                        <p:outputLabel for="cidade" value="Cidade:"/>
+                        <p:autoComplete id="cidade" required="true" requiredMessage="A Cidade é obrigatório!"
+                                        completeMethod="#{cidadeControle.autoComplete}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est.id.toString()}"
+                                        converter="#{cidadeControle.converter()}"
+                                        value="#{fazendaControle.fazenda.cidade}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{fazendaControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+
+
+                <p:dialog header="Novo Cidade" widgetVar="modal">
+                    <iframe src="#{request.contextPath}/cidade/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:cidade"/>
+                </p:dialog>
+
+            </h:form>
+
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

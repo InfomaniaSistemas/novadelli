@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lista de Contratos">
+                    <p:dataTable value="#{contratoControle.listaContratos}" emptyMessage="Não há registros!" paginator="true" var="item" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                        <p:column headerText="Cod Contrato">
+                            #{item.id}
+                        </p:column>
+
+                        <p:column headerText="Data de Emissão">
+                            <h:outputText value="#{item.dtEmissao}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}" width="500">
+                            #{item.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{item.total}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+
+
+
+
+                        <p:column headerText="Imprimir">
+
+                            <p:commandLink title="Imprimir"
+                                           actionListener="#{contratoControle.setContrato(item)}"
+                                           action="#{relatorioControle.geraContratoHQ(item.id)}"
+                                           ajax="false">
+                                <i class="icon-print"/>
+                            </p:commandLink>
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro"
+                                           action="#{contratoControle.excluir(item)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Adicionar" 
+                                     action="#{contratoControle.novo()}"
+                                     ajax="false"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

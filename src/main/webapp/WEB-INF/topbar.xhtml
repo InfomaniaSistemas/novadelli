@@ -1,0 +1,59 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+
+    <div id="layout-header" class="Unselectable fontRegular">
+        <a href="/novadelli-itauna/index.xhtml" id="layout-logo">
+            <h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout"/>
+            <span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">
+                    <p:outputLabel style="color: white;" >Infomania Sistemas</p:outputLabel>
+                </span><span class="hardblue"></span></span>
+
+
+
+        </a>
+
+
+        <ul>
+            <li class="Fleft BordRadHalf TexAlCenter">
+
+            </li>
+        </ul>
+
+        <ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+
+
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male" ></i>
+                <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05 ">
+                    <li class="Animated05"><a href="/InfomaniaSistemas/usuario/list.xhtml" class="white Unselectable"><i class="icon-android"></i>Novo Usuário</a></li>
+                    <li class="Animated05"><a  onclick="PF('modal').show();" class="white Unselectable"><i class="icon-doc-text-inv"></i>Agenda</a></li>
+                </ul>
+            </li>
+
+
+
+
+            <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
+                <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                    <li class="Animated05"><a href="#{request.contextPath}/logout" class="white Unselectable"><i class="icon-logout"></i>Sair</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+        <ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+            <li class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i class="icon-th-1"></i></li>
+        </ul>
+        <!-- ****** -->
+    </div>
+
+    <p:dialog header="Agenda" widgetVar="modal">
+        <iframe src="#{request.contextPath}/ajuda/list1.xhtml" width="1000" height="500"/>
+        <f:ajax event="close" render="form:tab:cidade"/>
+    </p:dialog>
+
+</ui:composition>

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Os" language="groovy" pageWidth="595" pageHeight="396" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="20" uuid="eab8c046-14ed-49bf-bb26-fb293f283c23">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="22"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="aux" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Miguel Gustavo\\Documents\\Desenvolvimento\\InfomaniaSistemas\\src\\main\\webapp\\WEB-INF\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     venda."id" AS venda_id,
+     venda."acrescimo" AS venda_acrescimo,
+     venda."datavencimento" AS venda_datavencimento,
+     venda."desconto" AS venda_desconto,
+     venda."dtvenda" AS venda_dtvenda,
+     venda."obs" AS venda_obs,
+     venda."qtdparcela" AS venda_qtdparcela,
+     venda."tipopagamento" AS venda_tipopagamento,
+     venda."total" AS venda_total,
+     venda."totaldesc" AS venda_totaldesc,
+     venda."valida" AS venda_valida,
+     venda."valordesconto" AS venda_valordesconto,
+     pessoa."pes_id" AS pessoa_pes_id,
+     pessoa."ativo" AS pessoa_ativo,
+     pessoa."bairro" AS pessoa_bairro,
+     pessoa."celular" AS pessoa_celular,
+     pessoa."cep" AS pessoa_cep,
+     pessoa."contc" AS pessoa_contc,
+     pessoa."contf" AS pessoa_contf,
+     pessoa."dtcadasrto" AS pessoa_dtcadasrto,
+     pessoa."email" AS pessoa_email,
+     pessoa."endereco" AS pessoa_endereco,
+     pessoa."fone" AS pessoa_fone,
+     pessoa."nome" AS pessoa_nome,
+     pessoa."numero" AS pessoa_numero,
+     pessoa."obs" AS pessoa_obs,
+     pessoa."restricao" AS pessoa_restricao,
+     cidade."nome" AS cidade_nome,
+     pes_fisica."cpf" AS pes_fisica_cpf,
+     pes_fisica."rg" AS pes_fisica_rg,
+     venda."totaldescen" AS venda_totaldescen,
+     venda."entrada" AS venda_entrada,
+     venda."nomefun" AS venda_nomefun
+FROM
+     "public"."pessoa" pessoa INNER JOIN "public"."venda" venda ON pessoa."pes_id" = venda."pessoa_pes_id"
+     INNER JOIN "public"."cidade" cidade ON pessoa."cidade_id" = cidade."id"
+     INNER JOIN "public"."pes_fisica" pes_fisica ON pessoa."pes_id" = pes_fisica."pes_id"
+
+WHERE venda."id" = $P{aux}]]>
+	</queryString>
+	<field name="venda_id" class="java.lang.Long"/>
+	<field name="venda_acrescimo" class="java.math.BigDecimal"/>
+	<field name="venda_datavencimento" class="java.sql.Date"/>
+	<field name="venda_desconto" class="java.math.BigDecimal"/>
+	<field name="venda_dtvenda" class="java.sql.Date"/>
+	<field name="venda_obs" class="java.lang.String"/>
+	<field name="venda_qtdparcela" class="java.lang.Integer"/>
+	<field name="venda_tipopagamento" class="java.lang.String"/>
+	<field name="venda_total" class="java.math.BigDecimal"/>
+	<field name="venda_totaldesc" class="java.math.BigDecimal"/>
+	<field name="venda_valida" class="java.lang.String"/>
+	<field name="venda_valordesconto" class="java.math.BigDecimal"/>
+	<field name="pessoa_pes_id" class="java.lang.Long"/>
+	<field name="pessoa_ativo" class="java.lang.Boolean"/>
+	<field name="pessoa_bairro" class="java.lang.String"/>
+	<field name="pessoa_celular" class="java.lang.String"/>
+	<field name="pessoa_cep" class="java.lang.String"/>
+	<field name="pessoa_contc" class="java.lang.Integer"/>
+	<field name="pessoa_contf" class="java.lang.Integer"/>
+	<field name="pessoa_dtcadasrto" class="java.sql.Date"/>
+	<field name="pessoa_email" class="java.lang.String"/>
+	<field name="pessoa_endereco" class="java.lang.String"/>
+	<field name="pessoa_fone" class="java.lang.String"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="pessoa_numero" class="java.lang.String"/>
+	<field name="pessoa_obs" class="java.lang.String"/>
+	<field name="pessoa_restricao" class="java.lang.Boolean"/>
+	<field name="cidade_nome" class="java.lang.String"/>
+	<field name="pes_fisica_cpf" class="java.lang.String"/>
+	<field name="pes_fisica_rg" class="java.lang.String"/>
+	<field name="venda_totaldescen" class="java.math.BigDecimal"/>
+	<field name="venda_entrada" class="java.math.BigDecimal"/>
+	<field name="venda_nomefun" class="java.lang.String"/>
+	<title>
+		<band height="70">
+			<subreport>
+				<reportElement uuid="c91cc53a-3c5c-401e-8aef-444647975f3e" x="-27" y="6" width="553" height="64"/>
+				<subreportParameter name="aux"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\sub\\subEmpresa.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="10"/>
+	</columnHeader>
+	<detail>
+		<band height="104">
+			<rectangle>
+				<reportElement uuid="00881d23-a6b6-44f1-b77a-bbcd93224795" x="1" y="0" width="555" height="15" backcolor="#E6E6E6"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="bb97b7c2-275d-41ad-937d-65d9bc5b80b1" mode="Opaque" x="169" y="78" width="10" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[x]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="1d652858-9fff-4b00-b625-a2b9990276c2" x="1" y="17" width="555" height="60"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="bb97b7c2-275d-41ad-937d-65d9bc5b80b1" mode="Opaque" x="190" y="79" width="31" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBS:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1f6e47ec-5d45-434b-b9c0-60525eb5e0b4" x="221" y="79" width="335" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_obs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="1" y="79" width="65" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMA PGTO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="69" y="79" width="54" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_tipopagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="df51eddf-f29c-470f-a648-af40de7cbc59" mode="Opaque" x="3" y="48" width="58" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENDEREÇO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="59" y="48" width="276" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="383" y="48" width="39" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BAIRRO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="423" y="48" width="128" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_bairro}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="348" y="48" width="32" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="250" y="33" width="29" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FONE:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="279" y="33" width="99" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_fone}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="43" y="62" width="188" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="3" y="62" width="38" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIDADE:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="138" y="19" width="410" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="df51eddf-f29c-470f-a648-af40de7cbc59" mode="Opaque" x="92" y="19" width="44" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="df51eddf-f29c-470f-a648-af40de7cbc59" mode="Opaque" x="3" y="33" width="24" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="28" y="33" width="93" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pes_fisica_cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="df51eddf-f29c-470f-a648-af40de7cbc59" mode="Opaque" x="121" y="33" width="22" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RG:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="138" y="33" width="110" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pes_fisica_rg}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="335" y="48" width="13" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N°:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="3" y="19" width="38" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="27" y="19" width="62" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_pes_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bb97b7c2-275d-41ad-937d-65d9bc5b80b1" mode="Opaque" x="125" y="79" width="33" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PGTO.:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="6aced45b-ee98-4a0d-ae13-3b1864f65aed" positionType="Float" stretchType="RelativeToTallestObject" x="-38" y="93" width="423" height="8"/>
+				<subreportParameter name="aux">
+					<subreportParameterExpression><![CDATA[$F{venda_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\sub\\subParcelas.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="158" y="79" width="15" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_qtdparcela}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="384" y="33" width="29" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEL:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="413" y="33" width="138" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_celular}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="231" y="62" width="40" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-MAIL:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="268" y="62" width="243" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="3" y="1" width="86" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD. VENDA:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="65" y="1" width="85" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d7795a2e-f5f3-4722-ae83-51a5d06949b5" mode="Opaque" x="472" y="1" width="35" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement uuid="db13bb16-d2ba-41f2-b4b7-fc26f478f9a0" x="505" y="1" width="59" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_dtvenda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="74df2e4f-344a-45a0-a4f5-527a5786b1e2" mode="Opaque" x="150" y="1" width="35" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VEND.:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="a66ccb23-bc11-4ee5-90e1-afae397fd309" x="186" y="1" width="172" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_nomefun}]]></textFieldExpression>
+			</textField>
+			<elementGroup/>
+		</band>
+		<band height="73">
+			<rectangle>
+				<reportElement uuid="305fa9c2-6688-4ef5-8812-e83def005222" positionType="FixRelativeToBottom" x="0" y="29" width="554" height="43"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="3966222c-abfb-4acd-889b-fd68ce38a972" positionType="FixRelativeToBottom" mode="Opaque" x="286" y="53" width="78" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DESCONTO........:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="00881d23-a6b6-44f1-b77a-bbcd93224795" positionType="Float" x="0" y="0" width="554" height="15" backcolor="#E6E6E6"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" positionType="Float" mode="Opaque" x="1" y="1" width="552" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD                     DESCRIÇÃO                                                                                                           QTD       VALOR UNIT.    SUBTOTAL]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="7f723167-6ea0-4bda-b3d3-6a4055646c30" positionType="FixRelativeToBottom" x="365" y="53" width="58" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_valordesconto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" positionType="FixRelativeToBottom" x="487" y="53" width="63" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_totaldescen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" positionType="FixRelativeToBottom" mode="Opaque" x="424" y="31" width="63" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ENTRADA......:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" positionType="FixRelativeToBottom" x="365" y="31" width="58" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_total}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" positionType="FixRelativeToBottom" x="487" y="31" width="63" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda_entrada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" positionType="FixRelativeToBottom" mode="Opaque" x="286" y="31" width="78" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL BRUTO..:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="67c4034f-5759-4eec-88ff-46392d072146" positionType="FixRelativeToBottom" x="89" y="55" width="100" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Assinatura]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="0202f298-54d1-4829-ad76-8d0f102d44f7" positionType="FixRelativeToBottom" x="38" y="55" width="204" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="67c4034f-5759-4eec-88ff-46392d072146" positionType="FixRelativeToBottom" x="0" y="30" width="281" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Declaro ter recebido os itens descritos acima ___/___/___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" positionType="FixRelativeToBottom" mode="Opaque" x="424" y="53" width="63" height="13" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[T. LÍQUIDO....:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="138bc44a-777d-44d6-a388-3d0b3d374632" positionType="Float" x="-21" y="15" width="569" height="12"/>
+				<subreportParameter name="aux">
+					<subreportParameterExpression><![CDATA[$F{venda_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\sub\\subVenda.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="15">
+			<staticText>
+				<reportElement uuid="6458fc2e-a274-4231-afb1-d8ee256d3c50" x="1" y="0" width="125" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Desenvolvido por Infomania]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3a61c333-01b8-44e6-8661-d22480b7487d" x="101" y="0" width="29" height="13"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[®]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

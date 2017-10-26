@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="codigoBarras" language="groovy" columnCount="4" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="132" columnSpacing="9" leftMargin="20" rightMargin="20" topMargin="22" bottomMargin="14" uuid="ed474f87-c833-42ae-b76b-5280cf291fac">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="aux" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     item_impressao."id" AS item_impressao_id,
+     produto."id" AS produto_id,
+     produto."valorvendaprazo" AS produto_valorvendaprazo,
+     impressao."aju_id" AS impressao_aju_id,
+     item_impressao."quantidade" AS item_impressao_quantidade,
+     produto."codfornecedor" AS produto_codfornecedor
+FROM
+     "public"."produto" produto INNER JOIN "public"."item_impressao" item_impressao ON produto."id" = item_impressao."plantio_id"
+     INNER JOIN "public"."impressao" impressao ON item_impressao."impressao_aju_id" = impressao."aju_id"
+
+where impressao."aju_id" = $P{aux}]]>
+	</queryString>
+	<field name="item_impressao_id" class="java.lang.Long"/>
+	<field name="produto_id" class="java.lang.Long"/>
+	<field name="produto_valorvendaprazo" class="java.math.BigDecimal"/>
+	<field name="impressao_aju_id" class="java.lang.Long"/>
+	<field name="item_impressao_quantidade" class="java.lang.Integer"/>
+	<field name="produto_codfornecedor" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="54" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="bf08db85-b07a-41ad-a01b-4591378508c9" mode="Transparent" x="-5" y="29" width="103" height="13"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{produto_id}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="46ae1ea8-b660-421f-bb41-2a71288770c4" x="3" y="1" width="59" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produto_valorvendaprazo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement uuid="4c2b8ee8-bf0a-49e8-a116-d25208a7864d" x="4" y="40" width="72" height="12"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produto_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f54d08b7-7627-4fac-b510-412b174f897a" x="62" y="15" width="68" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Implemag]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="c390a01f-cf97-4e34-90fe-958cedd253ba" x="3" y="14" width="59" height="16"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produto_codfornecedor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

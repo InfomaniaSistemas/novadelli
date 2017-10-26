@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lançamento em caixa">
+
+                    <p:panelGrid columns="4">
+                        <p:selectOneRadio id="valida" value="#{lancamentoContaControle.tipo}">
+                            <f:selectItem itemLabel="Entrada" itemValue="ENTRADA"/>
+                            <f:selectItem itemLabel="Saída" itemValue="SAÍDA"/>
+                            <f:ajax event="change" 
+                                    render ="painel" />
+                        </p:selectOneRadio>
+                    </p:panelGrid>  
+
+
+                    <p:panelGrid columns="2" id="painel">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{lancamentoContaControle.lancamentoBancario.id}" disabled="true"/>
+
+                        <p:outputLabel for="caixa" value="Conta"/>
+                        <p:selectOneMenu id="caixa" required="true" requiredMessage="O caixa é obrigatório" 
+                                         value="#{lancamentoContaControle.lancamentoBancario.contaBancaria}"
+                                         converter="#{contaBancariaControle.converter()}">
+
+                            <f:selectItem itemLabel="-- Selecione --"
+                                          itemValue="0"/>
+
+                            <f:selectItems value="#{contaBancariaControle.listaContaBancarias}"
+                                           var="grup"
+                                           itemLabel="#{grup.nome}"
+                                           itemValue="#{grup}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="dtAbertura" value="Data de Movimento:" />
+                        <p:calendar id="dtAbertura" value="#{lancamentoContaControle.lancamentoBancario.dtEntrada}" 
+                                    required="true" requiredMessage="O Data é obrigatório" mask="true"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+                        <p:outputLabel for="nome" value="Valor:"/>
+                        <p:inputText id="nome" value="#{lancamentoContaControle.lancamentoBancario.lacamentoEntrada}"  rendered="#{lancamentoContaControle.tipo == 'ENTRADA'}"
+                                     required="true" requiredMessage="O campo valor é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                        </p:inputText>
+
+                        <p:inputText id="valor" value="#{lancamentoContaControle.lancamentoBancario.lacamentoSaida}"  rendered="#{lancamentoContaControle.tipo == 'SAÍDA'}"
+                                     required="true" requiredMessage="O campo valor é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                        </p:inputText>
+
+                        <p:outputLabel for="obs" value="Obs:"/>
+                        <p:inputText id="obs" value="#{lancamentoContaControle.lancamentoBancario.obs}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo obs é obrigatório"/>
+
+
+
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Salvar" rendered="#{lancamentoContaControle.tipo == 'ENTRADA'}"
+                                             action="#{lancamentoContaControle.salvarEntrada()}"
+                                             ajax="false"/>
+
+                            <p:commandButton value="Salvar" rendered="#{lancamentoContaControle.tipo == 'SAÍDA'}"
+                                             action="#{lancamentoContaControle.salvarSaida()}"
+                                             ajax="false"/>
+
+                            <p:commandButton value="Cancelar"
+                                             action="list?faces-redirect=true"
+                                             immediate="true"
+                                             ajax="false"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,121 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ps="http://primefaces.org/sentinel"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <div id="layout-menubar" class="Unselectable fontRegular">
+        <div class="layout-menubarinner-box" id="buttonArea">
+            <a href="#" id="layout-menubar-resize" class="BordRad3" title="Recolher Menu"><i class="icon-th-list-2"></i></a>
+            <a href="#" id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i class="icon-menu"></i></a>
+        </div>
+
+
+
+        <ps:menu id="sm_leftmenu">
+
+            <p:submenu id="sm_menu" label="Cadastros" icon="icon-sitemap">
+
+                <p:submenu id="sm_menu1" label="Principal" icon=" icon-list-bullet">
+                    <p:menuitem value="Clientes" icon=" icon-male" url="/pessoa/list.xhtml"/>
+                    <p:menuitem value="Usuário" rendered="false" icon="icon-user" url="/usuario/list.xhtml"/>
+                    <p:menuitem value="Funcionário" rendered="false" icon="icon-users" url="/funcionario/list.xhtml"/>
+                    <p:menuitem value="Fornecedores" rendered="false" icon="icon-user-1" url="/fornecedor/list.xhtml"/>
+                    <p:menuitem value="Transportadora" rendered="false" icon="icon-truck" url="/transportadora/list.xhtml"/>
+                    <p:menuitem value="Produto" icon="icon-direction" url="/produto/list.xhtml"/>
+
+                </p:submenu>
+
+                <p:submenu id="sm_menu2" label="Parâmetros" icon="icon-align-left">
+
+                    <p:menuitem value="Banco" rendered="false" icon="icon-bank" url="/banco/list.xhtml"/>
+                    <p:menuitem value="Conta Bancária" rendered="false" icon=" icon-check-empty" url="/contaBancaria/list.xhtml"/>
+                    <p:menuitem value="Bandeira Cartão" rendered="false" icon="icon-credit-card-1" url="/bandeira/list.xhtml"/>
+                    <p:menuitem value="ICMS" rendered="false" icon="icon-clipboard" url="/icms/list.xhtml"/>
+                    <p:menuitem value="PIS" rendered="false" icon="icon-doc-remove" url="/pis/list.xhtml"/>
+                    <p:menuitem value="COFINS" rendered="false" icon="icon-folder-delete" url="/cofins/list.xhtml"/>
+                    <p:menuitem value="IPI" rendered="false" icon="icon-archive" url="/ipi/list.xhtml"/>
+                    <p:menuitem value="Estado" rendered="false" icon="icon-th-thumb-empty" url="/estado/list.xhtml"/>
+                    <p:menuitem value="Cidade" rendered="false" icon="icon-th-list-2" url="/cidade/list.xhtml"/>
+                    <p:menuitem value="Cargo Funcionário" rendered="false" icon="icon-align-left" url="/cargo/list.xhtml"/>
+                    <p:menuitem value="Empresa" icon="icon-sliders" url="/fazenda/list.xhtml"/>
+                </p:submenu>
+            </p:submenu>
+            <p:submenu id="sm_dp" label="Movimentos" icon="icon-chart-outline">
+                <p:menuitem value="Vendas do Dia" icon="icon-basket-1" url="/venda/list.xhtml"/>
+                <p:menuitem value="Vendas" icon="icon-basket-1" url="/venda/list_1.xhtml"/>
+                <p:menuitem value="Orçamento" rendered="false" icon=" icon-chart-bar" url="/orcamento/list.xhtml"/>
+                <p:menuitem value="Ajuste de Estoque" rendered="false" icon=" icon-cog" url="/login1.xhtml"/>
+                <p:menuitem value="Ajuste de NCM" rendered="false" icon="icon-cog" url="/ncm/form.xhtml"/>
+                <p:menuitem value="Entrada de Produtos" rendered="false" icon="icon-export" url="/compra/list.xhtml"/>
+                <p:menuitem value="Caixa" icon="icon-dollar" url="/caixa/list.xhtml"/>
+             </p:submenu>
+            <p:submenu id="sm_dp211" label="Fiscal" rendered="false" icon="icon-vcard">
+
+                <p:menuitem value="Gerenciar Notas Fiscais" rendered="false"  icon=" icon-news" url="/fiscal/logar.xhtml"/>
+
+                <p:submenu id="sm_dp1111211" label="NF-E" rendered="false" icon="icon-indent-right">
+
+                    <p:menuitem value="Emitir NF-E"  icon="icon-print-2" url="/venda/listFiscalRe_1_1.xhtml"/>
+                    <p:menuitem value="Retransmitir NF-E"  icon=" icon-arrows-cw-1" url="/venda/listFiscalRe.xhtml"/>
+
+                </p:submenu>
+
+                <p:submenu id="sm_dp111211" label="NFc-E" rendered="false" icon=" icon-indent-left">
+
+
+                    <p:menuitem value="Emitir NFC-e"  icon="icon-print-2" url="/venda/listFiscalRe_1.xhtml"/>
+                    <p:menuitem value="Reimprimir NFC-e"  icon="icon-print-2" url="/venda/listFiscal.xhtml"/>
+                    <p:menuitem value="Retransmitir NFC-e"  icon=" icon-arrows-cw-1" url="/venda/listFiscalRe.xhtml"/>
+
+                </p:submenu>
+
+
+
+            </p:submenu>
+
+            <p:submenu id="sm_dp2" label="Financeiro" rendered="false" icon="icon-money">
+                <p:menuitem value="Contas a Pagar" icon="icon-upload" url="/contasPagar/list.xhtml"/>
+                <p:menuitem value="Contas a Receber" icon="icon-download" url="/contasReceber/list.xhtml"/>
+            </p:submenu>
+
+
+            <p:submenu id="sm_dp3" label="Relatórios" icon=" icon-print-1">
+                <p:submenu id="sm_menu12" label="Cadastrais" icon="icon-sitemap">
+
+                    <p:menuitem value="Clientes" icon=" icon-doc-1" url="/relatorios/cliente.xhtml"/>
+                    <p:menuitem value="Funcionários" icon=" icon-file-pdf" url="/relatorios/funcionario.xhtml"/>
+                    <p:menuitem value="Listagem de Estoque" icon="icon-doc-text" url="/relatorios/estoque.xhtml"/>
+                    <p:menuitem value="Código de Barras" icon="icon-barcode" url="/impressao/form.xhtml"/>
+                </p:submenu>
+
+                <p:submenu id="sm_menu1122" label="Gerenciais" icon="icon-chart-outline">
+
+                    <p:menuitem value="Faturamento" icon="icon-chart-bar" url="/relatorios/fatu.xhtml"/>
+                    <p:menuitem value="Contas a Pagar" icon="icon-upload" url="/relatorios/contasPagar.xhtml"/>
+                    <p:menuitem value="Contas Pagas" icon="icon-right-big" url="/relatorios/contasPagas.xhtml"/>
+                    <p:menuitem value="Contas a Receber" icon="icon-download" url="/relatorios/contasReceber.xhtml"/>
+                    <p:menuitem value="Contas Recebidas" icon="icon-left-big" url="/relatorios/contasRecebidas.xhtml"/>
+                    <p:menuitem value="Débitos por período" icon=" icon-chart-bar-2" url="/relatorios/debi.xhtml"/>
+
+
+                </p:submenu>
+
+
+
+            </p:submenu>
+
+            <p:submenu id="sm_menu11220" label="Ajuda" icon=" icon-help-circled-1">
+                <p:menuitem value="Como realizar uma venda" icon="icon-help-circled-alt" url="/ajuda/venda.xhtml"/>
+
+            </p:submenu>
+
+
+
+        </ps:menu>
+
+    </div>
+
+</ui:composition>

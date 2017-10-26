@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Gerenciamento de NF-e!">
+
+
+                    <p:panelGrid columns="1">
+
+                        <p:panelGrid columns="2" id="painelFiscal">
+                            <p:outputLabel value="Deseja emitir a NFC-e?"/>
+                            <p:selectOneRadio rendered="#{vendaControle.validaEmissão == 'NAO'}" id="tipoCompra12" value="#{vendaControle.validaNotaSimNao}" required="true">
+                                <f:selectItem itemLabel="SIM NFC-E!" itemValue="SIM"/>
+                                <f:selectItem itemLabel="MAIS TARDE!" itemValue="NAO"/>
+                                <f:ajax event="change" render="painelFiscal"/>
+                            </p:selectOneRadio>
+
+                            <p:commandButton value="Confirma NFC-E" ajax="false" rendered="#{vendaControle.validaNotaSimNao == 'SIM'}" actionListener="#{vendaControle.validaEmissao()}" action="#{consulta.enviarNfe(vendaControle.venda)}"/>
+
+
+                            <p:commandButton value="Confirma" ajax="false" rendered="#{vendaControle.validaNotaSimNao == 'NAO'}" action="#{vendaControle.voltarLista()}"/>
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="2" id="painelFiscal2">
+
+                            <p:commandButton value="Voltar" ajax="false" rendered="#{vendaControle.validaEmissão == 'SIM'}" action="#{vendaControle.voltarLista()}"/>
+
+
+                        </p:panelGrid>
+
+
+
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

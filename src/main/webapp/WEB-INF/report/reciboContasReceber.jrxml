@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Os" language="groovy" pageWidth="595" pageHeight="425" columnWidth="566" leftMargin="9" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eab8c046-14ed-49bf-bb26-fb293f283c23">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="20"/>
+	<parameter name="aux" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     recibo."id" AS recibo_id,
+     recibo."dt" AS recibo_dt,
+     recibo."valor" AS recibo_valor,
+     pessoa."nome" AS pessoa_nome
+FROM
+     "public"."pessoa" pessoa INNER JOIN "public"."recibo" recibo ON pessoa."pes_id" = recibo."pessoa_pes_id"
+
+where recibo."id" = $P{aux}]]>
+	</queryString>
+	<field name="recibo_id" class="java.lang.Long"/>
+	<field name="recibo_dt" class="java.sql.Date"/>
+	<field name="recibo_valor" class="java.math.BigDecimal"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="313">
+			<rectangle>
+				<reportElement uuid="994a8010-f73b-4feb-bd08-3b0f794a6421" x="7" y="141" width="565" height="160"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="104" y="161" width="178" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="fb1b091e-bf8c-42c4-8c18-2615714925c3" x="2" y="-5" width="586" height="70"/>
+				<subreportParameter name="aux"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\sub\\subEmpresa.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement uuid="0202f298-54d1-4829-ad76-8d0f102d44f7" x="327" y="280" width="227" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="67c4034f-5759-4eec-88ff-46392d072146" x="386" y="281" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assinatura]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="8fcac42d-dc1e-46db-aaea-101f83d87b0c" x="500" y="161" width="69" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c031619f-b84e-4aae-9116-896b0f8e0a5b" x="15" y="161" width="85" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Recebemos de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="577ab266-2fd2-4138-88a0-917904385269" x="407" y="161" width="92" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[a importância de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d35bd14-29bc-4b63-95c3-c05b0454b1c7" x="16" y="186" width="41" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[na data]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a70d7769-3bdd-4e70-92a0-97a9402ef7d4" x="63" y="186" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_dt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6a3c80be-1471-449d-9277-34ccc33b89a2" x="15" y="213" width="222" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sendo verdade, firmo o presente recibo.]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="27ea38db-a991-452c-a1db-e053f3cd3b6a" x="314" y="213" width="210" height="20"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_dt}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="fa9a5480-c3ef-4c49-9970-00013ffab6ba" x="6" y="82" width="565" height="41"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="0e3fa352-2e6f-455f-a0e9-9bfc32c93f0c" x="211" y="83" width="100" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO Nº]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="###0">
+				<reportElement uuid="dc64f551-18db-4910-9812-67451097f7e1" x="311" y="83" width="69" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="1e8b7acb-8aae-4cce-b932-b3ca935d0364" x="479" y="83" width="90" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recibo_valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f668ac5d-143e-486f-a7ea-71cdfd7fa8b0" x="232" y="213" width="92" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nova Londrina,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e0fb59d-480a-40fa-9864-4d54a18b2149" x="106" y="300" width="29" height="13"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[®]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ceedf286-9665-4c37-9bdf-d4ed8e2e031b" x="8" y="300" width="125" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Desenvolvido por Infomania]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

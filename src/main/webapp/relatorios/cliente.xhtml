@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="conteudo">
+
+
+        <br/>
+        <h:form id="form">
+            <p:selectOneRadio id="valida" value="#{relatorioControle.validaCliente}">
+                <f:selectItem itemLabel="Pessoa Jurídica" itemValue="juridica"/>
+                <f:selectItem itemLabel="Pessoa Física" itemValue="fisica"/>
+                <f:ajax event="change" 
+                        render ="painel" />
+            </p:selectOneRadio>
+            <p:panelGrid id="painel" columns="2">
+
+                <p:outputLabel for="dtIn" value="Data Inicial" rendered="#{relatorioControle.validaCliente=='fisica'}"/>
+                <p:calendar id="dtIn" locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datainicio}"
+                            required="true" rendered="#{relatorioControle.validaCliente=='fisica'}"/>
+                    <p:outputLabel for="dtFin" value="Data Final" rendered="#{relatorioControle.validaCliente=='fisica'}"/>
+                <p:calendar id="dtFin" locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datafim}" 
+                            required="true" rendered="#{relatorioControle.validaCliente=='fisica'}"/>
+                <p:commandButton ajax="false" id="b" update="form" rendered="#{relatorioControle.validaCliente=='fisica'}" value="Gerar" actionListener="#{relatorioControle.listaClientesPF()}"/>
+
+                <p:outputLabel for="dtIn1" value="Data Inicial" rendered="#{relatorioControle.validaCliente=='juridica'}"/>
+                <p:calendar id="dtIn1" locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datainicio}"
+                            required="true" rendered="#{relatorioControle.validaCliente=='juridica'}"/>
+                <p:outputLabel for="dtFin1" value="Data Final" rendered="#{relatorioControle.validaCliente=='juridica'}"/>
+                <p:calendar id="dtFin1" locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datafim}" 
+                            required="true" rendered="#{relatorioControle.validaCliente=='juridica'}"/>
+                <p:commandButton ajax="false" value="Gerar" update="form" id="b1" rendered="#{relatorioControle.validaCliente=='juridica'}" actionListener="#{relatorioControle.listaClientesPJ()}" onclick="this.form.target = '_blank';" />
+
+                <p:commandButton value="Voltar"
+                               action="/pessoa/list.xhtml"
+                               immediate="true"
+                               ajax="false"/>
+
+
+
+            </p:panelGrid>
+
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

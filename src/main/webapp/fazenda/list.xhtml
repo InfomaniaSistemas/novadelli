@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this licenseh eader, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml"
+      >
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:dataTable value="#{fazendaControle.listaFazendas}" emptyMessage="Não há registros!" paginator="true" var="item" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                    <p:column headerText="ID">
+                        #{item.id}
+                    </p:column>
+                    <p:column headerText="Nome" filterBy="#{item.nome}">
+                        #{item.nome}
+                    </p:column>
+                    <p:column headerText="CNPJ" filterBy="#{item.cnpj}">
+                        #{item.cnpj}
+                    </p:column>
+                   
+
+                    <p:column headerText="Editar">
+                        <p:commandLink title="Editar Registro"
+                            actionListener="#{fazendaControle.setFazenda(item)}"
+                            action="form?faces-redirect=true"
+                            ajax="false">
+                            <i class="icon-edit-1"/>
+                        </p:commandLink>
+
+                      
+                    </p:column>
+                    
+                    <p:column headerText="Excluir">
+                        
+                        <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir este registro?'))return false" 
+                            action="#{fazendaControle.excluir(item)}"
+                            ajax="false">
+                            <i class="icon-trash-2"/>
+
+                        </p:commandLink>
+                        
+                        
+                    </p:column>
+                </p:dataTable>
+
+
+
+                <p:commandButton value="Adicionar" title="Adicionar Novo Registro"
+                                 action="#{fazendaControle.novo()}"
+                                 ajax="false"/>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

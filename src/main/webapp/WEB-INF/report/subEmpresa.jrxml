@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subEmpresa" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d69f2961-5704-44f1-93f5-6888490ea0d4">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="aux" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     empresa."id" AS empresa_id,
+     empresa."bairro" AS empresa_bairro,
+     empresa."cnpj" AS empresa_cnpj,
+     empresa."dataabertura" AS empresa_dataabertura,
+     empresa."email" AS empresa_email,
+     empresa."endereco" AS empresa_endereco,
+     empresa."fone" AS empresa_fone,
+     empresa."ie" AS empresa_ie,
+     empresa."nome" AS empresa_nome,
+     empresa."numero" AS empresa_numero,
+     empresa."razaosocial" AS empresa_razaosocial,
+     cidade."nome" AS cidade_nome,
+     empresa."celular" AS empresa_celular,
+     empresa."cep" AS empresa_cep
+FROM
+     "public"."cidade" cidade INNER JOIN "public"."empresa" empresa ON cidade."id" = empresa."cidade_id"]]>
+	</queryString>
+	<field name="empresa_id" class="java.lang.Long"/>
+	<field name="empresa_bairro" class="java.lang.String"/>
+	<field name="empresa_cnpj" class="java.lang.String"/>
+	<field name="empresa_dataabertura" class="java.sql.Date"/>
+	<field name="empresa_email" class="java.lang.String"/>
+	<field name="empresa_endereco" class="java.lang.String"/>
+	<field name="empresa_fone" class="java.lang.String"/>
+	<field name="empresa_ie" class="java.lang.String"/>
+	<field name="empresa_nome" class="java.lang.String"/>
+	<field name="empresa_numero" class="java.lang.String"/>
+	<field name="empresa_razaosocial" class="java.lang.String"/>
+	<field name="cidade_nome" class="java.lang.String"/>
+	<field name="empresa_celular" class="java.lang.String"/>
+	<field name="empresa_cep" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="318" y="47" width="96" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NOVA LONDRINA]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="401" y="30" width="66" height="14"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_ie}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="384" y="30" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="248" y="47" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="237" y="30" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="307" y="62" width="216" height="14"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_email}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="111" y="62" width="70" height="14"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_fone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="204" y="47" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="371" y="30" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="198" y="62" width="20" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cel:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="91" y="62" width="21" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tel:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="67" y="47" width="152" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_endereco}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="213" y="47" width="45" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="398" y="47" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="180" y="62" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="254" y="30" width="31" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="80" y="30" width="168" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_razaosocial}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="261" y="47" width="48" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_bairro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="289" y="62" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="285" y="30" width="92" height="14"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_cnpj}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="159" y="3" width="227" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d5a8e32e-de34-4037-896d-56329d62dc6b" x="302" y="47" width="18" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="414" y="47" width="64" height="14"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_cep}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="220" y="62" width="75" height="14"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_celular}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

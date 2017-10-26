@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lista de Vendas">
+                    <h:panelGrid columns="10" id="painelItem" style="margin-bottom:10px" cellpadding="5">
+                        <p:selectOneRadio value="#{vendaControle.tipoBusca}">
+                            <f:selectItem itemLabel="Pesquisar por nome" itemValue="nome" />
+                            <f:selectItem itemLabel="Pesquisar por Data" itemValue="data"/>
+                            <f:selectItem itemLabel="Pesquisar por Cód. Venda" itemValue="cod"/>
+                            <f:ajax event="change" 
+                                    render="painelItem"/>
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="cliente" value="Clientes:" rendered="#{vendaControle.tipoBusca == 'nome'}"/>
+                        <p:autoComplete id="cliente" rendered="#{vendaControle.tipoBusca == 'nome'}"
+                                        completeMethod="#{pessoaControle.autoComplete}" 
+                                        var="cli" size="50"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli.id.toString()}"
+                                        converter="#{pessoaControle.converter()}"
+                                        value="#{vendaControle.pessoa}"
+                                        queryDelay="500"
+                                        dropdown="true" scrollHeight="350"
+                                        style="margin-right: 30px;"/>
+
+
+
+                        <p:outputLabel for="dtNota" value="DATA:" rendered="#{vendaControle.tipoBusca == 'data'}"/>
+                        <p:calendar id="dtNota" value="#{vendaControle.dataFiltro}" size="11" rendered="#{vendaControle.tipoBusca == 'data'}"
+                                    pattern="dd/MM/yyyy">
+                        </p:calendar>
+
+
+                        <p:outputLabel value="Código de Venda" for="codVenda" rendered="#{vendaControle.tipoBusca == 'cod'}"/>
+                        <p:inputText value="#{vendaControle.id}" id="codVenda" size="10" rendered="#{vendaControle.tipoBusca == 'cod'}"/>
+
+                        <p:commandButton value="Buscar Cliente" ajax="false" rendered="#{vendaControle.tipoBusca == 'nome'}" actionListener="#{vendaControle.validaListaPessoa()}" 
+                                         update="tabela2"/>
+
+                        <p:commandButton value="Buscar Data" ajax="false" rendered="#{vendaControle.tipoBusca == 'data'}" actionListener="#{vendaControle.validaListaDias()}" 
+                                         update="tabela"/>
+
+                        <p:commandButton value="Buscar Código" ajax="false" rendered="#{vendaControle.tipoBusca == 'cod'}" actionListener="#{vendaControle.validaListaDiasCod()}" 
+                                         update="tabela3"/>
+
+
+                    </h:panelGrid>
+
+                    <p:dataTable value="#{vendaControle.listaVendasData}" id="tabela" rendered="#{vendaControle.tipoBusca == 'data'}"
+                                 emptyMessage="Não há registros!" paginator="true" var="item" paginatorPosition="bottom" rows="10" style="text-align: center">
+                        <p:column headerText="Cód. Venda" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}" width="500" filterStyle="min-width: 400px;">
+                            #{item.pessoa.nome}
+                        </p:column>
+                        <p:column headerText="Data da venda" filterBy="#{item.dtVenda}">
+                            <h:outputText value="#{item.dtVenda}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Total Líquido">
+                            <h:outputText value="#{item.totalDescEn}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Comprovante"> 
+                            <p:commandLink title="Imprimir 1ª VIA"
+                                           actionListener="#{vendaControle.setVenda(item)}"
+                                           action="#{relatorioControle.gerarReciboVenda(item.id)}"
+                                           ajax="false">
+                                <i class=" icon-print"/>
+
+                            </p:commandLink>
+
+
+
+                        </p:column>
+
+
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir essa venda?'))
+                                        return false"
+                                           action="#{vendaControle.excluir(item)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                    <p:dataTable value="#{vendaControle.listaVendasCliente}" id="tabela2" rendered="#{vendaControle.tipoBusca == 'nome'}"
+                                 emptyMessage="Não há registros!" paginator="true" var="item" paginatorPosition="bottom" rows="10" style="text-align: center">
+                        <p:column headerText="Cód. Venda" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}" width="500" filterStyle="min-width: 400px;">
+                            #{item.pessoa.nome}
+                        </p:column>
+                        <p:column headerText="Data da venda" filterBy="#{item.dtVenda}">
+                            <h:outputText value="#{item.dtVenda}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Total Líquido">
+                            <h:outputText value="#{item.totalDescEn}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Comprovante"> 
+                            <p:commandButton value="Imprimir" 
+                                             actionListener="#{vendaControle.setVenda(item)}"
+                                             action="#{relatorioControle.gerarReciboVenda(item.id)}"
+                                             ajax="false"/>
+
+
+
+
+                        </p:column>
+
+
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir essa venda?'))
+                                        return false"
+                                           action="#{vendaControle.excluir(item)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                    <p:dataTable value="#{vendaControle.listaVendasCod}" id="tabela3" rendered="#{vendaControle.tipoBusca == 'cod'}"
+                                 emptyMessage="Não há registros!" paginator="true" var="item" paginatorPosition="bottom" rows="10" style="text-align: center">
+                        <p:column headerText="Cód. Venda" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}" width="500" filterStyle="min-width: 400px;">
+                            #{item.pessoa.nome}
+                        </p:column>
+                        <p:column headerText="Data da venda" filterBy="#{item.dtVenda}">
+                            <h:outputText value="#{item.dtVenda}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Total Líquido">
+                            <h:outputText value="#{item.totalDescEn}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Comprovante"> 
+                            <p:commandButton value="Imprimir" 
+                                             actionListener="#{vendaControle.setVenda(item)}"
+                                             action="#{relatorioControle.gerarReciboVenda(item.id)}"
+                                             ajax="false"/>
+
+
+
+
+                        </p:column>
+
+
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" onclick="if (!confirm('Deseja realmente excluir essa venda?'))
+                                        return false"
+                                           action="#{vendaControle.excluir(item)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

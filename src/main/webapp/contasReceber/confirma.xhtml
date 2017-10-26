@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Emitir Recibo!">
+
+
+                    <p:panelGrid columns="1">
+
+                        <p:panelGrid columns="2" id="painelFiscal">
+                            <p:outputLabel value="Deseja emitir Recibo?"/>
+                            <p:selectOneRadio rendered="#{contasReceberControle.validaEmissão == 'NAO'}" id="tipoCompra12" value="#{contasReceberControle.validaNotaSimNao}" required="true">
+                                <f:selectItem itemLabel="SIM!" itemValue="SIM"/>
+                                <f:selectItem itemLabel="NÃO" itemValue="NAO"/>
+                                <f:ajax event="change" render="painelFiscal"/>
+                            </p:selectOneRadio>
+
+                            <p:commandButton value="Confirma Recibo" ajax="false" rendered="#{contasReceberControle.validaNotaSimNao == 'SIM'}" actionListener="#{contasReceberControle.validaEmissao()}" action="#{relatorioControle.gerarReciboCr(contasReceberControle.reciboImpressao.id)}"/>
+
+
+                            <p:commandButton value="Confirma" ajax="false" rendered="#{contasReceberControle.validaNotaSimNao == 'NAO'}" action="#{contasReceberControle.voltarLista()}"/>
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="2" id="painelFiscal2">
+
+                            <p:commandButton value="Voltar" ajax="false" rendered="#{contasReceberControle.validaEmissão == 'SIM'}" action="#{contasReceberControle.voltarLista()}"/>
+
+
+                        </p:panelGrid>
+
+
+
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

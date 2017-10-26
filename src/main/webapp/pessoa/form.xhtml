@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+                <p:panel header="Formulário de Pessoa">
+                    <p:tabView id ='tab' activeIndex="0" orientation="top" effect="fade" effectDuration="fast">
+
+                        <p:tab id="tab1" title="Dados do Cliente" disabled="false">
+                            <p:selectOneRadio value="#{pessoaControle.tipoPessoa}">
+                                <f:selectItem itemLabel="Pessoa Fisica" itemValue="PF"/>
+                                <f:selectItem itemLabel="Pessoa Juridica" itemValue="PJ"/>
+                                <f:ajax event="change" listener="#{pessoaControle.criaPessoa()}"
+                                        render="painel"/>
+                            </p:selectOneRadio>
+                            <p:focus for="nome"/>
+                            <p:panelGrid id="painel" columns="2">
+                                <p:outputLabel for="completo" value="Cadastro Completo?:"/>
+                                <p:selectBooleanCheckbox id="completo"  value="#{pessoaControle.pessoa.completo}"/>
+
+                                <p:outputLabel for="id" value="ID:"/>
+
+                                <p:inputText id="id" value="#{pessoaControle.pessoa.id}" disabled="true"/>
+
+                                <p:outputLabel for="dtCa" value="Data de Cadastro:" 
+                                               />
+                                <p:calendar id="dtCa" value="#{pessoaControle.pessoa.dtCadasrto}"
+                                            pattern="dd/MM/yyyy" disabled="true"
+                                            />
+
+                                <p:outputLabel for="nome" value="Nome:"/>
+                                <p:inputText id="nome" value="#{pessoaControle.pessoa.nome}"  size="40" style="text-transform: uppercase"
+                                             required="true" requiredMessage="O campo Nome é obrigatório"/>
+
+                                <p:outputLabel for="cpf" value="CPF:" rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:inputMask mask="999.999.999-99" id="cpf" value="#{pessoaControle.pessoa.cpf}"
+                                             required="true" requiredMessage="O campo CPF é obrigatório"
+                                             rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:outputLabel for="cnpj" value="CNPJ:" rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:inputMask mask="99.999.999/9999-99" id="cnpj" value="#{pessoaControle.pessoa.cnpj}"
+                                             required="true" requiredMessage="O campo CNPJ é obrigatório"
+                                             rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="rg" value="RG:" rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:inputText id="rg" value="#{pessoaControle.pessoa.rg}"
+
+                                             rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:outputLabel for="ie" value="IE:" rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:inputText id="ie" value="#{pessoaControle.pessoa.ie}" style="text-transform: uppercase"
+
+                                             rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="razao" value="Razão social:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:inputText id="razao" value="#{pessoaControle.pessoa.razaoSocial}" size="50"
+                                             required="true" requiredMessage="O campo Razão social é obrigatório" style="text-transform: uppercase"
+                                             rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="dtAbertura" value="Data de abertura:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:calendar id="dtAbertura" value="#{pessoaControle.pessoa.dataAbertura}"
+                                            mask="true"
+                                            locale="pt"
+                                            pattern="dd/MM/yyyy"
+                                            rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="dtNascimento" value="Data de nascimento:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:calendar id="dtNascimento" value="#{pessoaControle.pessoa.nascimento}"
+                                            locale="pt"
+                                            pattern="dd/MM/yyyy"
+                                            mask="true"
+                                            rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:outputLabel for="sexo" value="Sexo:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:selectOneRadio id="sexo" value="#{pessoaControle.pessoa.sexo}"
+                                                  rendered="#{pessoaControle.tipoPessoa=='PF'}">
+
+                                    <f:selectItem itemLabel="Masculino" itemValue="Masculino"/>
+                                    <f:selectItem itemLabel="Feminino" itemValue="Feminino"/>
+
+                                </p:selectOneRadio>
+
+                                <p:outputLabel for="estc" value="Estado Civil:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:selectOneRadio id="estc" value="#{pessoaControle.pessoa.estadoCivil}"
+                                                  rendered="#{pessoaControle.tipoPessoa=='PF'}">
+
+                                    <f:selectItem itemLabel="Casado" itemValue="Casado"/>
+                                    <f:selectItem itemLabel="Solteiro" itemValue="Solteiro"/>
+                                    <f:ajax event="change" render="painelConju"/>
+                                </p:selectOneRadio>
+
+                                <p:outputLabel for="mae" value="Filiação (Mãe):" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:inputText id="mae" value="#{pessoaControle.pessoa.mae}" size="50"
+                                             style="text-transform: uppercase"
+                                             rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+
+                                <p:outputLabel for="pai" value="Filiação (Pai):" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:inputText id="pai" value="#{pessoaControle.pessoa.pai}" size="50"
+                                             style="text-transform: uppercase"
+                                             rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                            </p:panelGrid>
+                            <p:panelGrid id="painelConju" columns="2">
+                                <p:outputLabel for="conjuge" value="Cônjuge:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF' and pessoaControle.pessoa.estadoCivil == 'Casado'}"/>
+                                <p:inputText id="conjuge" value="#{pessoaControle.pessoa.conjuge}" size="50"  
+                                             rendered="#{pessoaControle.tipoPessoa=='PF' and pessoaControle.pessoa.estadoCivil == 'Casado'}"
+                                             style="text-transform: uppercase"
+                                             />
+
+
+                                <p:outputLabel for="cpfC" value="CPF (Cônjuge):" rendered="#{pessoaControle.tipoPessoa=='PF' and pessoaControle.pessoa.estadoCivil == 'Casado'}"/>
+                                <p:inputMask mask="999.999.999-99" id="cpfC" value="#{pessoaControle.pessoa.cpfConjuge}"  rendered="#{pessoaControle.tipoPessoa=='PF' and pessoaControle.pessoa.estadoCivil == 'Casado'}"
+
+                                             />
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+
+
+                                <p:outputLabel for="email" value="E-mail:" />
+                                <p:inputText id="email" value="#{pessoaControle.pessoa.email}" size="40"/>
+
+                                <p:outputLabel for="fone" value="Fone:" />
+                                <p:inputMask mask="(99) 9999-9999" id="fone" value="#{pessoaControle.pessoa.fone}"
+                                             />
+
+                                <p:outputLabel for="cel" value="Celular:" />
+                                <p:inputMask mask="(99) 9999-9999" id="cel" value="#{pessoaControle.pessoa.celular}"
+                                             />
+
+                                <p:outputLabel for="celc" value="Fone Comercial:" />
+                                <p:inputMask mask="(99) 9999-9999" id="celc" value="#{pessoaControle.pessoa.foneComercial}"
+                                             />
+
+
+                                <p:outputLabel for="endereco" value="Endereço:" />
+                                <p:inputText id="endereco" value="#{pessoaControle.pessoa.endereco}" style="text-transform: uppercase"
+                                             size="40"
+                                             />
+                                <p:outputLabel for="numero" value="Nº" />
+                                <p:inputText id="numero" value="#{pessoaControle.pessoa.numero}"
+                                             size="5"
+                                             />
+
+                                <p:outputLabel for="bairro" value="Bairro:" />
+                                <p:inputText id="bairro" value="#{pessoaControle.pessoa.bairro}"
+                                             size="40" style="text-transform: uppercase"
+                                             />
+
+                                <p:outputLabel for="cep" value="Cep:" />
+                                <p:inputMask mask="99999-999" id="cep" value="#{pessoaControle.pessoa.cep}"
+                                             size="10"
+                                             />
+
+
+                                <p:outputLabel for="b" value="Nova Cidade:"/>
+                                <p:commandButton id ="b" value="Gerenciar Cidade" onclick="PF('modal').show();"/>
+                                <p:outputLabel for="cidade" value="Cidade:"/>
+                                <p:autoComplete id="cidade" required="true" requiredMessage="A Cidade é obrigatório!"
+                                                completeMethod="#{cidadeControle.autoComplete}"
+                                                var="est"
+                                                itemLabel="#{est.nome}"
+                                                itemValue="#{est.id.toString()}"
+                                                converter="#{cidadeControle.converter()}"
+                                                value="#{pessoaControle.pessoa.cidade}"
+                                                queryDelay="500"
+                                                dropdown="true"
+                                                scrollHeight="350"
+                                                style="margin-right: 30px;"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="tab2" title="Observações" disabled="false">
+                            <p:panelGrid columns="2">
+                                <p:outputLabel for="limite" value="Limite de Compras:"/>
+                                <p:inputText id="limite" value="#{pessoaControle.pessoa.limite}" 
+                                             required="true" requiredMessage="O campo Limite é obrigatório">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                                </p:inputText>
+                            </p:panelGrid>
+                            <p:panelGrid>
+                                <p:inputTextarea id="obs1" autoResize="false" cols="150" rows="20" value="#{pessoaControle.pessoa.obs}" style="text-transform: uppercase" />
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{pessoaControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+
+
+                <p:dialog header="Novo Cidade" widgetVar="modal">
+                    <iframe src="#{request.contextPath}/cidade/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:tab:cidade"/>
+                </p:dialog>
+
+            </h:form>
+
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

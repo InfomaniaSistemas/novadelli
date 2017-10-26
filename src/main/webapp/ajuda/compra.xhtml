@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Como fazer uma compra!">
+
+
+                    <p:panelGrid columns="1">
+                        <p:outputLabel  value="1º - Adicionar o fornecedor da compra!:"/>
+                        <p:outputLabel value="2º - Informar os produtos comprados!:"/>
+                        <p:outputLabel value="3º - Caso necessário clicar no botão gerenciar produtos para cadastrar um novo produto!:"/>
+                        <p:outputLabel value="4º - Clicar em adicionar para adicionar um produto!:"/>
+                        <p:outputLabel value="5º - Clicar em adicionar para adicionar um produto!:"/>
+                        <p:outputLabel value="6º - Na aba 'Faturamento' selecionar a forma de pagamento!:"/>
+                        <p:outputLabel value="7º - Na aba 'Informações fiscais' informar os dados pedidos!:"/>
+                        <p:outputLabel value="8º - Na aba 'Observações' caso necessário preencher!:"/>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

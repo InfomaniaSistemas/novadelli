@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Gerenciamento de NF-e!">
+
+
+                    <p:panelGrid columns="2">
+
+
+
+                        <p:outputLabel for="empresa" value="Empresa" style="color: black"/>
+                        <p:autoComplete id="empresa"  size="40" required="true"
+                                        completeMethod="#{fazendaControle.autoComplete}"
+                                        var="cli"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli.id.toString()}"
+                                        converter="#{fazendaControle.converter()}"
+                                        value="#{consulta.empresa}"
+                                        queryDelay="500"
+                                        dropdown="true" scrollHeight="350"
+                                        style="margin-right: 30px;">
+
+                        </p:autoComplete>
+
+                        <p:commandButton value="Logar" action="#{consulta.logar()}" ajax="false"/>
+
+
+
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

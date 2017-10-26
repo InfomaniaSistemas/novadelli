@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"   
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>INFOMANIA SISTEMAS |</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+        <h:outputScript name="js/login.js" library="sentinel-layout" />
+        <h:outputStylesheet name="css/font-icon-layout.css" library="sentinel-layout" />
+        <h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
+        <h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
+    </h:head>
+    <h:body class="fontRegular login-back white-back">
+
+        <h:form >
+            <div class="Container">
+                <h:panelGrid width="100%" style="text-align:center; border-color: green; background-position: center" >
+                    <h:graphicImage name="images/Logo21.png"  library="sentinel-layout" style="max-width: 600px;   /* Máximo da largura da imagem */
+                                    width: 100%;
+                                    max-height: 300px;  /* Máximo da altura da imagem */
+                                    min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                    background-size:100%;
+                                    background-repeat: no-repeat;"/>
+                </h:panelGrid>
+            </div>
+
+            <br/>
+            <div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10" id="login-box">
+
+
+                    <div align="center" >
+
+
+                    <div class="Container">
+                        <h:panelGrid width="100%" style="text-align:center; border-color: green; background-position: center" >
+                            <!--                            <div class="Container50 TexAlCenter Animated05 BoxSizeBorder TabBtn left TabBtnActiveLeft" role="1">
+                                                            <div class="Container80 Fnone MarAuto FontBold"><i class="icon-lock"></i> Login</div>
+                                                        </div>-->
+
+
+
+
+
+
+
+                            <div class="Container90 Fnone MarAuto TexAlCenter TabContent OvHidden" id="TAB1">
+                                <div class="EmptyBox50"></div>
+                                <p:inputText value="#{loginControler.login}" placeholder="Usuário" styleClass="Container80 Fnone MarAuto Fs18"/>
+                                <div class="EmptyBox10"></div>
+                                <p:password value="#{loginControler.senha}" placeholder="Senha" styleClass="Container80 Fnone MarAuto Fs18" feedback="false"/>
+                                <div class="EmptyBox20"></div>
+
+                                <div class="EmptyBox30"></div>
+                                <p:commandButton value="Entrar"  
+                                                 action="#{loginControler.logar1()}"
+                                                 ajax="false" styleClass="Fs16" />
+                                <br/>
+                                
+                                
+                                <div class="EmptyBox50"></div>
+
+
+                            </div>
+                        </h:panelGrid>
+                    </div>
+                </div>
+            </div>
+
+           
+
+
+        </h:form>
+
+    </h:body>
+
+
+</html>

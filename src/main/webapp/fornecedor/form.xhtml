@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+
+                <p:panel header="Formulário de Fornecedor">
+
+                    <p:tabView id ='tab' activeIndex="0" orientation="top" effect="fade" effectDuration="fast">
+
+                        <p:tab id="tab1" title="Dados do Fornecedor" disabled="false">
+                            <p:focus for="nome"/>
+                            <p:panelGrid id="painel" columns="2">
+                                <p:outputLabel for="id" value="ID:"/>
+                                <p:inputText id="id" value="#{fornecedorControle.fornecedor.id}" disabled="true"/>
+
+                                <p:outputLabel for="dtCa" value="Data de Cadastro:" 
+                                               />
+                                <p:calendar id="dtCa" value="#{fornecedorControle.fornecedor.dtCadasrto}"
+                                            pattern="dd/MM/yyyy" disabled="true"
+                                            />
+
+                                <p:outputLabel for="nome" value="Nome:"/>
+                                <p:inputText id="nome" value="#{fornecedorControle.fornecedor.nome}" size="40" style="text-transform: uppercase"
+                                             required="true" requiredMessage="O campo Nome é obrigatório"/>
+
+
+                                <p:outputLabel for="cnpj" value="CNPJ:" />
+                                <p:inputMask mask="99.999.999/9999-99" id="cnpj" value="#{fornecedorControle.fornecedor.cnpj}"
+                                             required="true" requiredMessage="O campo CNPJ é obrigatório"
+                                             />
+
+
+                                <p:outputLabel for="ie" value="IE:" />
+                                <p:inputText id="ie" value="#{fornecedorControle.fornecedor.ie}" style="text-transform: uppercase"
+
+                                             />
+
+                                <p:outputLabel for="razao" value="Razão social:" 
+                                               />
+                                <p:inputText id="razao" value="#{fornecedorControle.fornecedor.razaoSocial}" size="50" style="text-transform: uppercase"
+
+                                             />
+
+                                <p:outputLabel for="dtAbertura" value="Data de abertura:" 
+                                               />
+                                <p:calendar id="dtAbertura" value="#{fornecedorControle.fornecedor.dataAbertura}"
+                                            locale="pt"
+                                            pattern="dd/MM/yyyy"
+                                            />
+
+                                <p:outputLabel for="email" value="E-mail:" />
+                                <p:inputText id="email" value="#{fornecedorControle.fornecedor.email}" size="40"/>
+
+                                <p:outputLabel for="site" value="Site:" />
+                                <p:inputText id="site" value="#{fornecedorControle.fornecedor.site}" size="40"/>
+
+                                <p:outputLabel for="fone" value="Fone:" />
+                                <p:inputMask mask="(99) 9999-9999" id="fone" value="#{fornecedorControle.fornecedor.fone}"
+                                             />
+
+                                <p:outputLabel for="celular" value="Celular:" />
+                                <p:inputMask mask="(99) 9999-9999" id="celular" value="#{fornecedorControle.fornecedor.celular}"
+
+                                             />
+
+                                <p:outputLabel for="fonec" value="Fone comercial:" />
+                                <p:inputMask mask="(99) 9999-9999" id="fonec" value="#{fornecedorControle.fornecedor.foneComercial}"
+
+                                             />
+
+                                <p:outputLabel for="contato" value="Contato:" />
+                                <p:inputText id="contato" value="#{fornecedorControle.fornecedor.contato}" style="text-transform: uppercase"
+                                             size="40" 
+                                             />
+
+                                <p:outputLabel for="endereco" value="Endereço:" />
+                                <p:inputText id="endereco" value="#{fornecedorControle.fornecedor.endereco}" style="text-transform: uppercase"
+                                             size="40"
+                                             />
+
+
+
+                                <p:outputLabel for="cep" value="Cep:" />
+                                <p:inputMask mask="99999-999" id="cep" value="#{fornecedorControle.fornecedor.cep}"
+                                             size="10"
+                                             />
+                                <p:outputLabel for="bairro" value="Bairro:" />
+                                <p:inputText id="bairro" value="#{fornecedorControle.fornecedor.bairro}" style="text-transform: uppercase"
+                                             size="40"
+                                             />
+                                <p:outputLabel for="numero" value="N°:" />
+
+                                <p:inputText id="numero" value="#{fornecedorControle.fornecedor.numero}"
+                                             size="5"
+                                             />
+
+                                <p:outputLabel for="b" value="Nova Cidade:"/>
+                                <p:commandButton id ="b" value="Gerenciar Cidade" onclick="PF('modal').show();"/>
+                                <p:outputLabel for="cidade" value="Cidade:"/>
+                                <p:autoComplete id="cidade" required="true" requiredMessage="A Cidade é obrigatório!"
+                                                completeMethod="#{cidadeControle.autoComplete}"
+                                                var="est"
+                                                itemLabel="#{est.nome}"
+                                                itemValue="#{est.id.toString()}"
+                                                converter="#{cidadeControle.converter()}"
+                                                value="#{fornecedorControle.fornecedor.cidade}"
+                                                queryDelay="500"
+                                                dropdown="true"
+                                                scrollHeight="350"
+                                                style="margin-right: 30px;"/>
+                            </p:panelGrid>
+                        </p:tab>
+
+                        <p:tab id="tab2" title="Dados Bancários" disabled="false">
+
+                            <p:panelGrid columns="2">
+                                <p:outputLabel for="banco" value="Banco:" />
+                                <p:inputText id="banco" value="#{fornecedorControle.fornecedor.banco}" style="text-transform: uppercase"
+                                             size="20"
+                                             />
+
+
+                                <p:outputLabel for="agencia" value="Agência:" />
+                                <p:inputText id="agencia" value="#{fornecedorControle.fornecedor.agencia}"
+                                             size="20"
+                                             />
+
+                                <p:outputLabel for="conta" value="Conta:" />
+                                <p:inputText id="conta" value="#{fornecedorControle.fornecedor.conta}"
+                                             size="20"
+                                             />
+
+                                <p:outputLabel for="titular" value="Titular:" />
+                                <p:inputText id="titular" value="#{fornecedorControle.fornecedor.titular}" style="text-transform: uppercase"
+                                             size="40"
+                                             />
+                            </p:panelGrid>
+                        </p:tab>
+
+                        <p:tab id="tab24" title="Dados Adicionais" disabled="false">
+                            <p:panelGrid columns="2">
+                                <p:outputLabel for="prazo" value="Prazo de Entrega:" />
+                                <p:inputText id="prazo" value="#{fornecedorControle.fornecedor.prazo}" style="text-transform: uppercase"
+                                             size="5"
+                                             />
+
+                                <p:outputLabel for="ramo" value="Ramo de Atividade:" />
+                                <p:inputText id="ramo" value="#{fornecedorControle.fornecedor.ramoAtividade}" style="text-transform: uppercase"
+                                             size="40"
+                                             />
+                                <p:outputLabel for="formap" value="Forma de Pagamento:" />
+                                <p:inputText id="formap" value="#{fornecedorControle.fornecedor.formaPgto}" style="text-transform: uppercase"
+                                             size="20"
+                                             />
+                            </p:panelGrid>
+                        </p:tab>
+
+                        <p:tab id="tab3" title="Observações" disabled="false">
+                            <p:panelGrid>
+                                <p:inputTextarea id="obs1" autoResize="false" cols="150" rows="20" value="#{fornecedorControle.fornecedor.obs}" style="text-transform: uppercase" />
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{fornecedorControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+
+
+                <p:dialog header="Novo Cidade" widgetVar="modal">
+                    <iframe src="#{request.contextPath}/cidade/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="tab:cidade"/>
+                </p:dialog>
+
+            </h:form>
+
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

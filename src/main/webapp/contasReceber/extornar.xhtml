@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+
+                <p:panel header="Extornar Contas a Receber">
+                    <p:dataTable value="#{contasReceberControle.listaTodos}" emptyMessage="Não há registros!" paginator="true" var="grup"  paginatorPosition="bottom" rows="10" style="text-align: center">
+
+
+                        <p:column headerText="Cód" filterBy="#{grup.id}">
+                            #{grup.id}
+                        </p:column>
+
+
+                        <p:column headerText="Situação" filterBy="#{grup.status}">
+                            #{grup.status}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{grup.pessoa.nome}">
+                            #{grup.pessoa.nome}
+                        </p:column>
+
+                        <p:column headerText="Cód. Venda" filterBy="#{grup.venda.id}">
+                            #{grup.venda.id}
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{grup.valorPrincipal}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Restos a Pagar">
+                            <h:outputText value="#{grup.restosAPagar}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+
+                        <!--                         <p:column headerText="Gerar Boleto">
+                        
+                        
+                                                    <p:commandLink title="Gerar Boleto"
+                                                                   actionListener="{contasReceberControle.geraBoleto(grup)}"
+                                                                   ajax="false">
+                                                        <i class="icon-down-big"/>
+                                                    </p:commandLink>
+                                                </p:column>-->
+
+
+                        <!--                        <p:column headerText="Editar">
+                                                    <p:commandLink title="Editar Registro"
+                                                                   actionListener="{contasReceberControle.setContasPagar(grup)}"
+                                                                   action="form?faces-redirect=true"
+                                                                   ajax="false">
+                                                        <i class="icon-edit-1"/>
+                                                    </p:commandLink>
+                                                </p:column>-->
+                        <p:column headerText="Estorno/Excluir">
+                            <p:commandLink title="Extornar Registro" onclick="if (!confirm('Deseja realmente extornar este registro? '))
+                                        return false"
+                                           action="#{contasReceberControle.excluir(grup)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

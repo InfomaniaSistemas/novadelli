@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+                <p:panel header="Formulário para gerenciamento de Cidades">
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{cidadeControle.cidade.id}" disabled="true"/>
+
+                        <p:outputLabel for="nome" value="Nome:"/>
+                        <p:inputText id="nome" value="#{cidadeControle.cidade.nome}" style="text-transform: uppercase"
+                                     required="true" requiredMessage="O campo nome é obrigatório"/>
+
+                        <p:outputLabel for="b" value="Novo Estado:"/>
+                        <p:commandButton id ="b" value="Gerenciar Estado"  onclick="PF('modal').show();"/>
+
+
+
+                        <p:outputLabel for="estado" value="Estado:"/>
+                        <p:autoComplete id="estado" required="true" requiredMessage="O Estado é obrigatório!"
+                                        completeMethod="#{estadoControle.autoComplete}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{estadoControle.converter()}"
+                                        value="#{cidadeControle.cidade.estado}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{cidadeControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+
+                <p:dialog header="Novo Estado" widgetVar="modal">
+                     <iframe src="#{request.contextPath}/estado/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:estado"/>
+                </p:dialog>
+
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

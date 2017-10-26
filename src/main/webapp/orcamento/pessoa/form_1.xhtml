@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">  
+                <p:panel header="Formulário de Pessoa">
+
+
+                    <h:outputLabel value="#{pessoaControle.pessoa.restricao?'Cliente com Restrição':'Não'}"
+                                   rendered="#{pessoaControle.pessoa.restricao == true}" style="color: red; text-decoration: blink"/>
+
+                    <p:tabView id ='tab' activeIndex="0" orientation="top" effect="fade" effectDuration="fast">
+                        <p:tab id="tab1" title="Dados do Cliente" disabled="false">
+
+                            <p:selectOneRadio value="#{pessoaControle.tipoPessoa}">
+                                <f:selectItem itemLabel="Pessoa Fisica" itemValue="PF"/>
+                                <f:selectItem itemLabel="Pessoa Juridica" itemValue="PJ"/>
+                                <f:ajax event="change" listener="#{pessoaControle.criaPessoa()}"
+                                        render="painel"/>
+                            </p:selectOneRadio>
+
+                            <p:panelGrid id="painel" columns="2">
+                                <p:outputLabel for="id" value="ID:"/>
+                                <p:inputText id="id" value="#{pessoaControle.pessoa.id}" disabled="true"/>
+
+                                <p:outputLabel for="dtCa" value="Data de Cadastro:" 
+                                               />
+                                <p:calendar id="dtCa" value="#{pessoaControle.pessoa.dtCadasrto}"
+                                            pattern="dd/MM/yyyy" disabled="true"
+                                            />
+
+                                <p:outputLabel for="nome" value="Nome:"/>
+                                <p:inputText id="nome" value="#{pessoaControle.pessoa.nome}" size="40"
+                                             required="true" requiredMessage="O campo Nome é obrigatório"/>
+
+                                <p:outputLabel for="cpf" value="CPF:" rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:inputMask mask="999.999.999-99" id="cpf" value="#{pessoaControle.pessoa.cpf}"
+                                             required="true" requiredMessage="O campo CPF é obrigatório"
+                                             rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:outputLabel for="cnpj" value="CNPJ:" rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:inputMask mask="99.999.999/999-99" id="cnpj" value="#{pessoaControle.pessoa.cnpj}"
+                                             required="true" requiredMessage="O campo CNPJ é obrigatório"
+                                             rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="rg" value="RG:" rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:inputText id="rg" value="#{pessoaControle.pessoa.rg}"
+
+                                             rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:outputLabel for="ie" value="IE:" rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:inputText id="ie" value="#{pessoaControle.pessoa.ie}"
+
+                                             rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="razao" value="Razão social:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:inputText id="razao" value="#{pessoaControle.pessoa.razaoSocial}" size="50"
+                                             required="true" requiredMessage="O campo Razão social é obrigatório"
+                                             rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="dtAbertura" value="Data de abertura:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+                                <p:calendar id="dtAbertura" value="#{pessoaControle.pessoa.dataAbertura}"
+
+                                            locale="pt"
+                                            pattern="dd/MM/yyyy"
+                                            rendered="#{pessoaControle.tipoPessoa=='PJ'}"/>
+
+                                <p:outputLabel for="dtNascimento" value="Data de nascimento:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+                                <p:calendar id="dtNascimento" value="#{pessoaControle.pessoa.nascimento}"
+                                            locale="pt"
+                                            pattern="dd/MM/yyyy"
+                                            rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:outputLabel for="sexo" value="Sexo:" 
+                                               rendered="#{pessoaControle.tipoPessoa=='PF'}"/>
+
+                                <p:selectOneRadio id="sexo" value="#{pessoaControle.pessoa.sexo}"
+                                                  rendered="#{pessoaControle.tipoPessoa=='PF'}">
+
+                                    <f:selectItem itemLabel="Masculino" itemValue="Masculino"/>
+                                    <f:selectItem itemLabel="Feminino" itemValue="Feminino"/>
+
+                                </p:selectOneRadio>
+
+                                <p:outputLabel for="email" value="E-mail:" />
+                                <p:inputText id="email" value="#{pessoaControle.pessoa.email}" size="40"/>
+
+                                <p:outputLabel for="fone" value="Fone:" />
+                                <p:inputMask mask="(99) 9999-9999" id="fone" value="#{pessoaControle.pessoa.fone}"
+                                             />
+
+                                <p:outputLabel for="cel" value="Celular:" />
+                                <p:inputMask mask="(99) 9999-9999" id="cel" value="#{pessoaControle.pessoa.celular}"
+                                             />
+
+
+                                <p:outputLabel for="endereco" value="Endereço:" />
+                                <p:inputText id="endereco" value="#{pessoaControle.pessoa.endereco}"
+                                             size="40"
+                                             />
+
+                                <p:outputLabel for="cep" value="Cep:" />
+                                <p:inputMask mask="99999-999" id="cep" value="#{pessoaControle.pessoa.cep}"
+                                             size="10"
+                                             />
+
+                                <p:outputLabel for="bairro" value="Bairro:" />
+                                <p:inputText id="bairro" value="#{pessoaControle.pessoa.bairro}"
+                                             size="40"
+                                             />
+                                <p:outputLabel for="numero" value="N°:" />
+
+                                <p:inputText id="numero" value="#{pessoaControle.pessoa.numero}"
+                                             size="5"
+                                             />
+
+                                <p:outputLabel for="b" value="Nova Cidade:"/>
+                                <p:commandButton id ="b" value="Gerenciar Cidade" onclick="PF('modal').show();"/>
+                                <p:outputLabel for="cidade" value="Cidade:"/>
+                                <p:autoComplete id="cidade" required="true" requiredMessage="A Cidade é obrigatório!"
+                                                completeMethod="#{cidadeControle.autoComplete(query)}"
+                                                var="est"
+                                                itemLabel="#{est.nome}"
+                                                itemValue="#{est.id.toString()}"
+                                                converter="#{cidadeControle.converter()}"
+                                                value="#{pessoaControle.pessoa.cidade}"
+                                                queryDelay="500"
+                                                dropdown="true"
+                                                style="margin-right: 30px;"/>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="tab2" title="Observações" disabled="false">
+                            <p:panelGrid>
+                                <p:inputTextarea id="obs1" autoResize="false" cols="150" rows="20" value="#{pessoaControle.pessoa.obs}" style="text-transform: uppercase" />
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="tab21" title="Contas Recebidas" disabled="false">
+                            <p:outputLabel value="Valor total:"/>
+                            <p:outputLabel value="#{pessoaControle.validaMensalidadePago}" style="color: #1578c9">
+
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+
+                            </p:outputLabel>
+                            <p:dataTable value="#{pessoaControle.listaContasRecebidas}" emptyMessage="Não há registros!"
+                                         paginator="true" var="grup" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                                <p:column headerText="ID">
+                                    #{grup.id}
+                                </p:column>
+                                <p:column headerText="Data de Vencimento">
+                                    <h:outputText value="#{grup.dtVencimento}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Situação" >
+                                    #{grup.status}
+                                </p:column>
+
+                                <p:column headerText="Total">
+                                    <h:outputText value="#{grup.valorAPagar}">
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+
+                        <p:tab id="tab31" title="Contas a Receber" disabled="false">
+
+                            <p:outputLabel value="Valor total:"/>
+                            <p:outputLabel value="#{pessoaControle.validaMensalidadeApagar}" style="color: #1578c9">
+
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+
+                            </p:outputLabel>
+
+                            <p:dataTable value="#{pessoaControle.listaContasAreceber}" emptyMessage="Não há registros!" rows="10"
+                                         paginator="true" var="grup" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                                <p:column headerText="ID">
+                                    #{grup.id}
+                                </p:column>
+                                <p:column headerText="Data de Vencimento">
+                                    <h:outputText value="#{grup.dtVencimento}">
+
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Situação" >
+                                    #{grup.status}
+                                </p:column>
+
+                                <p:column headerText="Total">
+                                    <h:outputText value="#{grup.valorAPagar}">
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:tab>
+
+                        <p:tab id="tab311" title="Contas a Pagar" disabled="false">
+
+
+
+
+                            <p:outputLabel value="Valor total:"/>
+                            <p:outputLabel value="#{pessoaControle.validaAPagar}" style="color: #1578c9">
+
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+
+                            </p:outputLabel>
+
+
+                            <p:dataTable value="#{pessoaControle.listaContasAPagar}" emptyMessage="Não há registros!"
+                                         paginator="true" var="grup" reflow="true" rows="10" paginatorPosition="bottom" style="text-align: center">
+                                <p:column headerText="ID">
+                                    #{grup.id}
+                                </p:column>
+                                <p:column headerText="Data de Vencimento">
+                                    <h:outputText value="#{grup.dtVencimento}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Situação" >
+                                    #{grup.status}
+                                </p:column>
+
+                                <p:column headerText="Total">
+                                    <h:outputText value="#{grup.valorAPagar}">
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:tab>
+
+                        <p:tab id="tab3111" title="Contas Pagas" disabled="false">
+
+                            <p:outputLabel value="Valor total:"/>
+                            <p:outputLabel value="#{pessoaControle.validaContasPagas}" style="color: #1578c9">
+
+                                <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+
+                            </p:outputLabel>
+
+                            <p:dataTable value="#{pessoaControle.listaContasPagas}" emptyMessage="Não há registros!" rows="10"
+                                         paginator="true" var="grup" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                                <p:column headerText="ID">
+                                    #{grup.id}
+                                </p:column>
+                                <p:column headerText="Data de Vencimento">
+                                    <h:outputText value="#{grup.dtPagamento}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Situação" >
+                                    #{grup.status}
+                                </p:column>
+
+                                <p:column headerText="Total">
+                                    <h:outputText value="#{grup.valorAPagar}">
+                                        <f:convertNumber minFractionDigits="2"
+                                                         maxFractionDigits="2"
+                                                         type="currency"
+                                                         currencySymbol="R$"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:tab>
+
+
+                        <p:tab id="tab521" title="Restrições" disabled="false">
+
+                            <p:panelGrid columns="2">
+                                <p:outputLabel for="tipoDoc" value="Tipo de Restrição:"/>
+                                <p:selectOneMenu id="tipoDoc" value="#{pessoaControle.restricao.tipo}" >
+                                    <f:selectItem itemLabel="--Selecione--" itemValue="null"/>
+                                    <f:selectItem itemLabel="RESTRIÇÃO ADMINISTRATIVA" itemValue="RESTRIÇÃO ADMINISTRATIVA"/>
+                                    <f:selectItem itemLabel="SERASA" itemValue="RESTRIÇÃO ADMINISTRATIVA"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="descricao" value="Descrição:"/>
+                                <p:inputText id="descricao" size="20" value="#{pessoaControle.restricao.descricao}"/>
+
+                                <p:outputLabel for="vendaAvista" title="Desmarque esta opção caso não queira realizar nenhuma transação com este cliente." 
+                                               value="Venda a vista?:"/>
+                                <p:selectBooleanCheckbox id="vendaAvista"  value="#{pessoaControle.restricao.vendaAvista}"/>
+
+                                <p:commandButton value="Adicionar" update="restricao" action="#{pessoaControle.addItem()}"/>
+                            </p:panelGrid>
+
+
+
+                            <br/>
+                            <p:dataTable id="restricao" value="#{pessoaControle.pessoa.restricaos}" emptyMessage="Não há registros!" style="text-align: center"
+                                         var="item" reflow="true">
+                                <p:column headerText="Tipo" width="150" >
+                                    #{item.tipo}
+                                </p:column>
+
+                                <p:column headerText="Descrição" width="150" >
+                                    #{item.descricao}
+                                </p:column>
+                                <p:column headerText="Venda a vista" width="150" >
+                                    <h:outputText value="#{item.vendaAvista?'SIM':'NÃO'}"/>
+                                </p:column>
+
+
+                                <p:column headerText="Rem." width="30">
+                                    <p:commandLink 
+                                        action="#{pessoaControle.removeItem()}"
+                                        actionListener="#{pessoaControle.setRestricao(item)}"
+                                        ajax="false">
+                                        <i class="icon-trash-2"/>
+                                    </p:commandLink>
+                                    <f:attribute value="#{item}" name="item"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab>
+
+                    </p:tabView>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{pessoaControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+
+
+                <p:dialog header="Novo Cidade" widgetVar="modal">
+                    <iframe src="#{request.contextPath}/cidade/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="form:tab:cidade"/>
+                </p:dialog>
+
+            </h:form>
+
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

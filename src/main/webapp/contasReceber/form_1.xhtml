@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+                <p:panel header="Formulário para gerenciamento de Contas Receber">
+
+
+                    <p:panelGrid columns="2">
+
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{contasReceberControle.contasReceber1.id}" disabled="true"/>
+
+
+                        <p:outputLabel for="credor" value="Cliente"/>
+                        <p:autoComplete id="credor" size="40"
+                                        completeMethod="#{pessoaControle.autoComplete}"
+                                        var="cli"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli}"
+                                        converter="#{pessoaControle.converter()}"
+                                        value="#{contasReceberControle.contasReceber1.pessoa}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+
+
+                        <p:outputLabel for="dtve" value="Data de Vencimento:"/>
+                        <p:calendar id="dtve" value="#{contasReceberControle.contasReceber1.dtVencimento}"
+                                    required="true" readonly="true"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+
+                        <p:outputLabel for="dtmovi" value="Data de Pagamento"/>
+                        <p:calendar id="dtmovi" value="#{contasReceberControle.contasReceber1.dtPagamento}"
+                                    required="true" 
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+
+
+                        <p:outputLabel for="valor" value="Valor da Dívida:"/>
+                        <p:inputText id="valor" value="#{contasReceberControle.contasReceber1.valorPrincipal}" readonly="true"
+                                     required="true" requiredMessage="O campo nome é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="saldo" value="Saldo Devedor:"/>
+                        <p:inputText id="saldo" value="#{contasReceberControle.contasReceber1.valor}" readonly="true"
+                                     required="true" requiredMessage="O campo nome é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="juros" value="Juros:"/>
+                        <p:inputText id="juros" value="#{contasReceberControle.contasReceber1.juros}" 
+                                     size="10" required="true" requiredMessage="O campo nome é obrigatório">
+
+                        </p:inputText>
+
+                        <p:outputLabel for="des" value="Desconto:"/>
+                        <p:inputText id="des" value="#{contasReceberControle.contasReceber1.desconto}" 
+                                     size="10" required="true" requiredMessage="O campo nome é obrigatório">
+
+                        </p:inputText>
+
+
+                        <p:outputLabel for="de" value="Calculo"/>
+                        <p:commandButton id="de" value="Calcular"
+                                         actionListener="#{contasReceberControle.contasReceber1.calculaTotal()}"
+                                         update="valoraPagar restos"/>
+
+
+
+
+                        <p:outputLabel for="valoraPagar" value="Valor a Pagar:"/>
+                        <p:outputLabel id="valoraPagar" value="#{contasReceberControle.contasReceber1.valor}" 
+                                       >
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        </p:outputLabel>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+
+                        <p:outputLabel for="valorPagar" value="Valor Pago:"/>
+                        <p:inputText id="valorPagar" value="#{contasReceberControle.contasReceber1.valorPago}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                            <f:ajax event="keyup" render="restos" 
+                                    listener="#{contasReceberControle.contasReceber1.restos()}"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="restos" value="Restos a Pagar:"/>
+                        <p:inputText id="restos" value="#{contasReceberControle.contasReceber1.restosAPagar}" 
+                                     required="true"  requiredMessage="O campo nome é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        </p:inputText>
+
+
+                        <p:outputLabel for="des1" value="Descrição"/>
+                        <p:inputTextarea id="des1" autoResize="false" cols="50" rows="10" value="#{contasReceberControle.contasReceber1.descricao}"/>
+
+
+                    </p:panelGrid> 
+
+                    <f:facet name="footer">
+                        <p:panelGrid id="fu">
+                            <p:commandButton id="btSalvar" value="Pagar" onclick="PF('form10').show();" 
+                                             />
+
+                            <p:commandButton value="Cancelar"
+                                             action="list?faces-redirect=true"
+                                             immediate="true"
+                                             ajax="false"/>
+                        </p:panelGrid>
+                    </f:facet>
+
+
+
+
+
+                </p:panel>
+
+                <p:dialog header="Selecionar conta"  widgetVar="form10" modal="true" height="230" width="800">
+                    <h:panelGrid  columns="3" id="painel12Busca" style="text-align:center; background-position: center">
+
+                        <p:outputLabel value="Onde deseja lançar este crédito?" style="color: black"/>
+                    </h:panelGrid>
+                    <h:panelGrid  columns="1" id="painelBu122sca" style="text-align:center; background-position: center">
+                        <p:selectOneRadio id="tipoCompra2" value="#{contasReceberControle.contasReceber1.tipoDocumento}">
+                            <f:selectItem itemLabel="DINHEIRO" itemValue="DINHEIRO"/>
+                            <f:selectItem itemLabel="CARTÃO DÉBITO" itemValue="CARTÃO DÉBITO"/>
+                            <f:selectItem itemLabel="CARTÃO CRÉDITO" itemValue="CARTÃO CRÉDITO"/>
+                            <f:selectItem itemLabel="CHEQUE" itemValue="CHEQUE"/>
+                            <f:selectItem itemLabel="CONTA BANCÁRIA" itemValue="CONTA BANCÁRIA"/>
+                            <f:ajax event="change" render="check2 painelBu2sca cartao cartao1"/>
+
+                        </p:selectOneRadio>
+
+
+                        <h:panelGrid  columns="4" id="cartao" style="text-align:right; background-position: right">
+
+                            <p:outputLabel value="Data Vencimento da Fatura:" style="color: black"
+                                           rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CARTÃO CRÉDITO'}"/>
+                            <p:calendar id="check12" value="#{contasReceberControle.contasReceber1.dtVencimentoFatura}" 
+                                        rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CARTÃO CRÉDITO'}"/>
+
+                              
+                            <p:outputLabel for="ban1" value="Bandeira:"  rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CARTÃO CRÉDITO'}" style="color: black"/>
+                            <p:autoComplete id="ban1" rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CARTÃO CRÉDITO'}"
+                                            completeMethod="#{bandeiraControle.autoComplete}"
+                                            var="est"
+                                            itemLabel="#{est.nome}"
+                                            itemValue="#{est}"
+                                            converter="#{bandeiraControle.converter()}"
+                                            value="#{contasReceberControle.contasReceber1.bandeira}"
+                                            queryDelay="500"
+                                            dropdown="true"
+                                            style="margin-right: 30px;"
+                                            >
+
+                            </p:autoComplete>
+
+
+                        </h:panelGrid>
+
+
+                        <h:panelGrid  columns="2" id="cartao1" style="text-align:right; background-position: right">
+
+                            <p:outputLabel for="ban11" value="Bandeira:"  rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CARTÃO DÉBITO'}"/>
+                            <p:autoComplete id="ban11" rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CARTÃO DÉBITO'}"
+                                            completeMethod="#{bandeiraControle.autoComplete}"
+                                            var="est"
+                                            itemLabel="#{est.nome}"
+                                            itemValue="#{est}"
+                                            converter="#{bandeiraControle.converter()}"
+                                            value="#{contasReceberControle.contasReceber1.bandeira}"
+                                            queryDelay="500"
+                                            dropdown="true"
+                                            style="margin-right: 30px;"
+                                            >
+
+                            </p:autoComplete>
+
+
+                        </h:panelGrid>
+
+
+
+
+                        <h:panelGrid  columns="1" id="painelBu2sca" style="text-align:center; background-position: center">
+                            <p:autoComplete id="conta" rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CONTA BANCÁRIA'}"
+                                            completeMethod="#{contaBancariaControle.autoComplete}"
+                                            var="est" size="30"
+                                            itemLabel="#{est.nome}"
+                                            itemValue="#{est}"
+                                            converter="#{contaBancariaControle.converter()}"
+                                            value="#{contasReceberControle.contaBancaria}"
+                                            queryDelay="500"
+                                            dropdown="true"
+                                            style="margin-right: 30px;"
+                                            >
+
+                            </p:autoComplete>
+
+                        </h:panelGrid>
+
+
+
+
+
+                        <h:panelGrid  columns="7" id="check2" style="text-align:right; background-position: right">
+
+                            <p:outputLabel for="caixa" value="Banco:" rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CHEQUE'}"/>
+                                <p:selectOneMenu id="caixa" requiredMessage="O Banco é obrigatório" rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CHEQUE'}"
+                                                 value="#{contasReceberControle.contasReceber1.banco}" 
+                                                 converter="#{bancoControle.converter()}">
+
+                                    <f:selectItem itemLabel="-- Selecione --"
+                                                  itemValue="0"/>
+
+                                    <f:selectItems value="#{bancoControle.listaBancos}"
+                                                   var="grup"
+                                                   itemLabel="#{grup.nome}"
+                                                   itemValue="#{grup}"/>
+                                </p:selectOneMenu>
+                            
+                            <p:outputLabel value="N° Cheque" style="color: black" rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CHEQUE'}"/>
+                            <p:inputText id="check" value="#{contasReceberControle.contasReceber1.numeroDoc}" 
+                                         rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CHEQUE'}"/>
+                            <p:outputLabel  value="Data de Vencimento:" style="color: black" rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CHEQUE'}"/>
+                            <p:calendar id="check1" value="#{contasReceberControle.contasReceber1.dtVencimentoFatura}" 
+                                        rendered="#{contasReceberControle.contasReceber1.tipoDocumento == 'CHEQUE'}"/>
+
+                        </h:panelGrid>
+                        <br/>
+                        <p:commandButton value="Confirmar" action="#{contasReceberControle.salvar1()}" />
+
+                    </h:panelGrid>
+
+
+
+
+
+                </p:dialog>
+
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

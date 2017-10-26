@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this licenseh eader, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml"
+      >
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+
+            <h:form>
+                <p:panel header="Lista de Pessoas">
+
+                    <p:dataTable value="#{pessoaControle.listaPessoas}"  id="produ" emptyMessage="Não há registros!" paginatorPosition="bottom" style="text-align: center"
+                                 var="item" reflow="true" rows="10">
+                        <p:column headerText="ID" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Nome" filterBy="#{item.nome}" width="500"   filterStyle="min-width: 300px;">
+                            #{item.nome}
+                        </p:column>
+                        <p:column headerText="CPF/CNPJ" filterBy="#{item.documentoFederal}">
+                            #{item.documentoFederal}
+                        </p:column>
+
+
+                        <p:column headerText="Ativo" width="40">
+                            <h:outputText value="#{item.ativo?'SIM':'NÃO'}"/>
+                        </p:column>
+
+                        
+                        <p:column headerText="Editar/Visualizar">
+                            <p:commandLink title="Editar Registro"
+                                           actionListener="#{pessoaControle.setPessoa(item)}"
+                                           action="#{pessoaControle.editar}"
+                                           ajax="false">
+                                <i class="icon-edit-1"/>
+                            </p:commandLink>
+
+
+                        </p:column>
+
+                        <p:column headerText="Excluir">
+
+                            <p:commandLink title="Excluir Registro"
+                                           action="#{pessoaControle.excluir(item)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+
+                            </p:commandLink>
+
+
+                        </p:column>
+                    </p:dataTable>
+
+
+
+                    <p:commandButton value="Adicionar um novo cliente" title="Adicionar Novo Registro"
+                                     action="#{pessoaControle.novo()}"
+                                     ajax="false"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

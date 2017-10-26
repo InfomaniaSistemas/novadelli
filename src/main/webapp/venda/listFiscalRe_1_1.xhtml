@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+               
+                <p:panel header="Lista de Vendas (NOTA FISCAL ELETRÔNICA - MODELO 55)">
+                    <p:dataTable value="#{vendaControle.listaEmissao}" emptyMessage="Não há registros!" paginator="true" var="item" paginatorPosition="bottom" rows="10" style="text-align: center">
+                        <p:column headerText="Cód. Venda" filterBy="#{item.id}">
+                            #{item.id}
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{item.pessoa.nome}" width="500" filterStyle="min-width: 400px;">
+                            #{item.pessoa.nome}
+                        </p:column>
+                        <p:column headerText="Data da venda" filterBy="#{item.dtVenda}">
+                            <h:outputText value="#{item.dtVenda}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Total Líquido">
+                            <h:outputText value="#{item.totalDescEn}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="NF-E">
+                            <p:commandLink title="Emitir NF-E"
+                                           actionListener="#{vendaControle.setVenda(item)}"
+                                           action="#{consulta.enviarNfe55(item)}"
+                                           ajax="false">
+                                <i class="icon-upload"/>
+
+                            </p:commandLink>
+                        </p:column>
+
+                        <p:column headerText="Retorno NF-E">
+                            <p:commandLink title="Retorno NF-E"
+                                           actionListener="#{vendaControle.setVenda(item)}"
+                                           action="#{consulta.enviarNfe55Retorno(item)}"
+                                           ajax="false">
+                                <i class="icon-down-1"/>
+
+                            </p:commandLink>
+                        </p:column>
+
+
+                        <p:column headerText="Retransmissão NF-E">
+                            <p:commandLink title="Retransmissão NF-E"
+                                           actionListener="#{vendaControle.setVenda(item)}"
+                                           action="#{consulta.enviarNfe55Retransmitir(venda)}"
+                                           ajax="false">
+                                <i class="icon-loop-alt-outline"/>
+
+                            </p:commandLink>
+                        </p:column>
+
+
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

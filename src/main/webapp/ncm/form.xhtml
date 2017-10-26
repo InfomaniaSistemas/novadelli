@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+    and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+
+
+            <h:form id="form">
+                <!--<p:panel header="Formulário para gerenciamento de Venda">-->
+
+                <p:hotkey bind="F2" update="msgs" handler="PF('form8').show();" />
+                <h:panelGrid id="painelItem1" columns="2"  style="margin-bottom:10px" cellpadding="5">
+                    <p:outputLabel for="ncm" value="NCM:" />
+
+                    <p:inputText id="ncm" value="#{ajusteNcmControle.ajusteNcm.ncm}" size="20"/>                                    
+
+                    <p:outputLabel for="des" value="Descrição do Produto:" />
+
+                    <p:inputText id="des" value="#{ajusteNcmControle.ajusteNcm.descricao}" size="20"/>                                    
+                </h:panelGrid>
+
+                <p:commandButton title="Clique aqui para adicionar produto" value="Listar"
+                                 actionListener="#{ajusteNcmControle.addItem()}"
+                                 update="itensVenda"/>
+
+
+
+
+
+
+
+
+
+                <p:separator styleClass="Wid100"></p:separator>
+
+
+
+                <p:panel >
+
+                    <p:dataTable id="itensVenda" value="#{ajusteNcmControle.ajusteNcm.itensNcms}" emptyMessage="Não adicionado nenhum item!"
+                                 var="item" style="text-align: center" editable="true" editMode="cell" >
+                        <p:column headerText="Produto">
+                            #{item.nome}
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <h:outputText value="#{item.valorVendaPrazo}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+<!--                        <p:column headerText="Opções">
+                            <p:commandButton value="Remover"
+                                             action="{ajusteNcmControle.removeItem()}"
+                                             actionListener="{ajusteNcmControle.setItemNcm(item)}"
+
+                                             update="parcela val11 painelpto parcelas total total1111"
+
+
+
+
+                                             ajax="false"/>
+                        </p:column>-->
+                    </p:dataTable>
+
+
+                    <p:commandButton  value="Salvar"
+                                      action="#{ajusteNcmControle.salvar()}"
+                                      update="itensVenda  "
+                                      />
+
+                    <p:commandButton value="Voltar"
+                                     action="/produto/list?faces-redirect=true"
+                                     immediate="true"
+                                     ajax="false"/>
+
+                </p:panel>
+
+
+
+                <p:dialog header="Lista de Produtos"  widgetVar="form8" modal="true" height="530" width="1300">
+                    <h:panelGrid  columns="9" id="painelBusca" style="text-align:center; background-position: center">
+                        <p:selectOneRadio value="#{vendaControle.tipo2}">
+                            <f:selectItem itemLabel="Pesquisar por nome" itemValue="nome" />
+                            <f:selectItem itemLabel="Pesquisar por cód. barras" itemValue="cod"/>
+                            <f:selectItem itemLabel="Pesquisar por cód. Fornecedor" itemValue="codFor"/>
+                            <f:ajax event="change" 
+                                    render="painelBusca"/>
+                        </p:selectOneRadio>
+
+
+                        <p:inputText  value="#{produtoControle.id2}" size="70"/>
+                        <p:commandButton id="filtro" value="Consultar"  actionListener="#{produtoControle.validaLista()}" 
+                                         update="produ" rendered="#{vendaControle.tipo2=='nome'}"/>
+                        <p:commandButton id="filtro1" value="Consultar"  actionListener="#{produtoControle.validaLista()}" 
+                                         update="produ" rendered="#{vendaControle.tipo2=='cod'}"/>
+                        <p:commandButton id="filtro2" value="Consultar"  actionListener="#{produtoControle.validaLista()}" 
+                                         update="produ" rendered="#{vendaControle.tipo2=='codFor'}"/>
+                    </h:panelGrid>
+
+                    <p:dataTable value="#{produtoControle.listaProdutos2}" id="produ" widgetVar="carsTable"
+                                 emptyMessage="Não há registros!" var="item" rows="20"
+
+                                 style="text-align: center">
+
+                        <p:column headerText="Cód. Barras" width="150" >
+                            #{item.codBarras}
+                        </p:column>
+
+                        <p:column headerText="Cód. Fornecedor" width="150" >
+                            #{item.codFornecedor}
+                        </p:column>
+
+
+                        <p:column headerText="Nome" width="250" >
+                            #{item.nome}
+                        </p:column>
+
+                        <p:column headerText="Preço" >
+                            <h:outputText value="#{item.valorVendaPrazo}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Estoque">
+                            <p:outputLabel value="#{item.estoque}" style="color: green"/>
+                        </p:column>
+
+
+                        <p:column width="110" headerText="Selecionar Produto">
+                            <p:commandLink 
+                                action="#{ajusteNcmControle.enviaProd(item)}"
+                                ajax="false">
+                                <i class="icon-forward"/>
+                            </p:commandLink>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:dialog>
+
+                <p:panelGrid columns="6">
+
+                </p:panelGrid>
+
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+                             http://www.springframework.org/schema/beans/spring-beans.xsd
+                             http://www.springframework.org/schema/security
+                             http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+    <http auto-config="true" access-denied-page="/access-denied.xhtml" use-expressions="true">
+        <logout logout-url="/logout" invalidate-session="true" logout-success-url="/login.xhtml" />
+        <intercept-url pattern="/venda/*****" access="hasAnyRole('ADMIN','USER','CAIXA')"/>
+        <intercept-url pattern="/contaspagar/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/contasreceber/****" access="hasAnyRole('ADMIN','CAIXA')"/>
+        <intercept-url pattern="/pessoa/****" access="hasAnyRole('ADMIN','USER','CAIXA')"/>
+        <intercept-url pattern="/funcionario/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/produto/****" access="hasAnyRole('ADMIN','USER','CAIXA')"/>
+        <intercept-url pattern="/ajuste/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/caixa/****" access="hasAnyRole('ADMIN','CAIXA')"/>
+        <intercept-url pattern="/usuario/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/relatorios/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/compra/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="****/extornar/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/fornecedor/****" access="hasAnyRole('ADMIN')"/>
+        <intercept-url pattern="/index.xhtml" access="isAuthenticated()"/>
+        <form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+               users-by-username-query=""
+               authorities-by-username-query=""/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"/>
+    
+</b:beans>

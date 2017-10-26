@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lista de Tipo de Serviços">
+                    <p:dataTable value="#{tipoDeManutencaoControle.listaTipoDeManutencaos}" paginator="true" var="grup" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                        <p:column headerText="ID">
+                            #{grup.id}
+                        </p:column>
+                        <p:column headerText="Nome" filterBy="#{grup.nome}">
+                            #{grup.nome}
+                        </p:column>
+
+
+                        <p:column headerText="Editar">
+
+                            <p:commandLink title="Editar Registro"
+                                           actionListener="#{tipoDeManutencaoControle.setTipoDeManutencao(grup)}"
+                                           action="form?faces-redirect=true"
+                                           ajax="false">
+                                <i class="icon-edit-1"/>
+                            </p:commandLink>
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <p:commandLink title="Excluir Registro" 
+                                           action="#{tipoDeManutencaoControle.excluir(grup)}"
+                                           ajax="false">
+                                <i class="icon-trash-2"/>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Adicionar" 
+                                     action="#{tipoDeManutencaoControle.novo()}"
+                                     ajax="false"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="codigoBarras" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed474f87-c833-42ae-b76b-5280cf291fac">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="aux" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     produto."id" AS produto_id,
+     produto."codbarras" AS produto_codbarras,
+     produto."valorvendaprazo" AS produto_valorvendaprazo
+FROM
+     "public"."produto" produto
+
+
+
+where produto."id" = $P{aux}]]>
+	</queryString>
+	<field name="produto_id" class="java.lang.Long"/>
+	<field name="produto_codbarras" class="java.lang.String"/>
+	<field name="produto_valorvendaprazo" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="98" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="f2b77d23-f88f-4c67-a707-29f13eb1e777" x="52" y="24" width="100" height="50"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{produto_codbarras}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="46ae1ea8-b660-421f-bb41-2a71288770c4" x="52" y="3" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{produto_valorvendaprazo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

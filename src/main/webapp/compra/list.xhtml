@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lista de entradas de produtos">
+
+                    <p:dataTable value="#{compraControle.listaCompras}" emptyMessage="Não há registros!" rows="10" paginator="true" var="item" paginatorPosition="bottom" style="text-align: center">
+
+                        <p:column headerText="FILIAL" width="250"  filterBy="#{item.empresa.nome}">
+                            #{item.empresa.nome}
+                        </p:column>
+
+                        <p:column headerText="N° NOTA FISCAL" filterBy="#{item.numDoc}">
+                            #{item.numDoc}
+                        </p:column>
+                        <p:column headerText="FORNECEDOR" filterBy="#{item.fornecedor.razaoSocial}" width="400"   filterStyle="min-width: 300px;">
+                            #{item.fornecedor.razaoSocial}
+                        </p:column>
+                        <p:column headerText="DT. COMPRA">
+                            <h:outputText value="#{item.dataEntrada}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="SITUAÇÃO" filterBy="#{item.situacao}">
+                            #{item.situacao}
+                        </p:column>
+
+                        <p:column headerText="TOTAL">
+                            <h:outputText value="#{item.totalDesc}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="EDITAR/VISUALIZAR">
+                            <p:commandLink title="Editar Registro"
+                                           actionListener="#{compraControle.setCompra(item)}"
+                                           action="#{compraControle.editar()}"
+                                           ajax="false">
+                                <i class="icon-edit-1"/>
+                            </p:commandLink>
+                        </p:column>    
+
+                    </p:dataTable>
+
+                    <br/>
+                    <p:commandButton value="Adicionar" 
+                                     action="#{compraControle.novo()}"
+                                     ajax="false"/>
+
+
+                </p:panel>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form id="form">
+                <p:panel header="Formulário para gerenciamento de Contratos">
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{contratoControle.contrato.id}" disabled="true"/>
+
+
+                        <p:outputLabel for="credor" value="Cliente"/>
+                        <p:autoComplete id="credor" size="40" required="true"
+                                        completeMethod="#{pessoaControle.autoComplete}"
+                                        var="cli"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli}"
+                                        converter="#{pessoaControle.converter()}"
+                                        value="#{contratoControle.contrato.pessoa}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+                        <p:outputLabel for="motivo" value="Motivo"/>
+                        <p:inputText  id="motivo" value="#{contratoControle.contrato.motivo}" size="30" style="text-transform: uppercase"/>
+                        <p:outputLabel id="categoria" for="categoria" value="Categoria"/>
+                        <p:inputText value="#{contratoControle.contrato.categoria}" size="30" style="text-transform: uppercase"/>
+
+
+                        <p:outputLabel for="total" value="Total"/>
+                        <p:outputLabel id="total" value="#{contratoControle.contrato.total}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             type="currency" currencySymbol="R$"/>
+                        </p:outputLabel>
+
+
+
+
+
+
+
+                        <p:outputLabel for="custo" value="Taxa Detran:"/>
+                        <p:inputText id="custo" value="#{contratoControle.contrato.taxaDetran}" 
+                                     required="true" requiredMessage="O campo Taxa é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                            <f:ajax event="keyup" render=":form:total"
+                                    listener="#{contratoControle.contrato.calculaTotal()}"/>
+
+                            <p:ajax event="change" rendered="ajax"
+                                    listener="#{contratoControle.contrato.gerarParcelas()}"
+                                    update="parcelas"/> 
+
+                        </p:inputText>
+
+
+                        <p:outputLabel for="serv" value="Serviço"/>
+                        <p:inputText id="serv" value="#{contratoControle.contrato.servico}" 
+                                     required="true" requiredMessage="O campo Serviço é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                            <f:ajax event="keyup" render=":form:total"
+                                    listener="#{contratoControle.contrato.calculaTotal()}"/>
+
+
+                            <p:ajax event="change" rendered="ajax"
+                                    listener="#{contratoControle.contrato.gerarParcelas()}"
+                                    update="parcelas"/> 
+
+                        </p:inputText>
+
+
+
+                        <p:outputLabel for="custotaxa2" value="Taxa Detran:"/>
+                        <p:inputText id="custotaxa2" value="#{contratoControle.contrato.taxaDetran2}" 
+                                     required="true" requiredMessage="O campo Taxa é obrigatório">
+
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+
+                            <f:ajax event="keyup" render=":form:total"
+                                    listener="#{contratoControle.contrato.calculaTotal()}"/>
+
+                            <p:ajax event="change" rendered="ajax"
+                                    listener="#{contratoControle.contrato.gerarParcelas()}"
+                                    update="parcelas"/> 
+
+
+                        </p:inputText>
+
+
+                        <p:outputLabel for="te" value="Teóricas"/>
+                        <p:inputText id="te" value="#{contratoControle.contrato.teoricas}" 
+                                     required="true" requiredMessage="O campo Teóricas é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                            <f:ajax event="keyup" render=":form:total"
+                                    listener="#{contratoControle.contrato.calculaTotal()}"/>
+                            <p:ajax event="change" rendered="ajax"
+                                    listener="#{contratoControle.contrato.gerarParcelas()}"
+                                    update="parcelas"/> 
+
+
+                        </p:inputText>
+
+
+                        <p:outputLabel for="pa" value="Práticas"/>
+                        <p:inputText id="pa" value="#{contratoControle.contrato.praticas}" 
+                                     required="true" requiredMessage="O campo Praticas é obrigatório">
+
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                            <f:ajax event="keyup" render=":form:total"
+                                    listener="#{contratoControle.contrato.calculaTotal()}"/>
+
+                            <p:ajax event="change" rendered="ajax"
+                                    listener="#{contratoControle.contrato.gerarParcelas()}"
+                                    update="parcelas"/> 
+
+
+                        </p:inputText>
+
+                        <p:outputLabel for="des" value="Desconto"/>
+                        <p:inputText id="des" value="#{contratoControle.contrato.desconto}" 
+                                     required="true" requiredMessage="O campo Desconto é obrigatório">
+
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                            <f:ajax event="keyup" render=":form:total"
+                                    listener="#{contratoControle.contrato.calculaTotal()}"/>
+
+                            <p:ajax event="change" rendered="ajax"
+                                    listener="#{contratoControle.contrato.gerarParcelas()}"
+                                    update="parcelas"/> 
+
+                        </p:inputText>
+                        <p:outputLabel for="parcela" value="Qtd. de parcela:"/>
+                        <p:spinner id="parcela" 
+                                   min="1" max="12" 
+                                   value="#{contratoControle.contrato.qtdParcela}">
+
+
+                            <p:ajax event="change" rendered="ajax"
+                                    listener="#{contratoControle.contrato.gerarParcelas()}"
+                                    update="parcelas"/> 
+
+
+                        </p:spinner>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1">
+                        <p:separator styleClass="Wid100"></p:separator>
+                        <p:dataTable id="parcelas" value="#{contratoControle.contrato.parcelas}" rowIndexVar="linha" var="par" 
+                                     style="text-align: center" 
+                                     editable="true" editMode="cell" emptyMessage="Não Possui Registros!">
+                            <p:column headerText="Nº" style="text-align: center" >
+                                <h:outputLabel value="#{linha + 1}"/>
+                            </p:column>
+
+                            <p:column headerText="Valor">
+                                <p:cellEditor>
+
+                                    <f:facet name="output">
+                                        <p:outputLabel value="#{par.valor}">
+                                            <f:convertNumber currencySymbol="R$" type="currency" maxFractionDigits="2" minFractionDigits="2"/>
+                                        </p:outputLabel>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{par.valor}" label="val"> 
+                                            <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/>
+                                            <f:ajax event="change" render="parcelas" 
+                                                    listener="#{contratoControle.contrato.recalcularParcela()}"/>
+                                        </p:inputText>
+                                    </f:facet>
+
+
+                                </p:cellEditor>
+                            </p:column>
+
+
+
+
+
+                            <p:ajax event="cellEdit" update="parcelas vencimento" 
+                                    />
+
+                            <p:column headerText="Vencimento" id="vencimento">
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{par.vencimento}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{par.vencimento}" label="vencimento"> 
+                                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/>
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Forma de Pagamento">
+                                <p:cellEditor>
+
+                                    <f:facet name="output">
+                                        <p:outputLabel value="#{par.doc}" style="text-transform: uppercase">
+                                        </p:outputLabel>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{par.doc}" label="doc" style="text-transform: uppercase"> 
+
+
+                                        </p:inputText>
+                                    </f:facet>
+
+
+                                </p:cellEditor>
+                            </p:column>
+
+
+
+                        </p:dataTable>
+
+
+                    </p:panelGrid>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{contratoControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

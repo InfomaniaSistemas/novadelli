@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="conteudo">
+
+        <h:form>
+            <p:panelGrid columns="4">
+                <p:selectOneRadio id="valida" value="#{relatorioControle.validaOs}">
+                    <f:selectItem itemLabel="Todas" itemValue="todas"/>
+                    <f:selectItem itemLabel="Situação" itemValue="situacao"/>
+                    <f:selectItem itemLabel="Tipo" itemValue="tipo"/>
+                    <f:selectItem itemLabel="Cidade" itemValue="cidade"/>
+                    <f:selectItem itemLabel="Cliente" itemValue="cliente"/>
+                    <f:ajax event="change" 
+                            render ="painel" />
+                </p:selectOneRadio>
+            </p:panelGrid>  
+            <p:panelGrid id='painel' columns="2">
+                <p:outputLabel for="dtIn" value="Data Inicial"/>
+                <p:calendar locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datainicio}" id="dtIn" required="true"/>
+                <p:outputLabel for="dtFin" value="Data Final" />
+                <p:calendar locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datafim}" id="dtFin" required="true"/>
+                <p:outputLabel for="tipo" value="Tipo" rendered="#{relatorioControle.validaOs=='tipo'}"/>
+                <p:selectOneMenu id="tipo" required="true" 
+                                 value="#{relatorioControle.tipo}" rendered="#{relatorioControle.validaOs=='tipo'}"
+                                 converter="#{tipoDeManutencaoControle.converter()}">
+
+                    <f:selectItem itemLabel="-- Selecione --"
+                                  itemValue="0"/>
+
+                    <f:selectItems value="#{tipoDeManutencaoControle.listaTipoDeManutencaos}" 
+                                   var="grup"
+                                   itemLabel="#{grup.nome}"
+                                   itemValue="#{grup}"/>
+                </p:selectOneMenu>
+
+
+
+                <p:outputLabel for="sit" value="Situação" rendered="#{relatorioControle.validaOs=='situacao'}"/>
+                <p:selectOneMenu id="sit" required="true"
+                                 value="#{relatorioControle.situacao}" rendered="#{relatorioControle.validaOs=='situacao'}"
+                                 converter="#{situacaoOsControle.converter()}">
+
+                    <f:selectItem itemLabel="-- Selecione --"
+                                  itemValue="0"/>
+
+                    <f:selectItems value="#{situacaoOsControle.listaSituacaoOss}" 
+                                   var="grup"
+                                   itemLabel="#{grup.nome}"
+                                   itemValue="#{grup}"/>
+                </p:selectOneMenu>
+
+
+
+                <p:outputLabel for="cliente" value="Cliente" rendered="#{relatorioControle.validaOs=='cliente'}"/>
+                <p:autoComplete id="cliente" required="true" 
+                                completeMethod="#{pessoaControle.autoComplete}" rendered="#{relatorioControle.validaOs=='cliente'}"
+                                var="cli" size="35"
+                                itemLabel="#{cli.nome}"
+                                itemValue="#{cli}"
+                                converter="#{pessoaControle.converter()}"
+                                value="#{relatorioControle.cliente}"
+                                queryDelay="500"
+                                dropdown="true"
+                                style="margin-right: 30px;"/>
+
+
+
+                <p:outputLabel for="cid" value="Cidade" rendered="#{relatorioControle.validaOs=='cidade'}"/>
+                <p:selectOneMenu id="cid" required="true"
+                                 value="#{relatorioControle.cidade}" rendered="#{relatorioControle.validaOs=='cidade'}"
+                                 converter="#{cidadeControle.converter()}">
+
+                    <f:selectItem itemLabel="-- Selecione --"
+                                  itemValue="0"/>
+
+                    <f:selectItems value="#{cidadeControle.listaCidades}" 
+                                   var="grup"
+                                   itemLabel="#{grup.nome}"
+                                   itemValue="#{grup}"/>
+                </p:selectOneMenu>
+
+
+                <p:commandButton ajax="false" value="Gerar" actionListener="#{relatorioControle.listaOsData()}" rendered="#{relatorioControle.validaOs=='tipo'}"/>
+                <p:commandButton ajax="false" value="Gerar" actionListener="#{relatorioControle.listaOsDataSit()}" rendered="#{relatorioControle.validaOs=='situacao'}" />
+                <p:commandButton ajax="false" value="Gerar" action="#{relatorioControle.limpaCli()}" actionListener="#{relatorioControle.listaOsDataCli()}" rendered="#{relatorioControle.validaOs=='cliente'}" />
+                <p:commandButton ajax="false" value="Gerar" actionListener="#{relatorioControle.listaOsDataTodas()}" rendered="#{relatorioControle.validaOs=='todas'}" />
+                <p:commandButton ajax="false" value="Gerar"  actionListener="#{relatorioControle.listaOsDataCid()}" rendered="#{relatorioControle.validaOs=='cidade'}" />
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

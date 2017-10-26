@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Formulário para gerenciamento de Contas Pagar">
+
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{contasPagarControle.contasPagar.id}" disabled="true"/>
+
+                        <p:outputLabel  for="filial" value="Filial"/>
+                        <p:autoComplete id="filial" required="true"
+                                        completeMethod="#{fazendaControle.autoComplete}" size="26"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est.id.toString()}"
+                                        converter="#{fazendaControle.converter()}"
+                                        value="#{contasPagarControle.contasPagar.empresa}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        scrollHeight="350"
+                                        style="margin-right: 30px;"/>
+                        <p:outputLabel for="credor" value="Fornecedor"/>
+                        <p:autoComplete id="credor" size="40"
+                                        completeMethod="#{fornecedorControle.autoComplete}"
+                                        var="cli"
+                                        itemLabel="#{cli.nome}"
+                                        itemValue="#{cli}"
+                                        converter="#{pessoaControle.converter()}"
+                                        value="#{contasPagarControle.contasPagar.pessoa}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        scrollHeight="350"
+                                        style="margin-right: 30px;"/>
+
+
+
+
+                        <p:outputLabel for="dtmovi" value="Data de Movimento:"/>
+                        <p:calendar id="dtmovi" value="#{contasPagarControle.contasPagar.dtMovimento}"
+                                    required="true" mask="true"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+                        <p:outputLabel for="dtve" value="Data de Vencimento:"/>
+                        <p:calendar id="dtve" value="#{contasPagarControle.contasPagar.dtVencimento}"
+                                    required="true" mask="true"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+
+                        <p:outputLabel for="valor" value="Valor:"/>
+                        <p:inputText id="valor" value="#{contasPagarControle.contasPagar.valor}"
+                                     required="true" requiredMessage="O campo nome é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        </p:inputText>
+
+
+
+                        <p:outputLabel for="des" value="Descrição"/>
+                        <p:inputTextarea id="des" autoResize="false" cols="50" rows="10" value="#{contasPagarControle.contasPagar.descricao}" style="text-transform: uppercase"/>
+
+
+                    </p:panelGrid>
+
+
+
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{contasPagarControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

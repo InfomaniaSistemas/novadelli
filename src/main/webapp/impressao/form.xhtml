@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+    and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"         
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+
+
+            <h:form id="form">
+                <!--<p:panel header="Formulário para gerenciamento de Venda">-->
+
+                <p:hotkey bind="F2" update="msgs" handler="PF('form8').show();" />
+
+                <p:outputLabel value="(Pressione F2 para consultar produtos)" style="color: black"/>
+                <h:panelGrid id="painelItem" columns="5"  style="margin-bottom:10px" cellpadding="5">
+
+                    <p:outputLabel for="produto" value="Selecionar Produto:" style="color: black" />
+                    <p:autoComplete id="produto" size="70"
+                                    completeMethod="#{produtoControle.autoCompleteNome2}"
+                                    var="prod"
+                                    itemLabel="#{prod.nome}"
+                                    itemValue="#{prod.id.toString()}"
+                                    converter="#{produtoControle.converter()}"
+                                    value="#{impressaoControle.produto}"
+                                    queryDelay="500"
+                                    dropdown="true" scrollHeight="350"
+                                    style="margin-right: 30px;">
+                        <f:facet name="itemtip">
+                            <h:panelGrid columns="2" cellpadding="5">
+
+                                <h:outputText value="Marca:" />
+                                <h:outputText style="color: blue" value="#{prod.marca.nome}" />
+
+                                <h:outputText value="Modelo:" />
+                                <h:outputText style="color: blue" value="#{prod.modelo}" />
+
+                               
+                                <h:outputText value="Estoque:" />
+                                <h:outputText style="color: #000000" value="#{prod.estoque}" />
+
+                                <h:outputText value="Preço a vista" />
+                                <h:outputText style="color: green" value="#{prod.valorVendaAvista}" >
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </h:outputText>
+                                <h:outputText value="Preço a prazo" />
+                                <h:outputText style="color: green" value="#{prod.valorVendaPrazo}">
+                                    <f:convertNumber minFractionDigits="2"
+                                                     maxFractionDigits="2"
+                                                     type="currency"
+                                                     currencySymbol="R$"/>
+                                </h:outputText>
+                            </h:panelGrid>
+                        </f:facet>
+                    </p:autoComplete>
+                    <p:outputLabel for="qtd" value="Quantidade" style="color: black"/>
+                    <p:inputText id="qtd" value="#{impressaoControle.qtd5}" size="5"/>
+
+                    <p:commandButton title="Clique aqui para adicionar produto" value="Adicionar Produto"
+                                     actionListener="#{impressaoControle.addItem()}"
+                                     update="itensVenda painelItem painelItem2"/>
+                </h:panelGrid>
+                <h:panelGrid id="painelItem2" columns="5"  style="margin-bottom:10px" cellpadding="5">
+                    <p:outputLabel for="total" value="Total de Etiquetas:" style="color: black"/>
+                    <p:outputLabel id="total" value="#{impressaoControle.cont}" style="color: black" />
+
+                    <p:commandButton title="Clique aqui para limpar a lista" class="OrangeButton" value="Remover Todos"
+                                     actionListener="#{impressaoControle.removeItem()}"
+                                     update="itensVenda painelItem painelItem2"/>
+
+
+
+
+                </h:panelGrid>
+
+
+
+
+
+                <p:separator styleClass="Wid100"></p:separator>
+
+
+
+                <p:panel >
+
+                    <p:dataTable id="itensVenda" value="#{impressaoControle.impressao.itensImpressaosAux}" emptyMessage="Não adicionado nenhum item!"
+                                 var="item" style="text-align: center" paginator="true" rows="8" editable="true" editMode="cell" rowIndexVar="linha" >
+
+                        <p:column headerText="Quantidade" style="text-align: center">
+                            <h:outputLabel value="#{item.quantidade}"/>
+                        </p:column>
+
+                        <p:column headerText="Produto">
+                            #{item.plantio.nome}
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <h:outputText value="#{item.plantio.valorVendaPrazo}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton  value="Salvar"
+                                      action="#{impressaoControle.salvar()}"
+                                      ajax="false"
+                                      update="itensVenda"
+                                      />
+
+
+                    <p:commandButton  value="Imprimir"  onclick="PF('form5').show();"
+                                      rendered="#{impressaoControle.teste == 'sim'}"
+                                      />
+
+
+
+                    <p:commandButton value="Limpar"
+                                     action="#{impressaoControle.voltar()}"
+                                     immediate="true"
+                                     ajax="false"/>
+
+                </p:panel>
+
+
+
+                <p:dialog header="Modelos de Impressão"  widgetVar="form5" modal="true" height="200" width="500">
+                    <h:panelGrid  columns="9" id="painelImpressao" style="text-align:center; background-position: center">
+
+                        <p:selectOneRadio value="#{impressaoControle.auxImpressao}">
+                            <f:selectItem itemLabel="Modelo Pequeno" itemValue="p" />
+                            <f:selectItem itemLabel="Modelo Médio" itemValue="m"/>
+                            <f:selectItem itemLabel="Modelo Grande" itemValue="g"/>
+                            <f:ajax event="change" 
+                                    render="painelImpressao"/>
+                        </p:selectOneRadio>
+                        <p:commandButton  value="Imprimir" rendered="#{impressaoControle.teste == 'sim' and impressaoControle.auxImpressao == 'p'}"
+                                          action="#{relatorioControle.gerarCodigoBarras(impressaoControle.id2)}"
+                                          ajax="false"
+                                          />
+
+                        <p:commandButton  value="Imprimir" rendered="#{impressaoControle.teste == 'sim' and impressaoControle.auxImpressao == 'm'}"
+                                          action="#{relatorioControle.gerarCodigoBarras2(impressaoControle.id2)}"
+                                          ajax="false"
+                                          />
+                        <p:commandButton  value="Imprimir" rendered="#{impressaoControle.teste == 'sim' and impressaoControle.auxImpressao == 'g'}"
+                                          action="#{relatorioControle.gerarCodigoBarras3(impressaoControle.id2)}"
+                                          ajax="false"
+                                          />
+
+
+                    </h:panelGrid>
+                </p:dialog>
+
+                <p:dialog header="Lista de Produtos"  widgetVar="form8" modal="true" height="530" width="1300">
+                    <h:panelGrid  columns="9" id="painelBusca" style="text-align:center; background-position: center">
+                        <p:selectOneRadio value="#{vendaControle.tipo2}">
+                            <f:selectItem itemLabel="Pesquisar por nome" itemValue="nome" />
+                            <f:selectItem itemLabel="Pesquisar por cód. barras" itemValue="cod"/>
+                            <f:selectItem itemLabel="Pesquisar por cód. Fornecedor" itemValue="codFor"/>
+                            <f:ajax event="change" 
+                                    render="painelBusca"/>
+                        </p:selectOneRadio>
+
+
+                        <p:inputText  value="#{produtoControle.id2}" size="70"/>
+                        <p:commandButton id="filtro" value="Consultar"  actionListener="#{produtoControle.validaLista()}" 
+                                         update="produ" rendered="#{vendaControle.tipo2=='nome'}"/>
+                        <p:commandButton id="filtro1" value="Consultar"  actionListener="#{produtoControle.validaLista()}" 
+                                         update="produ" rendered="#{vendaControle.tipo2=='cod'}"/>
+                        <p:commandButton id="filtro2" value="Consultar"  actionListener="#{produtoControle.validaLista()}" 
+                                         update="produ" rendered="#{vendaControle.tipo2=='codFor'}"/>
+                    </h:panelGrid>
+
+                    <p:dataTable value="#{produtoControle.listaProdutos2}" id="produ" widgetVar="carsTable"
+                                 emptyMessage="Não há registros!" var="item" rows="70"
+                                 paginator="true"
+                                 style="text-align: center">
+
+                        <p:column headerText="Cód. Barras" width="150" >
+                            #{item.codBarras}
+                        </p:column>
+
+                        <p:column headerText="Cód. Fornecedor" width="150" >
+                            #{item.codFornecedor}
+                        </p:column>
+
+
+                        <p:column headerText="Nome" width="250" >
+                            #{item.nome}
+                        </p:column>
+
+                        <p:column headerText="Preço" >
+                            <h:outputText value="#{item.valorVendaPrazo}">
+                                <f:convertNumber minFractionDigits="2"
+                                                 maxFractionDigits="2"
+                                                 type="currency"
+                                                 currencySymbol="R$"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Estoque">
+                            <p:outputLabel value="#{item.estoque}" style="color: green"/>
+                        </p:column>
+
+
+                        <p:column width="110" headerText="Selecionar Produto">
+                            <p:commandLink 
+                                action="#{impressaoControle.enviaProd(item)}"
+                                ajax="false">
+                                <i class="icon-forward"/>
+                            </p:commandLink>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:dialog>
+
+                <p:panelGrid columns="6">
+
+                </p:panelGrid>
+
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

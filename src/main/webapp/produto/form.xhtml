@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Formulário para gerenciamento de Produto">
+                    <p:focus for="nome"/>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="id" value="Cód. Produto:"/>
+                        <p:inputText id="id" value="#{produtoControle.produto.id}" disabled="true"/>
+
+
+                        <p:outputLabel for="nome" value="Nome:"/>
+                        <p:inputText id="nome" value="#{produtoControle.produto.nome}" style="text-transform: uppercase" 
+                                     required="true" size="40" requiredMessage="O campo nome é obrigatório"/>
+
+
+                        <p:outputLabel for="codB" value="Código de Barras:"/>
+                        <p:inputText id="codB" size="50" value="#{produtoControle.produto.codBarras}" style="text-transform: uppercase" 
+                                     />
+
+                        <p:outputLabel for="codf" value="Código do Fornecedor"/>
+                        <p:inputText id="codf" size="40" value="#{produtoControle.produto.codFornecedor}" style="text-transform: uppercase" 
+                                     />
+                        <p:outputLabel for="mol" value="Modelo"/>
+                        <p:inputText id="mol" size="40" value="#{produtoControle.produto.modelo}" style="text-transform: uppercase" 
+                                     />
+
+
+                        <p:outputLabel for="b1" value="Nova Marca"/>
+                        <p:commandButton id ="b1" value="Gerenciar Marca" onclick="PF('modal1').show();"/>
+
+                        <p:outputLabel for="marca" value="Marca do Produto:"/>
+                        <p:autoComplete id="marca" 
+                                        completeMethod="#{marcaControle.autoComplete}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{marcaControle.converter()}"
+                                        value="#{produtoControle.produto.marca}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+                        <p:outputLabel for="b2" value="Novo Grupo Produto"/>
+                        <p:commandButton id ="b2" value="Gerenciar Grupos" onclick="PF('modal2').show();"/>
+
+
+                        <p:outputLabel for="grupo" value="Grupo de Produto:"/>
+                        <p:autoComplete id="grupo" 
+                                        completeMethod="#{grupoProdutoControle.autoComplete}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{grupoProdutoControle.converter()}"
+                                        value="#{produtoControle.produto.grupo}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+                        <p:outputLabel for="b3" value="Novo Uni de Medida"/>
+                        <p:commandButton id ="b3" value="Gerenciar Unidades de Medida" onclick="PF('modal3').show();"/>
+
+
+
+                        <p:outputLabel for="unidade" value="Unidade de Medida:"/>
+                        <p:autoComplete id="unidade" 
+                                        completeMethod="#{unidadeMedidaControle.autoComplete}"
+                                        var="est"
+                                        itemLabel="#{est.nome}"
+                                        itemValue="#{est}"
+                                        converter="#{unidadeMedidaControle.converter()}"
+                                        value="#{produtoControle.produto.unidadeMedida}"
+                                        queryDelay="500"
+                                        dropdown="true"
+                                        style="margin-right: 30px;"/>
+
+
+
+
+                        <p:outputLabel for="ativo" value="Ativo:"/>
+                        <p:selectBooleanCheckbox id="ativo" value="#{produtoControle.produto.ativo}"/>
+
+
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Salvar" 
+                                         action="#{produtoControle.salvar()}"
+                                         ajax="false"/>
+
+                        <p:commandButton value="Cancelar"
+                                         action="list?faces-redirect=true"
+                                         immediate="true"
+                                         ajax="false"/>
+                    </f:facet>
+                </p:panel>
+
+                <p:dialog header="Nova Marca" widgetVar="modal1">
+                    <iframe src="#{request.contextPath}/marca/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="marca"/>
+                </p:dialog>
+
+                <p:dialog header="Nova Grupo de Produtos" widgetVar="modal2">
+                    <iframe src="#{request.contextPath}/grupo/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="grupo"/>
+                </p:dialog>
+
+
+                <p:dialog header="Nova Unidade de Medida" widgetVar="modal3">
+                    <iframe src="#{request.contextPath}/unidadeMedida/list1.xhtml" width="700" height="400"/>
+                    <f:ajax event="close" render="unidade"/>
+                </p:dialog>
+
+
+
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

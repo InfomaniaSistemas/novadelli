@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns="http://www.w3.org/1999/xhtml"         
+       xmlns:f="http://java.sun.com/jsf/core"
+       template="/WEB-INF/template.xhtml">
+
+    <ui:composition template="/WEB-INF/template.xhtml">
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:panel header="Lançamento em cheque">
+
+                    <p:panelGrid columns="4">
+                        <p:selectOneRadio id="valida" value="#{chequeControle.tipo}">
+                            <f:selectItem itemLabel="Entrada" itemValue="ENTRADA"/>
+                            <f:selectItem itemLabel="Saída" itemValue="SAÍDA"/>
+                            <f:ajax event="change" 
+                                    render ="painel" />
+                        </p:selectOneRadio>
+                    </p:panelGrid>  
+
+
+                    <p:panelGrid columns="2" id="painel">
+                        <p:outputLabel for="id" value="ID:"/>
+                        <p:inputText id="id" value="#{chequeControle.cheque.id}" disabled="true"/>
+
+                        <p:outputLabel for="caixa" value="Banco:"/>
+                        <p:selectOneMenu id="caixa" required="true" requiredMessage="O Banco é obrigatório" 
+                                         value="#{chequeControle.cheque.banco}"
+                                         converter="#{bancoControle.converter()}">
+
+                            <f:selectItem itemLabel="-- Selecione --"
+                                          itemValue="0"/>
+
+                            <f:selectItems value="#{bancoControle.listaBancos}"
+                                           var="grup"
+                                           itemLabel="#{grup.nome}"
+                                           itemValue="#{grup}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="numero" value="N° Cheque:"/>
+                        <p:inputText id="numero" value="#{chequeControle.cheque.numeroCheque}" />
+
+                        <p:outputLabel for="dtAbertura" value="Data de Movimento:" />
+                        <p:calendar id="dtAbertura" value="#{chequeControle.cheque.dtmovimento}" 
+                                    required="true" requiredMessage="O Data é obrigatório" mask="true"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+                        <p:outputLabel for="dtAbertura1" value="Data de Vencimento:" />
+                        <p:calendar id="dtAbertura1" value="#{chequeControle.cheque.dtvencimento}" 
+                                    required="true" requiredMessage="O Data é obrigatório" mask="true"
+                                    pattern="dd/MM/yyyy"
+                                    />
+
+                        <p:outputLabel for="nome" value="Valor:"/>
+                        <p:inputText id="nome" value="#{chequeControle.cheque.valor}"  rendered="#{chequeControle.tipo == 'ENTRADA'}"
+                                     required="true" requiredMessage="O campo valor é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                        </p:inputText>
+
+                        <p:inputText id="valor" value="#{chequeControle.cheque.valorSaida}"  rendered="#{chequeControle.tipo == 'SAÍDA'}"
+                                     required="true" requiredMessage="O campo valor é obrigatório">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+                                             />
+                        </p:inputText>
+
+                        <p:outputLabel for="obs" value="Obs:"/>
+                        <p:inputText id="obs" value="#{chequeControle.cheque.obs}" style="text-transform: uppercase" 
+                                     required="true" requiredMessage="O campo obs é obrigatório"/>
+
+
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Salvar" rendered="#{chequeControle.tipo == 'ENTRADA'}"
+                                             action="#{chequeControle.salvarEntrada()}"
+                                             ajax="false"/>
+
+                            <p:commandButton value="Salvar" rendered="#{chequeControle.tipo == 'SAÍDA'}"
+                                             action="#{chequeControle.salvarSaida()}"
+                                             ajax="false"/>
+
+                            <p:commandButton value="Cancelar"
+                                             action="list?faces-redirect=true"
+                                             immediate="true"
+                                             ajax="false"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</html>

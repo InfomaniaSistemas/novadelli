@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="conteudo">
+
+
+        <h:form id="form">
+            <p:panel header="Relatório de contas pagas">
+                <p:panelGrid id="painel" columns="2">
+
+                    <p:outputLabel for="dtIn" value="Data Inicial" />
+                    <p:calendar id="dtIn" locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datainicio}"
+                                required="true" />
+                    <p:outputLabel for="dtFin" value="Data Final"/>
+                    <p:calendar id="dtFin" locale="pt_BR" pattern="dd/MM/yyyy" value="#{relatorioControle.datafim}" 
+                                required="true" />
+                    
+                      <p:outputLabel for="tipo" value="Filial/Empresa" />
+                <p:selectOneMenu id="tipo" required="true" 
+                                 value="#{relatorioControle.empresa}"
+                                 converter="#{fazendaControle.converter()}">
+
+                    <f:selectItem itemLabel="-- Selecione --"
+                                  itemValue="0"/>
+
+                    <f:selectItems value="#{fazendaControle.listaFazendas}" 
+                                   var="grup"
+                                   itemLabel="#{grup.nome}"
+                                   itemValue="#{grup}"/>
+                </p:selectOneMenu>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <p:commandButton ajax="false" id="b" update="form" value="Gerar" actionListener="#{relatorioControle.listaContasAPagas()}"/>
+
+                </p:panelGrid>
+            </p:panel>
+
+
+
+
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

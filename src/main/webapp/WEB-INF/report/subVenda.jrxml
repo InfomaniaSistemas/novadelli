@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subVenda" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d9e5ff3-0185-43ef-831f-b3ef41e18656">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="aux" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     item_venda."quantidade" AS item_venda_quantidade,
+     item_venda."valor" AS item_venda_valor,
+     produto."nome" AS produto_nome,
+     item_venda."venda_id" AS item_venda_venda_id,
+     item_venda."subtotal" AS item_venda_subtotal
+FROM
+     "public"."produto" produto INNER JOIN "public"."item_venda" item_venda ON produto."id" = item_venda."plantio_id"
+
+WHERE item_venda."venda_id" = $P{aux}]]>
+	</queryString>
+	<field name="item_venda_quantidade" class="java.math.BigDecimal"/>
+	<field name="item_venda_valor" class="java.math.BigDecimal"/>
+	<field name="produto_nome" class="java.lang.String"/>
+	<field name="item_venda_venda_id" class="java.lang.Long"/>
+	<field name="item_venda_subtotal" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="d96ee07f-cf83-4236-aaa1-5067cddb8c12" x="1" y="0" width="554" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="22337932-9c98-4518-816f-fc57c499b979" x="5" y="0" width="221" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produto_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="22337932-9c98-4518-816f-fc57c499b979" x="227" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_venda_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="22337932-9c98-4518-816f-fc57c499b979" x="345" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_venda_valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="22337932-9c98-4518-816f-fc57c499b979" x="471" y="1" width="77" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_venda_subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

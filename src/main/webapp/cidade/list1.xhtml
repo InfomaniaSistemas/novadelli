@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>   
+    <h:body>
+            <h:form>
+                <p:panel header="Lista de Cidades">
+                    <p:dataTable value="#{cidadeControle.listaCidades}" var="grup" reflow="true" paginatorPosition="bottom" style="text-align: center">
+                        <p:column headerText="ID">
+                            #{grup.id}
+                        </p:column>
+                        <p:column headerText="Nome">
+                            #{grup.nome}
+                        </p:column>
+                        <p:column headerText="Estado" >
+                            #{grup.estado.nome}
+                        </p:column>
+
+
+                    </p:dataTable>
+                    <p:commandButton value="Adicionar" 
+                                     action="#{cidadeControle.novo1()}"
+                                     ajax="false"/>
+                </p:panel>
+            </h:form>
+    </h:body>
+    
+</html>

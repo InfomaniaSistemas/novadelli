@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listAluno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="806863f6-9d0e-43d9-aa4f-61a70628a8c4">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dtIn" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipo" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     pessoa."nome" AS pessoa_nome,
+     contaspagar."id" AS contaspagar_id,
+     contaspagar."status" AS contaspagar_status,
+     contaspagar."dtmovimento" AS contaspagar_dtmovimento,
+     contaspagar."valorapagar" AS contaspagar_valorapagar,
+     contaspagar."dtvencimento" AS contaspagar_dtvencimento,
+     empresa."id" AS empresa_id,
+     empresa."nome" AS empresa_nome
+FROM
+     "public"."pessoa" pessoa INNER JOIN "public"."contaspagar" contaspagar ON pessoa."pes_id" = contaspagar."pessoa_pes_id"
+     INNER JOIN "public"."empresa" empresa ON contaspagar."empresa_id" = empresa."id"
+
+WHERE
+     contaspagar."dtmovimento" BETWEEN $P{dtIn} AND $P{dtFim}
+
+AND empresa."id" = $P{tipo}]]>
+	</queryString>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="contaspagar_id" class="java.lang.Long"/>
+	<field name="contaspagar_status" class="java.lang.String"/>
+	<field name="contaspagar_dtmovimento" class="java.sql.Date"/>
+	<field name="contaspagar_valorapagar" class="java.math.BigDecimal"/>
+	<field name="contaspagar_dtvencimento" class="java.sql.Date"/>
+	<field name="empresa_id" class="java.lang.Long"/>
+	<field name="empresa_nome" class="java.lang.String"/>
+	<variable name="variable1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{contaspagar_valorapagar}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="48">
+			<staticText>
+				<reportElement uuid="096b5e46-8245-4813-b959-56ba00d2fe86" x="397" y="21" width="156" height="20" forecolor="#333333"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Débitos no periodo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e5abf1a-3367-476f-8f71-3aab8c00f28b" x="0" y="-7" width="293" height="43" forecolor="#000000" backcolor="#000000"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Débitos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4d7ba87c-610d-4571-b3bb-5cef390686e3" x="451" y="0" width="22" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Até]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="45c7a884-0a21-4a5a-a8a2-62cafa56dfbb" x="397" y="0" width="54" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dtIn}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="45c7a884-0a21-4a5a-a8a2-62cafa56dfbb" x="472" y="0" width="76" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dtFim}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="45c7a884-0a21-4a5a-a8a2-62cafa56dfbb" x="0" y="26" width="293" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="17">
+			<line>
+				<reportElement uuid="ff06c528-77ab-4cb9-a846-5d13cf54d724" x="-20" y="13" width="595" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="2212b1b5-3944-4620-b1f8-55cd9a1a1296" mode="Opaque" x="0" y="0" width="85" height="13" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cód. Conta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ffa1048-e330-48b9-ae7d-cb5e92bdb57d" mode="Opaque" x="85" y="0" width="338" height="13" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d60dc7a6-8fd8-4378-9a27-217d1d09aa1f" mode="Opaque" x="423" y="0" width="132" height="13" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<line>
+				<reportElement uuid="004ecf06-de5d-492c-9639-de32a1dad43c" positionType="FixRelativeToBottom" x="0" y="13" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="f4304004-f7a2-4d4f-b86a-7b822424d5d4" x="0" y="-1" width="85" height="13"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contaspagar_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ce9ced25-a1d4-407f-ab39-e824296534d2" x="85" y="-1" width="338" height="13"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="a13d69a1-fd40-42cc-9006-12e1bcb323eb" x="423" y="-1" width="132" height="13"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contaspagar_valorapagar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="28">
+			<textField>
+				<reportElement uuid="9c89701d-2aa1-4148-b1bf-72ba1c7398d9" mode="Opaque" x="0" y="12" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="d2bb9f76-6f3f-460c-945c-16ab61e58eef" mode="Opaque" x="515" y="12" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="39568382-d1b8-402a-bc68-ff8bd5b0ddd9" x="0" y="12" width="100" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="67affc28-d596-4615-b969-1c62cdb88e78" x="450" y="0" width="107" height="13"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d60dc7a6-8fd8-4378-9a27-217d1d09aa1f" mode="Opaque" x="400" y="0" width="50" height="13" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

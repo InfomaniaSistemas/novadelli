@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Os" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="35" bottomMargin="20" uuid="eab8c046-14ed-49bf-bb26-fb293f283c23">
+	<property name="ireport.zoom" value="2.415765000000019"/>
+	<property name="ireport.x" value="37"/>
+	<property name="ireport.y" value="155"/>
+	<parameter name="aux" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Miguel Gustavo\\Documents\\Desenvolvimento\\InfomaniaSistemas\\src\\main\\webapp\\WEB-INF\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     contrato."id" AS contrato_id,
+     contrato."dtemissao" AS contrato_dtemissao,
+     pessoa."pes_id" AS pessoa_pes_id,
+     pessoa."ativo" AS pessoa_ativo,
+     pessoa."bairro" AS pessoa_bairro,
+     pessoa."celular" AS pessoa_celular,
+     pessoa."cep" AS pessoa_cep,
+     pessoa."contc" AS pessoa_contc,
+     pessoa."contf" AS pessoa_contf,
+     pessoa."dtcadasrto" AS pessoa_dtcadasrto,
+     pessoa."email" AS pessoa_email,
+     pessoa."endereco" AS pessoa_endereco,
+     pessoa."fone" AS pessoa_fone,
+     pessoa."fonecomercial" AS pessoa_fonecomercial,
+     pessoa."nome" AS pessoa_nome,
+     pessoa."numero" AS pessoa_numero,
+     pessoa."obs" AS pessoa_obs,
+     pessoa."restricao" AS pessoa_restricao,
+     pes_fisica."cpf" AS pes_fisica_cpf,
+     cidade."id" AS cidade_id,
+     cidade."nome" AS cidade_nome
+FROM
+     "public"."pessoa" pessoa INNER JOIN "public"."contrato" contrato ON pessoa."pes_id" = contrato."pessoa_pes_id"
+     INNER JOIN "public"."pes_fisica" pes_fisica ON pessoa."pes_id" = pes_fisica."pes_id"
+     INNER JOIN "public"."cidade" cidade ON pessoa."cidade_id" = cidade."id"
+WHERE
+     contrato."id" = $P{aux}]]>
+	</queryString>
+	<field name="contrato_id" class="java.lang.Long"/>
+	<field name="contrato_dtemissao" class="java.sql.Date"/>
+	<field name="pessoa_pes_id" class="java.lang.Long"/>
+	<field name="pessoa_ativo" class="java.lang.Boolean"/>
+	<field name="pessoa_bairro" class="java.lang.String"/>
+	<field name="pessoa_celular" class="java.lang.String"/>
+	<field name="pessoa_cep" class="java.lang.String"/>
+	<field name="pessoa_contc" class="java.lang.Integer"/>
+	<field name="pessoa_contf" class="java.lang.Integer"/>
+	<field name="pessoa_dtcadasrto" class="java.sql.Date"/>
+	<field name="pessoa_email" class="java.lang.String"/>
+	<field name="pessoa_endereco" class="java.lang.String"/>
+	<field name="pessoa_fone" class="java.lang.String"/>
+	<field name="pessoa_fonecomercial" class="java.lang.String"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="pessoa_numero" class="java.lang.String"/>
+	<field name="pessoa_obs" class="java.lang.String"/>
+	<field name="pessoa_restricao" class="java.lang.Boolean"/>
+	<field name="pes_fisica_cpf" class="java.lang.String"/>
+	<field name="cidade_id" class="java.lang.Long"/>
+	<field name="cidade_nome" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement uuid="106c978e-d12c-4f3e-99d9-be9f03139f88" mode="Opaque" x="2" y="0" width="550" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FICHA DE CADASTRO DO CLIENTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="107">
+			<rectangle>
+				<reportElement uuid="1d652858-9fff-4b00-b625-a2b9990276c2" x="0" y="3" width="555" height="100"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="60" y="47" width="227" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="2" y="47" width="40" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIDADE:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="60" y="5" width="402" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="df51eddf-f29c-470f-a648-af40de7cbc59" mode="Opaque" x="2" y="5" width="36" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="2" y="61" width="40" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-MAIL:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="60" y="61" width="243" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0d00865e-0bc1-4813-aa55-061c4022d582" mode="Opaque" x="299" y="61" width="38" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEP:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="89975bd1-3edf-4119-abc9-92aa7452345a" x="326" y="61" width="124" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_cep}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="df51eddf-f29c-470f-a648-af40de7cbc59" mode="Opaque" x="2" y="19" width="49" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="df51eddf-f29c-470f-a648-af40de7cbc59" mode="Opaque" x="2" y="33" width="58" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENDEREÇO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="60" y="33" width="283" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="398" y="48" width="39" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BAIRRO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d2ba3bc7-2078-4ae0-839b-228a9670996e" x="437" y="48" width="115" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_bairro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="2" y="74" width="29" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FONE:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="60" y="75" width="99" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_fone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="175" y="75" width="29" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEL:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="198" y="75" width="101" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_celular}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c702b989-cb87-4378-ae1e-fddb909c3b46" x="355" y="47" width="41" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="747f600e-fdeb-473f-892e-10e365360a9d" mode="Opaque" x="343" y="47" width="13" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N°:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="67301f3f-5f30-4c87-8c9c-a1c9254abcf4" mode="Opaque" x="2" y="88" width="49" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTATO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dbfc577f-768b-439b-9294-5b77260553c1" mode="Opaque" x="206" y="89" width="149" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PONTO DE REFERÊNCIA:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="43751796-4343-474b-8d9f-f942e3b5d89d" x="60" y="19" width="402" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pes_fisica_cpf}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band/>
+		<band height="292"/>
+		<band height="328">
+			<line>
+				<reportElement uuid="0202f298-54d1-4829-ad76-8d0f102d44f7" x="304" y="240" width="228" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="67c4034f-5759-4eec-88ff-46392d072146" x="-1" y="-272" width="555" height="269"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[01. COMPROMISSO DA DISTRIBUIDORA NOVA DELLI, PRODUTO (GEBOM), COM O CLIENTE:
+
+     A. A distribuidora se compromete a entregar o equipamento (freezer) de acordo com a data _____________ encontrando-se o mesmo em bom estado de funcionamento e conservação: bem como prestar assistência em todos os problemas que por ventura vierem a ocorrer com relação ao funcionamento do mesmo.
+
+     B. Ainda, a distribuidora se responsabiliza em prestar um ótimo atendimento ao cliente por intermédio de seus vendedores, além de garantir a qualidade e um bom preço nos produtos distribuídos por aquela.
+
+02. COMPROMISSO DO CLIENTE COM A DISTRIBUIDORA (NOVA DELLI):
+
+     O cliente deverá colocar o equipamento em um local de fácil visão e acesso, para melhorar a visualização e, consequentemente, obter melhores resultados nas vendas. Além do mais, deverá manter o freezer somente para revenda do produto da distribuidora NOVA DELLI (produto GEBOM).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9a36f00d-dbe6-4b52-a457-45d3d8dfc44d" x="3" y="306" width="134" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Desenvolvido por Infomania  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0dde7e7-92ef-459f-a991-b8fe80ef4510" x="107" y="307" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[®]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1bb4c031-2d18-43da-afa7-9a959daf3f4d" x="5" y="163" width="94" height="19"/>
+				<textElement/>
+				<text><![CDATA[Nova Londrina (PR),]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="e0141317-283b-4814-9e6f-6dd37fba1494" x="99" y="163" width="202" height="18"/>
+				<textElement verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrato_dtemissao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="39ae7845-2ca7-425e-856c-28d2079e3319" x="32" y="242" width="177" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[DISTRIBUIDORA NOVA DELLI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="219356ae-ba12-42f7-922e-cfde801e9f3c" x="4" y="7" width="177" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[DADOS DO FREEZER:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="7d4f957b-01cd-4362-b068-e5b6b6395224" x="4" y="44" width="543" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="79dbdc9a-7137-43a2-a89d-fcaa9db7c2a1" x="4" y="66" width="543" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="79ee2039-17eb-4c6f-9e3e-8236bcfbfe73" x="4" y="110" width="177" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[AMBAS AS PARTES DE ACORDO]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="77c1eb09-9fd7-489f-bbe4-3392cfc4b6d9" x="286" y="242" width="256" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="99575f39-47cc-4a3d-ae6a-a8788f78f4ba" x="12" y="240" width="228" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

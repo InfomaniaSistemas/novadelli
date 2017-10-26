@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"         
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="conteudo" >
+        <h:form>
+
+            <p:breadCrumb>
+                <p:menuitem value="teste" url="/index.xhtml"/>
+                <p:menuitem value="Lembretes" action="#{usuarioControle.notas()}"/>
+                <p:menuitem value="Calculadora" action="#{usuarioControle.calc()}"/>
+                <p:menuitem value="" >
+                   
+                    <p:outputLabel value="Olá! - #{loginControler.usuario.funcionario.nome}"/>
+                
+                </p:menuitem>
+            </p:breadCrumb>
+        </h:form>
+
+     
+
+
+
+
+
+
+        <h:panelGrid columns="12" style="">
+
+
+
+            <h:link outcome="/pessoa/list.xhtml" title="Cadastro de Clientes">
+
+                <h:graphicImage name="images/cli.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>
+            
+            <h:link outcome="/produto/list.xhtml" title="Cadastro de Produtos">
+
+                <h:graphicImage name="images/btprod.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>
+
+            
+            
+<!--            <h:link outcome="/fornecedor/list.xhtml" title="Cadastro de Fornecedores">
+
+                <h:graphicImage name="images/for.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>-->
+
+<!--            <h:link outcome="/funcionario/list.xhtml" title="Cadastro de Funcionários">
+
+                <h:graphicImage name="images/Fun2.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>-->
+
+
+
+
+
+<!--            <h:link outcome="/compra/list.xhtml" title="Entrada de Produtos">
+
+                <h:graphicImage name="images/Comp.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>-->
+
+
+            <h:link outcome="/caixa/list.xhtml" title="Caixa">
+
+                <h:graphicImage name="images/Caixa.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>
+
+
+<!--
+            <h:link outcome="/orcamento/list.xhtml" title="Condicional">
+
+                <h:graphicImage name="images/Orc.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>-->
+
+
+
+            <h:link outcome="/venda/list.xhtml" title="Vendas">
+
+                <h:graphicImage name="images/venda.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>
+
+
+
+<!--
+            <h:link outcome="/contasPagar/list.xhtml" title="Contas a Pagar">
+
+                <h:graphicImage name="images/cp.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>-->
+
+<!--            <h:link outcome="/contasReceber/list.xhtml" title="Contas a Receber">
+
+                <h:graphicImage name="images/cr.png" styleClass="Fleft" library="sentinel-layout" style="max-width: 130px;   /* Máximo da largura da imagem */
+                                width: 100%;
+                                max-height: 500px;  /* Máximo da altura da imagem */
+                                min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                                background-size:100%;
+                                background-repeat: no-repeat;"/>
+
+            </h:link>-->
+
+
+        </h:panelGrid>   
+
+        <br/><br/><br/>
+
+        <br/><br/><br/>
+        <br/><br/><br/>
+
+        <br/><br/><br/>
+
+        <br/><br/><br/>
+        <br/><br/><br/>
+
+
+
+
+      <h:panelGrid columns="1" cellpadding="5">
+    <p:commandButton value="Abertura" type="button" onclick="PF('dlg1').show();" />
+</h:panelGrid>
+        
+        <p:dialog header="Abertura" widgetVar="dlg1" minHeight="40">
+            <h:outputText value="#{vendaControle.venda.dataabertura}" />
+            
+</p:dialog>
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+        <h:graphicImage name="images/rdp.png" styleClass="Fright" library="sentinel-layout" style="max-width: 350px;   /* Máximo da largura da imagem */
+                        width: 100%;
+                        max-height: 500px;  /* Máximo da altura da imagem */
+                        min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+                        background-size:100%;
+                        background-repeat: no-repeat;"/>
+
+    </ui:define>
+
+</ui:composition>
